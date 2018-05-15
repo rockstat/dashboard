@@ -1,6 +1,6 @@
 # Rockstat dashboard
 
-
+![](dash-proto.png)
 
 
 ## Frontend Boilerplate with React, MobX & TypeScript
