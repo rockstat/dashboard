@@ -1,6 +1,8 @@
 import * as React from 'react';
-// import * as style from './style.css';
-import './style.css';
+import * as style from './style.css';
+
+// import './style.css';
+
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
 import {
@@ -94,10 +96,10 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
     // https://github.com/d3/d3-shape#curves
     // https://github.com/uber/react-vis/blob/master/docs/style.md
     return (
-      <div>
+      <div className={style.graphContainer}>
         <XYPlot
-          width={1300}
-          height={400}
+        width={1250}
+        height={400}
           colorType="linear"
           // colorDomain={[0, 12]}
           // colorRange={colors}
@@ -120,6 +122,13 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
           orientation="horizontal"
           items={Object.values(titles)}
         />
+
+      <div className={style.informationContainer}>
+        <div className={style.informationDevices}></div>
+        <div className={style.newUsers}></div>
+        <div className={style.informationDevicesTwo}></div>
+      </div>
+
       </div>
     );
     // return (
