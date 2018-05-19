@@ -1,0 +1,7 @@
+@import '~react-vis/dist/style.css';
+
+
+.rv-discrete-color-legend-item {
+    padding: 0px 0;
+    color: #F2F2F2;
+}

@@ -16,6 +16,10 @@
     "outDir": "build",
     "lib": ["es6", "es7", "dom", "es2017.object"], //"es2017"
     "baseUrl": "src",
+    "typeRoots": [
+      "node_modules/@types",
+      "@types"
+    ],
     "paths": {
       "app/*": ["./app/*"]
     }

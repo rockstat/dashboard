@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+
 html,
 body {
   margin: 0;
   padding: 0;
 }
+
 
 body {
   font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -18,67 +20,50 @@ body {
   font-weight: 400;
 }
 
+
+
+
 .graphContainer {
   width: 1250px;
   margin: 0 auto;
   position: relative;
 }
 
-.infoContainer {
+.informationContainer {
   position: absolute;
   width: 630px;
-  height: 200px;
   top: 2%;
   left: 50px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   z-index: 5;
 }
 
-.infoContainerLabel {
-  display: inline-block;
-  position: relative;
-  width: 55px;
-  height: 22px;
-}
-
-.infoContainerLabelTitle{
-  display: inline-block;
-  position: absolute;
-  top: 0px;
-  left: 0;
-  font-size: 11px;
-}
-
-.infoContainerLabelValue {
-  display: inline-block;
-  position: absolute;
-  top: 12px;
-  left: 0;
-  color: silver;
-  font-size: 11px;
-}
-
-.infoContainerChart {
-  /* background-color: #f00; */
-  /* opacity: .8; */
+.informationDevices {
+  background-color: #f00;
+  opacity: .2;
   width: 200px;
   height: 200px;
 }
-
-.infoContainerLabels {
-  /* background-color: #f00; */
-  /* opacity: .8; */
-  width: 100px;
+.newUsers {
+  width: 200px;
   height: 200px;
+  background-color: #f00;
+  opacity: .2;
+}
+.informationDevicesTwo {
+  width: 200px;
+  height: 200px;
+  background-color: #f00;
+  opacity: .2;
 }
 
 .legend {
-  top: 5%;
+  top: 2%;
   position: absolute;
   right: 0;
-  width: 150px;
+  width: 200px;
   /* height: 200px; */
   /* background-color: #f00; */
 }

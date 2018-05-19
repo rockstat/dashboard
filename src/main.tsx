@@ -6,7 +6,9 @@ import { createBrowserHistory } from 'history';
 import { TodoModel } from 'app/models';
 import { createStores } from 'app/stores';
 import { App } from 'app';
-import '../node_modules/react-vis/dist/style.css'
+
+
+import '!style-loader!css-loader!./vendor.css'
 
 // enable MobX strict mode
 useStrict(true);

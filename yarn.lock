@@ -63,6 +63,12 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/vis@^4.21.4":
+  version "4.21.4"
+  resolved "https://registry.yarnpkg.com/@types/vis/-/vis-4.21.4.tgz#bb9b15c830d74e779623f9717f2a137b5272319d"
+  dependencies:
+    moment ">=2.13.0"
+
 "@types/webpack@^3.8.8":
   version "3.8.12"
   resolved "https://registry.yarnpkg.com/@types/webpack/-/webpack-3.8.12.tgz#c5db4f273fb8f2a4929db6c486e19e68c350e7ac"
@@ -2254,6 +2260,12 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
 
+echarts-for-react@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/echarts-for-react/-/echarts-for-react-2.0.8.tgz#cf56641d8a3bc50852310aeec06a464c4fc72b67"
+  dependencies:
+    element-resize-event "2.0.9"
+
 editions@^1.3.3:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/editions/-/editions-1.3.4.tgz#3662cb592347c3168eb8e498a0ff73271d67f50b"
@@ -2273,6 +2285,10 @@ electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30:
 elegant-spinner@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/elegant-spinner/-/elegant-spinner-1.0.1.tgz#db043521c95d7e303fd8f345bedc3349cfb0729e"
+
+element-resize-event@2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/element-resize-event/-/element-resize-event-2.0.9.tgz#2f5e1581a296eb5275210c141bc56342e218f876"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -4301,6 +4317,10 @@ mobx-react@^4.4.2:
 mobx@^3.6.1:
   version "3.6.2"
   resolved "https://registry.yarnpkg.com/mobx/-/mobx-3.6.2.tgz#fb9f5ff5090539a1ad54e75dc4c098b602693320"
+
+moment@>=2.13.0:
+  version "2.22.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
 move-concurrently@^1.0.1:
   version "1.0.1"

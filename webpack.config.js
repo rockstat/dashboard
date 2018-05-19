@@ -44,6 +44,20 @@ module.exports = {
       // css
       {
         test: /\.css$/,
+        include: /node_modules/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+            }
+            
+          ]
+        })
+      },
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
