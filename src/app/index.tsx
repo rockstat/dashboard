@@ -4,7 +4,7 @@ import { Router, Route, Switch } from 'react-router';
 import { Root } from 'app/containers/Root';
 import { GraphTest } from 'app/containers/GraphTest';
 
-// render react DOM
+
 export const App = hot(module)(({ history }) => (
   <Root>
     <Router history={history}>

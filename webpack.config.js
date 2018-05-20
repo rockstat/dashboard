@@ -43,20 +43,7 @@ module.exports = {
       },
       // css
       {
-        test: /\.css$/,
-        include: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-            }
-            
-          ]
-        })
-      },
-      {
-        test: /\.css$/,
+        test: /\.(css|scss|sass)$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -71,18 +58,11 @@ module.exports = {
               }
             },
             {
-              loader: 'postcss-loader',
+              loader: 'sass-loader',
               options: {
-                ident: 'postcss',
-                plugins: [
-                  require('postcss-import')({ addDependencyTo: webpack }),
-                  require('postcss-url')(),
-                  require('postcss-cssnext')(),
-                  require('postcss-reporter')(),
-                  require('postcss-browser-reporter')({
-                    disabled: isProduction
-                  })
-                ]
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             }
           ]

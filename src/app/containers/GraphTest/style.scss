@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.4em;
+  background: #000000;
+  color: #F2F2F2;
+  min-width: 230px;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-weight: 400;
+}
+
+.graphContainer {
+  width: 1250px;
+  margin: 0 auto;
+  position: relative;
+  .infoContainer {
+    position: absolute;
+    width: 630px;
+    height: 200px;
+    top: 2%;
+    left: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    z-index: 5;
+  }
+  .infoContainerLabel {
+    display: inline-block;
+    position: relative;
+    width: 55px;
+    height: 22px;
+  }
+  
+  .infoContainerLabelTitle{
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    font-size: 11px;
+  }
+  
+  .infoContainerLabelValue {
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    color: silver;
+    font-size: 11px;
+  }
+  
+  .infoContainerChart {
+    /* background-color: #f00; */
+    /* opacity: .8; */
+    width: 200px;
+    height: 200px;
+  }
+  
+  .infoContainerLabels {
+    /* background-color: #f00; */
+    /* opacity: .8; */
+    width: 100px;
+    height: 200px;
+  }
+  
+  .legend {
+    top: 5%;
+    position: absolute;
+    right: 0;
+    width: 150px;
+    /* height: 200px; */
+    /* background-color: #f00; */
+  }
+}
