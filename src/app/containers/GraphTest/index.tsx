@@ -274,7 +274,6 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
               // onValueMouseOver={v => this.setState({ value: v })}
               // onSeriesMouseOut={v => this.setState({ value: false })}
               width={200}
-              // angle={190}
               height={200}>
               {/* {value && <Hint value={value} />} */}
             </RadialChart>
