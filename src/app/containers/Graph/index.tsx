@@ -131,9 +131,6 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
     const radialColors = ['#D900FF', '#00F0FF', '#8C57B8', '#80FF80', '#40FFC0'];
     const newUsersColors = ['#8C57B8', '#D900FF'];
 
-    console.log(style);
-
-
     return (
       <div className={style.graphContainer}>
         <XYPlot
@@ -141,6 +138,7 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
           height={CHARTH}
         >
           {series.map(props => <AreaSeries {...props} />)}
+
           <Borders style={{
             bottom: { fill: '#131313', },
             left: { fill: '#131313' },
@@ -167,24 +165,24 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
+              innerRadius={130}
+              radius={150}
               colorRange={radialColors}
               style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
               data={[
                 { angle: 3, name: 'Desktop' },
                 { angle: 6, name: 'Mobile' }
               ]}
-              width={200}
-              height={200}>
+              width={300}
+              height={300}>
             </RadialChart>
 
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
+              innerRadius={130}
+              radius={150}
               labelsRadiusMultiplier={1}
               colorRange={newUsersColors}
               labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
@@ -193,15 +191,15 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 6, label: '60.0%' },
                 { angle: 3, label: '30.%' },
               ]}
-              width={200}
-              height={200}>
+              width={300}
+              height={300}>
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
+              innerRadius={130}
+              radius={150}
               colorType='literal'
               labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
               labelsRadiusMultiplier={1}
@@ -213,8 +211,8 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 2, label: '10.0%', color: '#80FF80' },
                 { angle: 2, label: '10.0%', color: '#40FFC0' },
               ]}
-              width={200}
-              height={200}>
+              width={300}
+              height={300}>
             </RadialChart>
           </div>
         </div>
@@ -249,9 +247,7 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
             items={Object.values(titles)}
           />
         </div>
-
       </div>
-
     );
   }
 }

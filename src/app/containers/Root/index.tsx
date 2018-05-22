@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GraphTest } from '../index';
+import { GraphTest, Projects } from '../index';
 import { RouteComponentProps } from 'react-router';
 import { Header } from 'app/components';
 
@@ -11,6 +11,7 @@ export class Root extends React.Component<RootProps, {}> {
       <div className='rockstat'>
         <Header />
         <GraphTest {...this.props}/>
+        <Projects />
       </div>
     );
   }
