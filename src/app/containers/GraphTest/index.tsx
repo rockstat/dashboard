@@ -1,7 +1,6 @@
 import * as React from 'react';
-import * as style from './style.scss';
 
-// import './style.css';
+import * as style from './style.scss';
 
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
@@ -25,10 +24,10 @@ import { StatStore } from 'app/stores';
 import {
   STORE_STAT
 } from 'app/constants';
-import LegendItem from 'app/components/LegendItem'
-export interface TodoAppProps extends RouteComponentProps<any> {
 
-}
+import { LabelSub } from '../../components';
+
+export interface TodoAppProps extends RouteComponentProps<any> {}
 
 export interface TodoAppState {
   series: { [k: string]: any },
@@ -36,25 +35,9 @@ export interface TodoAppState {
 }
 
 
-class LabelSub extends React.Component<{ title: string, subtitle: string }> {
-  render() {
-    const { title, subtitle } = this.props;
-    return (
-      <span className={style.infoContainerLabel}>
-        <span className={style.infoContainerLabelTitle}>{title}</span>
-        <span className={style.infoContainerLabelValue}>
-          {subtitle}
-        </span>
-      </span>
-    );
-  }
-}
-
-
-
 const timeOffset = 1514764800000;
 const CHARTW = 1250;
-const CHARTH = 400;
+const CHARTH = 500;
 
 
 type SeriesPoints = Array<{ x: number, y: number }>;
@@ -71,14 +54,6 @@ type SeriesPoints = Array<{ x: number, y: number }>;
 @inject(STORE_STAT)
 @observer
 export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
-  constructor(props: TodoAppProps, context: any) {
-    super(props, context);
-    // this.state = {  };
-  }
-
-
-
-
   componentWillMount() {
     this.checkLocationChange();
 
@@ -131,8 +106,6 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
       }
     }
 
-    // this.series = series;
-
     this.setState({
       series: series,
       titles: titles
@@ -152,59 +125,21 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
     //   );
     // this.setState({ filter });
   }
-  /**
-   * Event handler for onNearestX.
-   * @param {Object} value Selected value.
-   * @param {index} index Index of the value in the data array.
-   * @private
-   */
-  // _onNearestX(value, { index }) {
-  //   this.setState({ crosshairValues: DATA.map(d => d[index]) });
-  // }
-
-  /**
-   * Event handler for onMouseLeave.
-   * @private
-   */
-  // _onMouseLeave() {
-  //   this.setState({ crosshairValues: [] });
-  // }
-
-
 
   render() {
-    // const todoStore = this.props[STORE_TODO] as TodoStore;
-    // const { } = this.props;
     const { series, titles } = this.state;
-
     const radialColors = ['#D900FF', '#00F0FF', '#8C57B8', '#80FF80', '#40FFC0'];
     const newUsersColors = ['#8C57B8', '#D900FF'];
-    // const filteredTodos = this.getFilteredTodo(filter);
-    // https://github.com/uber/react-vis/blob/master/docs/area-series.md
-    // http://uber.github.io/react-vis/documentation/series-reference/area-series
-    // https://github.com/d3/d3-shape#curves
-    // https://github.com/uber/react-vis/blob/master/docs/style.md
+
+    console.log(style);
+
+
     return (
       <div className={style.graphContainer}>
         <XYPlot
           width={CHARTW}
           height={CHARTH}
-          //  style={{
-          //     text: { stroke: 'none', fill: '#828282', fontWeight: 800 },
-          //     line: { fill: '444' },
-          //     ticks: { stroke: '#4F4F4F' },
-          //   }}
         >
-          {/* <GradientDefs>
-            <linearGradient id="CoolGradientSession" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="50%" stopColor="#003B3F" stopOpacity={1} />
-              <stop offset="100%" stopColor="#00F0FF" stopOpacity={1} />
-            </linearGradient>
-            <linearGradient id="CoolGradientPageview" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="50%" stopColor="#013F52" stopOpacity={1} />
-              <stop offset="100%" stopColor="#00C2FF" stopOpacity={1} />
-            </linearGradient>
-          </GradientDefs> */}
           {series.map(props => <AreaSeries {...props} />)}
           <Borders style={{
             bottom: { fill: '#131313', },
@@ -218,19 +153,9 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
               const nd = new Date(d + timeOffset);
               return nd.toLocaleDateString().substr(0, 5).replace('/', '.') + ' ' + nd.toLocaleTimeString().substr(0, 5)
             }}
-            // style={{
-              // text: { stroke: 'none', fill: '#828282', fontWeight: 400 },
-              // line: { fill: '444' },
-              // ticks: { stroke: '#4F4F4F' },
-            // }}
           />
           <YAxis
             tickTotal={Math.round(CHARTH/25/2)}
-            // style={{
-              // text: { stroke: 'none', fill: '#828282', fontWeight: 400 },
-              // line: { fill: 'red' },
-              // ticks: { stroke: '#4F4F4F' },
-            // }}
           />
           <VerticalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTW/25)}  />
           <HorizontalGridLines style={{ stroke: '#000',strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTH/25)} />
@@ -250,11 +175,8 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 3, name: 'Desktop' },
                 { angle: 6, name: 'Mobile' }
               ]}
-              // onValueMouseOver={v => this.setState({ value: v })}
-              // onSeriesMouseOut={v => this.setState({ value: false })}
               width={200}
               height={200}>
-              {/* {value && <Hint value={value} />} */}
             </RadialChart>
 
           </div>
@@ -271,11 +193,8 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 6, label: '60.0%' },
                 { angle: 3, label: '30.%' },
               ]}
-              // onValueMouseOver={v => this.setState({ value: v })}
-              // onSeriesMouseOut={v => this.setState({ value: false })}
               width={200}
               height={200}>
-              {/* {value && <Hint value={value} />} */}
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
@@ -283,8 +202,7 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
               className={'donut-chart-example'}
               innerRadius={80}
               radius={100}
-              colorType="literal"
-              // colorRange={radialColors}
+              colorType='literal'
               labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
               labelsRadiusMultiplier={1}
               style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
@@ -295,31 +213,27 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 2, label: '10.0%', color: '#80FF80' },
                 { angle: 2, label: '10.0%', color: '#40FFC0' },
               ]}
-              // onValueMouseOver={v => this.setState({ value: v })}
-              // onSeriesMouseOut={v => this.setState({ value: false })}
               width={200}
-              // angle={190}
               height={200}>
-              {/* {value && <Hint value={value} />} */}
             </RadialChart>
           </div>
         </div>
         <div className={style.infoContainer}>
           <DiscreteColorLegend
-            orientation="vertical"
+            orientation='vertical'
             items={[
               { title: <LabelSub title='Desktop' subtitle='66.0%'/>, color: radialColors[0] },
               { title: <LabelSub title='Mobile' subtitle='33.0%'/>, color: radialColors[1] }
             ]}
           />
           <DiscreteColorLegend
-            orientation="vertical"
+            orientation='vertical'
             items={[
               { title: <LabelSub title='New users' subtitle='60.0%'/>, color: radialColors[0] },
             ]}
           />
           <DiscreteColorLegend
-            orientation="vertical"
+            orientation='vertical'
             items={[
               { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
               { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
@@ -331,8 +245,7 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
         </div>
         <div className={style.legend}>
           <DiscreteColorLegend
-            // width={200}
-            orientation="vertical"
+            orientation='vertical'
             items={Object.values(titles)}
           />
         </div>
@@ -340,10 +253,5 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
       </div>
 
     );
-    // return (
-    //   <div className={style.normal}>
-
-    //   </div>
-    // );
   }
 }

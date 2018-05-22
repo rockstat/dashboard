@@ -3,25 +3,21 @@ import * as ReactDOM from 'react-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import { createBrowserHistory } from 'history';
-import { TodoModel } from 'app/models';
 import { createStores } from 'app/stores';
 import { App } from 'app';
 
+import './app/base/reset.scss';
+import './app/base/fonts.scss';
+import './app/base/index.scss';
 
-import '!style-loader!css-loader!./vendor.css'
+import '!style-loader!css-loader!../node_modules/react-vis/dist/style.css'
 
 // enable MobX strict mode
 useStrict(true);
 
-// default fixtures for TodoStore
-const defaultTodos = [
-  new TodoModel('Use Mobx'),
-  new TodoModel('Use React', true)
-];
-
 // prepare MobX stores
 const history = createBrowserHistory();
-const rootStore = createStores(history, defaultTodos);
+const rootStore = createStores(history);
 
 // render react DOM
 ReactDOM.render(

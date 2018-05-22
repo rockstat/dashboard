@@ -1,5 +1,4 @@
 import { observable } from 'mobx';
-// import { TodoModel } from 'app/models';
 
 import { EventsStat, eventsStat, eventsTitles } from './data/events';
 

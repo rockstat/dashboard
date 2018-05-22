@@ -1,0 +1,22 @@
+.infoContainerLabel {
+  display: inline-block;
+  position: relative;
+  width: 55px;
+  height: 22px;
+  .infoContainerLabelTitle{
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    font-size: 11px;
+  }
+  
+  .infoContainerLabelValue {
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    color: silver;
+    font-size: 11px;
+  }
+}

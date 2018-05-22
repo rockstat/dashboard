@@ -43,7 +43,7 @@ module.exports = {
       },
       // css
       {
-        test: /\.(css|scss|sass)$/,
+        test: /\.(scss|sass)$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
