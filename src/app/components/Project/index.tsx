@@ -1,16 +1,38 @@
 import * as React from 'react';
 import * as styles from './style.scss';
+import * as cl from 'classnames';
 
 import { ProjectsInterface } from '../../constants';
 
-interface ProjectProps extends ProjectsInterface {}
+interface ProjectProps extends ProjectsInterface {
+  number: number;
+  hoverProject: (e: number) => void;
+  hoverOutProject: () => void;
+  activeElement: number;
+  hover: boolean;
+}
 
 export class Project extends React.Component<ProjectProps, {}> {
   render() {
-    const { name, date, cpu, resp, mem } = this.props;
+    const { 
+      name,
+      date,
+      cpu, 
+      resp, 
+      mem, 
+      number, 
+      hover, 
+      activeElement,
+      hoverProject,
+      hoverOutProject
+    } = this.props;
 
     return (
-      <div className={styles.project}>
+      <div 
+        className={cl(styles.project, {[styles.active]: activeElement === number}, {[styles.hovered]: hover})}
+        onMouseEnter={() => hoverProject(number)}
+        onMouseLeave={() => hoverOutProject()}
+      >
         <div className={styles.name}> { name } </div>
         <div className={styles.date}> { date } </div>
 

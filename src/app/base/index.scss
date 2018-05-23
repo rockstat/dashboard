@@ -64,4 +64,12 @@
     color: #F2F2F2;
     fill: #F2F2F2 !important;
   }
+  .rockstat {
+    width: 1250px;
+    margin: 0 auto;
+    &-title {
+      font-size: 28px;
+      margin: 15px 0;
+    }
+  }
 }

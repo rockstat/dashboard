@@ -1,0 +1,40 @@
+.cpuContainer {
+  .cpuLineContainer {
+    width: 20%;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    svg {
+      width: 100%;
+    }
+    .cpuLineBgAll {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 2;
+    }
+    .cpuLineBg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 3;
+    }
+    .cpuLineGreen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      transform: rotate(-123deg);
+      transform-origin: 50.2% 143%;
+      z-index: 1;
+      path {
+        stroke: #50a799;
+      }
+    }
+  }
+}
