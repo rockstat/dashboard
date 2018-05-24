@@ -3,5 +3,39 @@
   .title {
     font-size: 22px;
     color: #fff;
+    margin-bottom: 25px;
+  }
+  .paramsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .usedSwap {
+      width: 10%;
+      height: 128px;
+    }
+    .diskRead {
+      width: 12%;
+      height: 150px;
+    }
+    .diskkWrite {
+      width: 12%;
+      height: 150px;
+    }
+    .cpuMeter {
+      width: 20%;
+      height: 180px;
+    }
+    .netInbound {
+      width: 12%;
+      height: 150px;
+    }
+    .netOutbound {
+      width: 12%;
+      height: 150px;
+    }
+    .usedRam {
+      width: 10%;
+      height: 128px;
+    }
   }
 }

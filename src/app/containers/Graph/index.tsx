@@ -53,7 +53,7 @@ type SeriesPoints = Array<{ x: number, y: number }>;
 
 @inject(STORE_STAT)
 @observer
-export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
+export class Graph extends React.Component<TodoAppProps, TodoAppState> {
   componentWillMount() {
     this.checkLocationChange();
 
@@ -217,29 +217,29 @@ export class GraphTest extends React.Component<TodoAppProps, TodoAppState> {
           </div>
         </div>
         <div className={style.infoContainer}>
-          <DiscreteColorLegend
+          {/* <DiscreteColorLegend
             orientation='vertical'
             items={[
               { title: <LabelSub title='Desktop' subtitle='66.0%'/>, color: radialColors[0] },
               { title: <LabelSub title='Mobile' subtitle='33.0%'/>, color: radialColors[1] }
             ]}
-          />
+          /> */}
           <DiscreteColorLegend
             orientation='vertical'
             items={[
               { title: <LabelSub title='New users' subtitle='60.0%'/>, color: radialColors[0] },
             ]}
           />
-          <DiscreteColorLegend
-            orientation='vertical'
-            items={[
-              { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
-              { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
-              { title: <LabelSub title='Social' subtitle='15.0%'/>, color: radialColors[2] },
-              { title: <LabelSub title='Organic' subtitle='10.0%'/>, color: radialColors[3] },
-              { title: <LabelSub title='Referral' subtitle='10.0%'/>, color: radialColors[4] },
-            ]}
-          />
+          {/* <DiscreteColorLegend
+          //   orientation='vertical'
+          //   items={[
+          //     { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
+          //     { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
+          //     { title: <LabelSub title='Social' subtitle='15.0%'/>, color: radialColors[2] },
+          //     { title: <LabelSub title='Organic' subtitle='10.0%'/>, color: radialColors[3] },
+          //     { title: <LabelSub title='Referral' subtitle='10.0%'/>, color: radialColors[4] },
+          //   ]}
+          // /> */}
         </div>
         <div className={style.legend}>
           <DiscreteColorLegend

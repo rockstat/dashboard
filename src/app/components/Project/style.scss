@@ -65,4 +65,20 @@
     filter: blur(0px);
     cursor: pointer;
   }
+
+  .eventContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+    margin-top: 5px;
+
+    .settings, .refresh, .pause {
+      width: 30%;
+      svg {
+        width: 100%;
+      }
+    }
+
+  }
 }

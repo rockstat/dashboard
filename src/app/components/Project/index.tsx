@@ -3,6 +3,7 @@ import * as styles from './style.scss';
 import * as cl from 'classnames';
 
 import { ProjectsInterface } from '../../constants';
+import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 
 interface ProjectProps extends ProjectsInterface {
   number: number;
@@ -70,6 +71,12 @@ export class Project extends React.Component<ProjectProps, {}> {
               </div>
             <div className={styles.title}>mesm</div>
           </div>
+        </div>
+
+        <div className={styles.eventContainer}>
+          <div className={styles.settings}><SettingsIcon /></div>
+          <div className={styles.refresh}><RefreshIcon /></div>
+          <div className={styles.pause}><PauseIcon /></div>
         </div>
       </div>
     )

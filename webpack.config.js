@@ -10,6 +10,7 @@ var outPath = path.join(__dirname, './dist');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: sourcePath,
@@ -55,6 +56,17 @@ module.exports = {
                 sourceMap: !isProduction,
                 importLoaders: 1,
                 localIdentName: '[local]__[hash:base64:5]'
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                  plugins: [
+                      autoprefixer({
+                          browsers:['ie >= 8', 'last 4 version']
+                      })
+                  ],
+                  sourceMap: true
               }
             },
             {
