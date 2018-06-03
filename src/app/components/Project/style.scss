@@ -1,15 +1,17 @@
 .project {
-  width: 197px;
-  height: 150px;
+  width: 185px;
+  height: 185px;
   background-color: transparent;
-  border: 2px solid #04e1e1;
-  margin-bottom: 5px;
-  margin-right: 5px;
+  border: 1px solid #04e1e1;
+  margin-bottom: 17px;
+  margin-right: 17px;
   padding: 10px;
   transition: transform .1s linear, filter .5s linear;
   will-change: trasform, filter;
   transform-origin: center;
   background-color: #000;
+  position: relative;
+  cursor: pointer;
   .name {
     font-size: 18px;
   }
@@ -57,12 +59,12 @@
     }
   }
   &.hovered {
-    filter: blur(2px);
+    //filter: blur(2px);
   }
   &.active {
-    transform: scale(1.2);
-    z-index: 2;
-    filter: blur(0px);
+    //transform: scale(1.2);
+    //z-index: 2;
+    //filter: blur(0px);
     cursor: pointer;
   }
 
@@ -71,10 +73,11 @@
     justify-content: space-between;
     align-items: center;
     width: 50%;
-    margin-top: 5px;
+    margin-top: 38px;
 
     .settings, .refresh, .pause {
-      width: 30%;
+      width: 26px;
+      height: 26px;
       svg {
         width: 100%;
       }

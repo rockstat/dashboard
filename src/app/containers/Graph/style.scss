@@ -4,21 +4,40 @@
   position: relative;
   .infoContainer {
     position: absolute;
-    width: 930px;
-    height: 300px;
+    width: 1033px;
+    height: 200px;
     top: 2%;
     left: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     z-index: 5;
   }
   
   .infoContainerChart {
     /* background-color: #f00; */
     /* opacity: .8; */
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
+  }
+
+  .infoContainerDis {
+    position: absolute;
+    width: 1033px;
+    height: 200px;
+    top: 2%;
+    left: 50px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 5;
+    .infoContainerDiscrete {
+      width: 200px;
+      height: 200px;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
   
   .infoContainerLabels {

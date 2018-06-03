@@ -15,7 +15,7 @@ export class Root extends React.Component<RootProps, {}> {
 
         <Graph {...this.props}/>
         <Projects />
-        <SystemResources />
+        {/* <SystemResources /> */}
       </div>
     );
   }

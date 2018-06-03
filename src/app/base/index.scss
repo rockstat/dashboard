@@ -56,7 +56,7 @@
   }
 
   .rv-discrete-color-legend-item {
-    padding: 0px 0;
+    padding: 0px 0px !important;
     color: #F2F2F2;
   }
   .rv-discrete-color-legend-item__title, .rv-xy-plot__axis__tick__text {
@@ -72,4 +72,4 @@
       margin: 15px 0;
     }
   }
-}
+ }

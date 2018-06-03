@@ -25,7 +25,7 @@ import {
   STORE_STAT
 } from 'app/constants';
 
-import { LabelSub } from '../../components';
+import { LabelSub, LabelsItme } from '../../components';
 
 export interface TodoAppProps extends RouteComponentProps<any> {}
 
@@ -165,24 +165,24 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={130}
-              radius={150}
+              innerRadius={80}
+              radius={100}
               colorRange={radialColors}
               style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
               data={[
                 { angle: 3, name: 'Desktop' },
                 { angle: 6, name: 'Mobile' }
               ]}
-              width={300}
-              height={300}>
+              width={200}
+              height={200}>
             </RadialChart>
 
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={130}
-              radius={150}
+              innerRadius={80}
+              radius={100}
               labelsRadiusMultiplier={1}
               colorRange={newUsersColors}
               labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
@@ -191,15 +191,15 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 6, label: '60.0%' },
                 { angle: 3, label: '30.%' },
               ]}
-              width={300}
-              height={300}>
+              width={200}
+              height={200}>
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
               className={'donut-chart-example'}
-              innerRadius={130}
-              radius={150}
+              innerRadius={80}
+              radius={100}
               colorType='literal'
               labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
               labelsRadiusMultiplier={1}
@@ -211,35 +211,109 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
                 { angle: 2, label: '10.0%', color: '#80FF80' },
                 { angle: 2, label: '10.0%', color: '#40FFC0' },
               ]}
-              width={300}
-              height={300}>
+              width={200}
+              height={200}>
+            </RadialChart>
+          </div>
+          <div className={style.infoContainerChart}>
+            <RadialChart
+              className={'donut-chart-example'}
+              innerRadius={80}
+              radius={100}
+              colorType='literal'
+              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
+              labelsRadiusMultiplier={1}
+              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
+              data={[ //, , , , 
+                { angle: 4, label: '35.0%', color: '#00f0ff' },
+                { angle: 2, label: '30.0%', color: '#033134' },
+                { angle: 3, label: '15.0%', color: '#240223' },
+                { angle: 2, label: '10.0%', color: '#fd2bf5' },
+              ]}
+              width={200}
+              height={200}>
+            </RadialChart>
+          </div>
+          <div className={style.infoContainerChart}>
+            <RadialChart
+              className={'donut-chart-example'}
+              innerRadius={80}
+              radius={100}
+              colorType='literal'
+              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
+              labelsRadiusMultiplier={1}
+              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
+              data={[ //, , , , 
+                { angle: 7, label: '35.0%', color: '#D900FF' },
+                { angle: 6, label: '30.0%', color: '#00F0FF' },
+                { angle: 3, label: '15.0%', color: '#8C57B8' },
+                { angle: 2, label: '10.0%', color: '#80FF80' },
+                { angle: 2, label: '10.0%', color: '#40FFC0' },
+              ]}
+              width={200}
+              height={200}>
             </RadialChart>
           </div>
         </div>
-        <div className={style.infoContainer}>
-          {/* <DiscreteColorLegend
-            orientation='vertical'
-            items={[
-              { title: <LabelSub title='Desktop' subtitle='66.0%'/>, color: radialColors[0] },
-              { title: <LabelSub title='Mobile' subtitle='33.0%'/>, color: radialColors[1] }
-            ]}
-          /> */}
+        <div className={style.infoContainerDis}>
+
+        <div className={style.infoContainerDiscrete}>
+
           <DiscreteColorLegend
-            orientation='vertical'
+              orientation='vertical'
+              items={[
+                { title: <LabelSub title='Desktop' subtitle='66.0%'/>, color: radialColors[0] },
+                { title: <LabelSub title='Mobile' subtitle='33.0%'/>, color: radialColors[1] }
+              ]}
+            />
+        </div>
+        
+        <div className={style.infoContainerDiscrete}>
+          <DiscreteColorLegend
+              orientation='vertical'
+              items={[
+                { title: <LabelSub title='New users' subtitle='60.0%'/>, color: radialColors[0] },
+              ]}
+            />
+        </div>
+
+        <div className={style.infoContainerDiscrete}>
+          <DiscreteColorLegend
+              orientation='vertical'
+              items={[
+                { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
+                { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
+                { title: <LabelSub title='Social' subtitle='15.0%'/>, color: radialColors[2] },
+                { title: <LabelSub title='Organic' subtitle='10.0%'/>, color: radialColors[3] },
+                { title: <LabelSub title='Referral' subtitle='10.0%'/>, color: radialColors[4] },
+              ]}
+            />
+        </div>
+
+        <div className={style.infoContainerDiscrete}>
+
+          <LabelsItme
             items={[
-              { title: <LabelSub title='New users' subtitle='60.0%'/>, color: radialColors[0] },
+              { title: '<span style="color:#40ffc0;">CPU</span> utilization', subtitle: '23%', center: true },
+              { title: '<span style="color:#fd2bf5;">Memory</span> usage', subtitle: '56.5%', center: true }
             ]}
           />
-          {/* <DiscreteColorLegend
-          //   orientation='vertical'
-          //   items={[
-          //     { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
-          //     { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
-          //     { title: <LabelSub title='Social' subtitle='15.0%'/>, color: radialColors[2] },
-          //     { title: <LabelSub title='Organic' subtitle='10.0%'/>, color: radialColors[3] },
-          //     { title: <LabelSub title='Referral' subtitle='10.0%'/>, color: radialColors[4] },
-          //   ]}
-          // /> */}
+
+        </div>
+
+        <div className={style.infoContainerDiscrete}>
+
+          <LabelsItme
+            items={[
+              { title: 'Disk <span style="color:#40ffc0">write</span>', subtitle: '0.3 Mb/s', center: true },
+              { title: 'Disk <span style="color:#80ff80">read</span>', subtitle: '0.1 Mb/s', center: true },
+              { title: 'Network <span style="color:#fd2bf5">In</span>', subtitle: '0.3 mbps', center: true },
+              { title: 'Network <span style="color:#931fff">out</span>', subtitle: '0.8 mbps', center: true }
+            ]}
+          />
+
+        </div>
+
         </div>
         <div className={style.legend}>
           <DiscreteColorLegend

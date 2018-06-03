@@ -8,4 +8,19 @@
   justify-content: flex-start;
   align-items: flex-start;
   align-content: center;
+  .addProject {
+    width: 185px;
+    height: 185px;
+    border: 2px dotted #333333;
+    margin-bottom: 17px;
+    margin-right: 17px;
+    padding: 10px;
+    color: #333333;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 72px;
+    cursor: pointer;
+  }
 }

@@ -7,8 +7,8 @@ import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 
 interface ProjectProps extends ProjectsInterface {
   number: number;
-  hoverProject: (e: number) => void;
-  hoverOutProject: () => void;
+  hoverProject?: (e: number) => void;
+  hoverOutProject?: () => void;
   activeElement: number;
   hover: boolean;
 }
@@ -31,8 +31,8 @@ export class Project extends React.Component<ProjectProps, {}> {
     return (
       <div 
         className={cl(styles.project, {[styles.active]: activeElement === number}, {[styles.hovered]: hover})}
-        onMouseEnter={() => hoverProject(number)}
-        onMouseLeave={() => hoverOutProject()}
+        // onMouseEnter={() => hoverProject(number)}
+        // onMouseLeave={() => hoverOutProject()}
       >
         <div className={styles.name}> { name } </div>
         <div className={styles.date}> { date } </div>
@@ -75,8 +75,6 @@ export class Project extends React.Component<ProjectProps, {}> {
 
         <div className={styles.eventContainer}>
           <div className={styles.settings}><SettingsIcon /></div>
-          <div className={styles.refresh}><RefreshIcon /></div>
-          <div className={styles.pause}><PauseIcon /></div>
         </div>
       </div>
     )

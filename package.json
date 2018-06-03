@@ -37,7 +37,7 @@
     "postcss-url": "^7.3.1",
     "prettier": "^1.11.1",
     "react-hot-loader": "^4.0.0",
-    "sass-loader": "^7.0.1",
+    "sass-loader": "^7.0.2",
     "style-loader": "^0.20.2",
     "ts-loader": "^4.0.0",
     "typescript": "^2.7.2",
@@ -51,6 +51,7 @@
   "dependencies": {
     "@types/vis": "^4.21.4",
     "classnames": "^2.2.5",
+    "clone": "^2.1.1",
     "echarts-for-react": "^2.0.8",
     "mobx": "^3.6.1",
     "mobx-react": "^4.4.2",
