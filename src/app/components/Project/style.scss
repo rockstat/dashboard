@@ -25,7 +25,7 @@
       display: flex;
       align-items: center;
       .lineContainer {
-        width: 78%;
+        width: 60%;
         height: 10px;
         border-radius: 5px;
         background-color: #4c4c4c;
@@ -41,6 +41,9 @@
         font-size: 10px;
         color: #ffffff70;
         margin-left: 10px;
+        width: 33%;
+        display: flex;
+        justify-content: space-between;
       }
     }
     .cpu {
@@ -72,16 +75,16 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 50%;
+    width: 100%;
     margin-top: 38px;
 
-    .settings, .refresh, .pause {
+    .settings, .linkTo {
       width: 26px;
       height: 26px;
+      cursor: pointer;
       svg {
         width: 100%;
       }
     }
-
   }
 }

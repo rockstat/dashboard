@@ -19,7 +19,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
           <Link to={'/'} className={styles.logo}>
             <LogoIcon />
           </Link>
-          <div className={styles.menu}>
+          {/* <div className={styles.menu}>
             {
               menu.map((item, index) => {
                 return (
@@ -27,8 +27,8 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 )
               })
             }
-          </div>
-          <div className={styles.user}>test@test.com</div>
+          </div> */}
+          {/* <div className={styles.user}>test@test.com</div> */}
         </div>
       </header>
     );

@@ -6,3 +6,5 @@ export * from './CpuMeter';
 export * from './CircleComponent';
 export * from './LabelsItem';
 export * from './InformationContainer';
+export * from './CircleComponentInfo';
+export * from './DashboardHeader';

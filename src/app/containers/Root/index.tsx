@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Graph, Projects, SystemResources } from '../index';
 import { RouteComponentProps } from 'react-router';
-import { Header } from 'app/components';
+import { Header, DashboardHeader } from 'app/components';
 
 export interface RootProps extends RouteComponentProps<any> {}
 
@@ -10,9 +10,7 @@ export class Root extends React.Component<RootProps, {}> {
     return (
       <div className='rockstat'>
         <Header />
-
-        <h1 className={'rockstat-title'}>DASHBOARD</h1>
-
+        <DashboardHeader />
         <Graph {...this.props}/>
         <Projects />
         {/* <SystemResources /> */}

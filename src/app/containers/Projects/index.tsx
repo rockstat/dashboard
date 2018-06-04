@@ -9,17 +9,20 @@ import { projects, ProjectsInterface } from '../../constants';
 interface ProjecstState {
   elements: Array<ProjectsInterface>;
   showAdd: boolean;
+  modalPosition: number;
 }
 
 export class Projects extends React.Component<{}, ProjecstState> {
   state = {
     elements: Clone(projects),
-    showAdd: false
+    showAdd: false,
+    modalPosition: 0 
   }
 
-  _addItem = (index: number) => {
+  _addItem = (index: number, e) => {
     this.setState({
-      showAdd: true
+      showAdd: true,
+      modalPosition: e.target.offsetTop - 631
     })
   }
 
@@ -38,13 +41,14 @@ export class Projects extends React.Component<{}, ProjecstState> {
 
       result.push(
         findPosition === false ?
-          <div onClick={this._addItem.bind(this, i)} key={i} className={styles.addProject}>+</div> 
+          <div key={i} className={styles.addProject}>+</div>
             :
           <Project 
             {...elements[findPosition]}
             {...this.state}
             key={i}
             number={i}
+            onClickSettings={this._openSettings}
           />
       )
     }
@@ -52,8 +56,21 @@ export class Projects extends React.Component<{}, ProjecstState> {
     return result;
   }
 
+  _openSettings = (index: number, e: HTMLDivElement) => {
+    this.setState({
+      showAdd: true,
+      modalPosition: e.offsetTop - 631
+    })
+  }
+
+  _closeSetting =() => {
+    this.setState({
+      showAdd: false
+    })
+  }
+
   render() {
-    let { showAdd } = this.state;
+    let { showAdd, modalPosition } = this.state;
 
     return (
       <div className={cl(styles.projectsContainer, 'projects-container')}>
@@ -75,6 +92,8 @@ export class Projects extends React.Component<{}, ProjecstState> {
             'enrich ( ip: string )'
           ]}
           show={showAdd}
+          topPosition={modalPosition}
+          closeSettings={this._closeSetting}
         />
       </div>
     )
