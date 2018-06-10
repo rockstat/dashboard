@@ -10,6 +10,7 @@ var outPath = path.join(__dirname, './dist');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: sourcePath,
@@ -44,19 +45,14 @@ module.exports = {
       // css
       {
         test: /\.css$/,
-        include: /node_modules/,
+        exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-            }
-            
-          ]
+          use: ['css-loader']
         })
       },
       {
-        test: /\.css$/,
+        test: /\.(scss|sass)$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -73,16 +69,20 @@ module.exports = {
             {
               loader: 'postcss-loader',
               options: {
-                ident: 'postcss',
-                plugins: [
-                  require('postcss-import')({ addDependencyTo: webpack }),
-                  require('postcss-url')(),
-                  require('postcss-cssnext')(),
-                  require('postcss-reporter')(),
-                  require('postcss-browser-reporter')({
-                    disabled: isProduction
-                  })
-                ]
+                  plugins: [
+                      autoprefixer({
+                          browsers:['ie >= 8', 'last 4 version']
+                      })
+                  ],
+                  sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                modules: true,
+                importLoaders: 1,
+                localIdentName: '[name]__[local]__[hash:base64:5]'
               }
             }
           ]

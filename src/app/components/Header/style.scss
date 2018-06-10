@@ -1,0 +1,35 @@
+.headerContent {
+  display: flex;
+  align-items: baseline;
+  padding: 15px 0;
+  .logo {
+    width: 8%;
+    svg {
+      width: 100%;
+      path {
+        fill: #959595;
+      }
+    }
+  }
+  .menu {
+    display: flex;
+    width: 15%;
+    justify-content: space-between;
+    margin-left: auto;
+    .menuItem {
+      color: #fff;
+      text-decoration: underline;
+      font-size: 18px;
+      opacity: 0.7;
+      transition: opacity .2s ease;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .user {
+    opacity: 0.7;
+    font-size: 18px;
+    margin-left: 20px;
+  }
+}

@@ -1,0 +1,90 @@
+.project {
+  width: 185px;
+  height: 185px;
+  background-color: transparent;
+  border: 1px solid #04e1e1;
+  margin-bottom: 17px;
+  margin-right: 17px;
+  padding: 10px;
+  transition: transform .1s linear, filter .5s linear;
+  will-change: trasform, filter;
+  transform-origin: center;
+  background-color: #000;
+  position: relative;
+  cursor: pointer;
+  .name {
+    font-size: 18px;
+  }
+  .date {
+    font-size: 12px;
+    color: #ffffff70;
+  }
+  .dataContainer {
+    margin-top: 10px;
+    .resp, .cpu, .mem {
+      display: flex;
+      align-items: center;
+      .lineContainer {
+        width: 60%;
+        height: 10px;
+        border-radius: 5px;
+        background-color: #4c4c4c;
+        overflow: hidden;
+        .line {
+          width: 100%;
+          height: 100%;
+          transition: transform .3s ease;
+          background-color: #01ccda;
+        }
+      }
+      .title {
+        font-size: 10px;
+        color: #ffffff70;
+        margin-left: 10px;
+        width: 33%;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+    .cpu {
+      .lineContainer {
+        .line {
+          background-color: #d900fe;
+        }
+      }
+    }
+    .mem {
+      .lineContainer {
+        .line {
+          background-color: #8c00ff;
+        }
+      }
+    }
+  }
+  &.hovered {
+    //filter: blur(2px);
+  }
+  &.active {
+    //transform: scale(1.2);
+    //z-index: 2;
+    //filter: blur(0px);
+    cursor: pointer;
+  }
+
+  .eventContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 38px;
+
+    .settings, .linkTo {
+      width: 26px;
+      height: 26px;
+      cursor: pointer;
+      svg {
+        width: 100%;
+      }
+    }
+  }
+}

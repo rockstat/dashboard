@@ -1,0 +1,28 @@
+@import '../../base/fonts.scss';
+
+.headerContent {
+  margin: 10px 0 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    @include mainFont(24px, 500);
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: #F2F2F2;
+  }
+  .selctedContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 999;
+    width: 40%;
+    .stepContainer {
+      width: 20%;
+      @include mainFont(16px, 500);
+    }
+  }
+}

@@ -1,34 +1,36 @@
 import * as React from 'react';
-import { TodoTextInput } from 'app/components/TodoTextInput';
-import { TodoModel } from 'app/models/TodoModel';
+import { Link } from 'react-router-dom';
 
-export interface HeaderProps {
-  addTodo: (todo: Partial<TodoModel>) => any;
-}
+import * as styles from './style.scss';
 
-export interface HeaderState {
-  /* empty */
-}
+import { LogoIcon } from '../../icons';
+
+import { menu } from '../../constants';
+
+export interface HeaderProps {}
+
+export interface HeaderState {}
 
 export class Header extends React.Component<HeaderProps, HeaderState> {
-  private handleSave = (text: string) => {
-    if (text.length) {
-      this.props.addTodo({ text });
-    }
-  };
-
   render() {
     return (
       <header>
-        <h1>Todos</h1>
-        <TodoTextInput
-          newTodo
-          onSave={this.handleSave}
-          placeholder="What needs to be done?"
-        />
+        <div className={styles.headerContent}>
+          <Link to={'/'} className={styles.logo}>
+            <LogoIcon />
+          </Link>
+          {/* <div className={styles.menu}>
+            {
+              menu.map((item, index) => {
+                return (
+                  <Link to={item.link} key={index} className={styles.menuItem}> { item.name } </Link>
+                )
+              })
+            }
+          </div> */}
+          {/* <div className={styles.user}>test@test.com</div> */}
+        </div>
       </header>
     );
   }
 }
-
-export default Header;

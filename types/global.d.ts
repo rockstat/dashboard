@@ -2,6 +2,11 @@
 
 // for style loader
 declare module '*.css' {
-  const styles: any;
-  export = styles;
+  const content: any;
+  export = content;
+}
+
+declare module '*.scss' {
+  const content: {[className: string]: string};
+  export = content;
 }

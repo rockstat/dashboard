@@ -1,0 +1,81 @@
+.cpuContainer {
+  width: 100%;
+  height: 100%;
+  .cpuLineContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    svg {
+      width: 100%;
+    }
+    .cpuLineBg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 1;
+    }
+    .cpuLineGreen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 2;
+      path {
+        stroke: #50a799;
+        stroke-dasharray: 138%;
+        transition: stroke-dashoffset .2s ease;
+      }
+    }
+    .arrow {
+      position: absolute;
+      width: 75%;
+      height: 22%;
+      left: -26%;
+      bottom: 0;
+      z-index: 3;
+      transform: rotate(141deg);
+      transform-origin: right;
+      transition: transform .2s ease;
+      svg {
+        width: 100%;
+      }
+    }
+    .current {
+      z-index: 3;
+      position: absolute;
+      left: 0;
+      right: 0;
+      text-align: center;
+      top: 2%;
+      color: #fff;
+      font-size: 26px;
+
+    }
+    .minMax {
+      position: absolute;
+      bottom: 25%;
+      left: 0;
+      width: 110%;
+      display: flex;
+      justify-content: space-between;
+      .min {
+        color: #484b50;
+        font-size: 24px;
+        &:before {
+          content: '%';
+          font-size: 14px;
+          position: absolute;
+          left: 0;
+          bottom: -40%;
+        }
+      }
+      .max {
+        color: #484b50;
+        font-size: 24px;
+      }
+    }
+  }
+}
