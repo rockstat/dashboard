@@ -1,16 +1,21 @@
-var webpack = require('webpack');
-var path = require('path');
-
+const webpack = require('webpack');
+const path = require('path');
+const { readFileSync } = require('fs')
 // variables
-var isProduction = process.argv.indexOf('-p') >= 0;
-var sourcePath = path.join(__dirname, './src');
-var outPath = path.join(__dirname, './dist');
+const isProduction = process.argv.indexOf('-p') >= 0;
+const sourcePath = path.join(__dirname, './src');
+const outPath = path.join(__dirname, './dist');
+const jsyaml = require('js-yaml');
+
+const envName = process.env === 'production' ? 'production' : 'development';
+const envConfig = jsyaml.load(readFileSync('./env_conf.yml'));
+const config = envConfig[envName];
 
 // plugins
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-var autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
   context: sourcePath,
@@ -69,12 +74,12 @@ module.exports = {
             {
               loader: 'postcss-loader',
               options: {
-                  plugins: [
-                      autoprefixer({
-                          browsers:['ie >= 8', 'last 4 version']
-                      })
-                  ],
-                  sourceMap: true
+                plugins: [
+                  autoprefixer({
+                    browsers: ['ie >= 8', 'last 4 version']
+                  })
+                ],
+                sourceMap: true
               }
             },
             {
@@ -119,6 +124,10 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: 'assets/index.html'
+    }),
+    new webpack.DefinePlugin({
+      ENV: JSON.stringify(envName),
+      API_URL_TMPL: JSON.stringify(config.api_url_tmpl),
     })
   ],
   devServer: {

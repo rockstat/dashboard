@@ -6,6 +6,9 @@ import { createBrowserHistory } from 'history';
 import { createStores } from 'app/stores';
 import { App } from 'app';
 
+import { shim } from 'promise.prototype.finally';
+shim();
+
 import './app/base/reset.scss';
 import './app/base/fonts.scss';
 import './app/base/index.scss';

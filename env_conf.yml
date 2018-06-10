@@ -1,0 +1,5 @@
+development:
+  api_url_tmpl: http://<host>:10000
+
+production:
+  api_url_tmpl: http://<host>
