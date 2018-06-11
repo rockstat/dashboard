@@ -1,14 +1,14 @@
 import { observable, action, computed } from 'mobx';
 import { BandApi, StatApi } from '../api';
-import { BandServicesList, BandImagesList } from 'app/types';
+import { BandServicesList, BandImagesList, BandService, BandImage } from 'app/types';
 
-export class ProjectsStore {
+export class BandStore {
 
   // Common logic
   @observable servicesLoading = false;
   @observable imagesLoading = false;
-  @observable servicesRegistry = observable.map();
-  @observable imagesRegistry = observable.map();
+  @observable servicesRegistry = observable.map<BandService>();
+  @observable imagesRegistry = observable.map<BandImage>();
 
   clear() {
     this.servicesRegistry.clear();
@@ -60,5 +60,3 @@ export class ProjectsStore {
       }));
   }
 }
-
-export const projectStore = new ProjectsStore();

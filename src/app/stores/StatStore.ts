@@ -1,64 +1,32 @@
-import { observable } from 'mobx';
+import { observable, action, computed } from 'mobx';
+import { BandApi, StatApi } from '../api';
 
 import { EventsStat, eventsStat, eventsTitles } from './data/events';
 
+interface EventsByTimeStatRow {
+  
+}
 
+type EventsByTimeStat = EventsByTimeStatRow[]
 
 export class StatStore {
-  constructor() {
-    // this.todos = fixtures;
-  }
 
 
   titles = eventsTitles;
   events = eventsStat;
 
-  // @observable public todos: Array<TodoModel>;
+  @observable eventsByTime = observable.array<EventsByTimeStatRow>();
 
-  // @computed
-  // get activeTodos() {
-  //   return this.todos.filter((todo) => !todo.completed);
-  // }
+  @action
+  loadServices() {
+    return StatApi.web_categories()
+      .then(action((records: EventsByTimeStat) => {
+        this.eventsByTime.clear();
+        records.forEach(record => this.eventsByTime.push(record));
+        return this.eventsByTime;
+      }))
+  }
 
-  // @computed
-  // get completedTodos() {
-  //   return this.todos.filter((todo) => todo.completed);
-  // }
-
-  // @action
-  // addTodo = (item: Partial<TodoModel>): void => {
-  //   this.todos.push(new TodoModel(item.text, item.completed));
-  // };
-
-  // @action
-  // editTodo = (id: number, data: Partial<TodoModel>): void => {
-  //   this.todos = this.todos.map((todo) => {
-  //     if (todo.id === id) {
-  //       if (typeof data.completed == 'boolean') {
-  //         todo.completed = data.completed;
-  //       }
-  //       if (typeof data.text == 'string') {
-  //         todo.text = data.text;
-  //       }
-  //     }
-  //     return todo;
-  //   });
-  // };
-
-  // @action
-  // deleteTodo = (id: number): void => {
-  //   this.todos = this.todos.filter((todo) => todo.id !== id);
-  // };
-
-  // @action
-  // completeAll = (): void => {
-  //   this.todos = this.todos.map((todo) => ({ ...todo, completed: true }));
-  // };
-
-  // @action
-  // clearCompleted = (): void => {
-  //   this.todos = this.todos.filter((todo) => !todo.completed);
-  // };
 }
 
 export default StatStore;

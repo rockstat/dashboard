@@ -3,7 +3,9 @@ import { Graph, Projects, SystemResources } from '../index';
 import { RouteComponentProps } from 'react-router';
 import { Header, DashboardHeader } from 'app/components';
 
-export interface RootProps extends RouteComponentProps<any> {}
+import { AppProps } from 'app/index';
+
+export interface RootProps extends RouteComponentProps<AppProps> { }
 
 export class Root extends React.Component<RootProps, {}> {
   render() {
@@ -11,8 +13,8 @@ export class Root extends React.Component<RootProps, {}> {
       <div className='rockstat'>
         <Header />
         <DashboardHeader />
-        <Graph {...this.props}/>
-        <Projects />
+        <Graph {...this.props} />
+        <Projects  {...this.props} />
         {/* <SystemResources /> */}
       </div>
     );

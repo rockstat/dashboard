@@ -8,37 +8,33 @@ import { BandServicesList, ApiWrapper, BandImagesList, Stub, GenricCallee } from
 
 
 const client = Axios.create({
-  baseURL: 'https://some-domain.com/api/',
-  timeout: 1000,
-  headers: { 'X-Custom-Header': 'foobar' }
+  baseURL: API_URL_TMPL.replace('<host>', document.location.hostname),
+  timeout: 3000,
 });
-
-const API_ROOT = API_URL_TMPL.replace('<host>', document.location.host);
-console.log(API_ROOT)
 
 const encode = encodeURIComponent;
 
-const responseBody = res => res.body;
+const responseData = res => res.data;
 
 export const requests: ApiWrapper = {
   del: url =>
     client
-      .delete(`${API_ROOT}${url}`)
-      .then(responseBody),
+      .delete(`${url}`)
+      .then(responseData),
   get: url =>
     client
-      .get(`${API_ROOT}${url}`)
-      .then(responseBody),
+      .get(`${url}`)
+      .then(responseData),
   put: (url, body) =>
     client
-      .put(`${API_ROOT}${url}`, body)
-      .then(responseBody),
+      .put(`${url}`, body)
+      .then(responseData),
   patch: (url, body) =>
     client
-      .patch(`${API_ROOT}${url}`, body)
-      .then(responseBody),
+      .patch(`${url}`, body)
+      .then(responseData),
   post: (url, body) =>
     client
-      .post(`${API_ROOT}${url}`, body)
-      .then(responseBody),
+      .post(`${url}`, body)
+      .then(responseData),
 };
