@@ -4,20 +4,18 @@ import * as locale from 'date-fns/locale/ru'
 
 import { DateUtils } from "react-day-picker/lib/src";
 
-export const format = 'DD MMMM YY'
+export const format = 'dd.MM.YYYY'
 
 export function parseDate(str) {
-  const parsed = dateFnsParse(str, format, 'ru');
+  const parsed = dateFnsParse(str, format, new Date(), { locale });
   if (DateUtils.isDate(parsed)) {
     return parsed;
   }
-  console.log(parsed)
   return undefined;
 }
 
 export function formatDate(date, format) {
   const formatted = dateFnsFormat(date, format, { locale });
-  console.log(formatted)
   return formatted;
 }
 
