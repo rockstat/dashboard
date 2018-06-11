@@ -17,9 +17,9 @@ export class TimeStore {
     return subDays(new Date(), this.offset)
   }
 
-  @action setToDate(date) {
-    this.offset = differenceInDays(date, this.now)
-  }
+  // @action setToDate(date) {
+  //   this.offset = differenceInDays(date, this.now)
+  // }
 
   @computed get now() {
     return new Date();

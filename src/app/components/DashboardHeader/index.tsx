@@ -54,16 +54,16 @@ export class DashboardHeader extends React.Component<{ timeStore?: TimeStore }, 
   }
 
   handleFromChange = (from: Date) => {
-    this.setState({
-      from: from
-    });
+    // this.setState({
+    //   from: from
+    // });
   }
 
   handleToChange = (to: Date) => {
     // this.props.timeStore.setToDate(to)
-    this.setState({
-      to: to
-    }); //, this.showFromMonth
+    // this.setState({
+    //   to: to
+    // }); //, this.showFromMonth
   }
 
   changeStep = (e) => {
@@ -77,7 +77,7 @@ export class DashboardHeader extends React.Component<{ timeStore?: TimeStore }, 
     const modifiers = { start: from, end: to };
     const now = new Date();
 
-    // console.log(from, to)
+    console.log(from, to)
 
     return (
       <div className={styles.headerContent}>
@@ -86,7 +86,7 @@ export class DashboardHeader extends React.Component<{ timeStore?: TimeStore }, 
 
         <div className={styles.selctedContainer}>
 
-          <div className="InputFromTo">
+          {/* <div className="InputFromTo">
             <DayPickerInput
               value={from}
               placeholder="From"
@@ -96,14 +96,14 @@ export class DashboardHeader extends React.Component<{ timeStore?: TimeStore }, 
               dayPickerProps={{
                 selectedDays: { from: from, to: to },
                 // disabledDays: { after: to },
-                month: now,
-                fromMonth: from,
-                toMonth: now,
+                // month: now,
+                // fromMonth: from,
+                // toMonth: now,
                 modifiers,
                 numberOfMonths: 2,
-                onDayClick: () => this.to.getInput().focus(),
+                // onDayClick: () => this.to.getInput().focus(),
               }}
-              onDayChange={this.handleFromChange}
+              // onDayChange={this.handleFromChange}
             />{' '}<span className={'InputFromTo-line'}>—</span>{' '}
             <span className="InputFromTo-to">
               <DayPickerInput
@@ -117,14 +117,14 @@ export class DashboardHeader extends React.Component<{ timeStore?: TimeStore }, 
                   selectedDays: { from: from, to: to },
                   // disabledDays: { before: from, after: new Date() },
                   modifiers,
-                  month: now,
-                  toMonth: now,
+                  // month: now,
+                  // toMonth: now,
                   numberOfMonths: 2,
                 }}
-                onDayChange={this.handleToChange}
+                // onDayChange={this.handleToChange}
               />
             </span>
-          </div>
+          </div> */}
 
           <div className={styles.stepContainer}>
             <Select
