@@ -57,7 +57,7 @@ export class InformationContainer extends React.Component<InformationContainerPr
 
     return (
       [
-        <div 
+        <div
           className={cl(style.informationContainer, {[style.show]: show})}
           style={{
             top: `${topPosition}px`
@@ -66,7 +66,7 @@ export class InformationContainer extends React.Component<InformationContainerPr
         >
           <div className={style.left}>
             <div className={style.title}> { title } </div>
-            <div className={style.created}> 
+            <div className={style.created}>
               <span>Created at:</span>
               <span>{ created }, </span>
               <span>uptime:</span>
@@ -74,7 +74,7 @@ export class InformationContainer extends React.Component<InformationContainerPr
             </div>
             <div className={style.graphs}>
               <div className={style.graphSla}>
-                <CircleComponentInfo 
+                <CircleComponentInfo
                     bottomText={'Sla'}
                     value={89}
                     colorValue={'#7f3cde'}
@@ -82,7 +82,7 @@ export class InformationContainer extends React.Component<InformationContainerPr
                   />
               </div>
               <div className={style.graphCpu}>
-                <CircleComponentInfo 
+                <CircleComponentInfo
                     bottomText={'Cpu'}
                     value={49}
                     colorValue={'#7cd7ac'}
@@ -90,7 +90,7 @@ export class InformationContainer extends React.Component<InformationContainerPr
                   />
               </div>
               <div className={style.graphMem}>
-                <CircleComponentInfo 
+                <CircleComponentInfo
                     bottomText={'Mem'}
                     value={59}
                     colorValue={'#6c86d9'}
@@ -106,7 +106,6 @@ export class InformationContainer extends React.Component<InformationContainerPr
             <div className={style.baseIMage}> Base image: { baseImage }  </div>
             <div className={style.methods}>
               <div className={style.methodsTitle}>Methods</div>
-
               {
                 methods.map((item, index) => {
                   return (
@@ -116,11 +115,11 @@ export class InformationContainer extends React.Component<InformationContainerPr
               }
             </div>
             <div className={style.btns}>
-              <div className={style.rebuild}> 
+              <div className={style.rebuild}>
                 <span> <RefreshIcon /> </span>
                 <span>Rebuild</span>
               </div>
-              <div className={style.terminate}> 
+              <div className={style.terminate}>
                 <span>X</span>
                 <span>Terminate</span>
               </div>
@@ -128,17 +127,17 @@ export class InformationContainer extends React.Component<InformationContainerPr
           </div>
           <div className={style.right}>
             <div className={style.btns}>
-              <div 
+              <div
                 className={cl(style.console, {[style.active]: activeTabe === 'console'})}
                 onClick={this._changeTab.bind(this, 'console')}
               >
-                Console 
+                Console
               </div>
               <div
                 className={cl(style.config, {[style.active]: activeTabe === 'config'})}
                 onClick={this._changeTab.bind(this, 'config')}
-              > 
-                  Config 
+              >
+                  Config
               </div>
             </div>
             <div className={style.infoCont}>
@@ -147,9 +146,9 @@ export class InformationContainer extends React.Component<InformationContainerPr
             </div>
           </div>
         </div>,
-        <div 
-          key={2} 
-          className={cl(style.overlay, {[style.active]: show})} 
+        <div
+          key={2}
+          className={cl(style.overlay, {[style.active]: show})}
           onClick={() => closeSettings()}
         />
       ]

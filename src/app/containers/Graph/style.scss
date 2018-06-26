@@ -6,26 +6,25 @@
     position: absolute;
     width: 1033px;
     height: 200px;
-    top: 2%;
+    top: 15px;
     left: 50px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 5;
   }
-  
   .infoContainerChart {
     /* background-color: #f00; */
     /* opacity: .8; */
     width: 200px;
     height: 200px;
+    // padding: 5px;
   }
-
   .infoContainerDis {
     position: absolute;
     width: 1033px;
     height: 200px;
-    top: 2%;
+    top: 10px;
     left: 50px;
     display: flex;
     justify-content: space-between;
@@ -33,20 +32,17 @@
     .infoContainerDiscrete {
       width: 200px;
       height: 200px;
-  
       display: flex;
       align-items: center;
       justify-content: center;
     }
   }
-  
   .infoContainerLabels {
     /* background-color: #f00; */
     /* opacity: .8; */
     width: 100px;
     height: 200px;
   }
-  
   .legend {
     top: 5%;
     position: absolute;

@@ -27,7 +27,7 @@ import {
 
 import { LabelSub, LabelsItme } from '../../components';
 
-export interface TodoAppProps extends RouteComponentProps<any> {}
+export interface TodoAppProps extends RouteComponentProps<any> { }
 
 export interface TodoAppState {
   series: { [k: string]: any },
@@ -39,7 +39,19 @@ const timeOffset = 1514764800000;
 const CHARTW = 1250;
 const CHARTH = 500;
 
-
+const DONUT_RADIUS = 95;
+const DONUT_WIDTH = 15;
+const DONUT_STYLE = {
+  // className: 'donut-chart-example',
+  innerRadius: DONUT_RADIUS - DONUT_WIDTH,
+  radius: DONUT_RADIUS,
+  labelsRadiusMultiplier: 1,
+  colorType: 'literal',
+  style: { stroke: '#000', strokeWidth: '0', strokeOpacity: 0.5 },
+  labelsStyle: { fontSize: 15, fontWeight: 'bold', fill: '#FFF' },
+  width: 200,
+  height: 200,
+}
 type SeriesPoints = Array<{ x: number, y: number }>;
 
 
@@ -75,7 +87,6 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
 
       pageview: { display: 1, color: '#00BEDE' },
       session: { display: 1, color: '#00E1FF' },
-
       form_submit: { display: 1, color: '#8C57B8' },
       field_blur: { display: 0, color: '#D900FF' },
       field_focus: { display: 0, color: '#D900FF' },
@@ -98,8 +109,8 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
           data: data,
           opacity: 0.5,
           style: {
-            stroke: '#000', 
-            strokeWidth: '2px', 
+            stroke: '#000',
+            strokeWidth: '2px',
             strokeOpacity: 0.2
           }
         })
@@ -129,7 +140,7 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
   render() {
     const { series, titles } = this.state;
     const radialColors = ['#D900FF', '#00F0FF', '#8C57B8', '#80FF80', '#40FFC0'];
-    const newUsersColors = ['#8C57B8', '#D900FF'];
+    const newUsersColors = [];
 
     return (
       <div className={style.graphContainer}>
@@ -146,17 +157,17 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
             top: { fill: '#131313' }
           }} />
           <XAxis
-            tickTotal={Math.round(CHARTW/25/2)}
-            tickFormat={function(d) {
+            tickTotal={Math.round(CHARTW / 25 / 2)}
+            tickFormat={function (d) {
               const nd = new Date(d + timeOffset);
               return nd.toLocaleDateString().substr(0, 5).replace('/', '.') + ' ' + nd.toLocaleTimeString().substr(0, 5)
             }}
           />
           <YAxis
-            tickTotal={Math.round(CHARTH/25/2)}
+            tickTotal={Math.round(CHARTH / 25 / 2)}
           />
-          <VerticalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTW/25)}  />
-          <HorizontalGridLines style={{ stroke: '#000',strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTH/25)} />
+          <VerticalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTW / 25)} />
+          <HorizontalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTH / 25)} />
 
         </XYPlot>
 
@@ -164,155 +175,138 @@ export class Graph extends React.Component<TodoAppProps, TodoAppState> {
         <div className={style.infoContainer}>
           <div className={style.infoContainerChart}>
             <RadialChart
-              className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
-              colorRange={radialColors}
-              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
+              // colorRange={radialColors}
               data={[
-                { angle: 3, name: 'Desktop' },
-                { angle: 6, name: 'Mobile' }
+                { angle: 38.8, name: 'Desktop', color: '#D900FF' }, // '#8C57B8', '#80FF80', '#40FFC0' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 60, name: 'Mobile', color: '#00F0FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' }
               ]}
-              width={200}
-              height={200}>
+              {...DONUT_STYLE}>
             </RadialChart>
 
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
-              className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
-              labelsRadiusMultiplier={1}
-              colorRange={newUsersColors}
-              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
-              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
               data={[
-                { angle: 6, label: '60.0%' },
-                { angle: 3, label: '30.%' },
+                { angle: 65, label: '60.0%', color: '#8C57B8' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 35.8, label: '30.%', color: '#D900FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
               ]}
-              width={200}
-              height={200}>
+              {...DONUT_STYLE}>
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
-              className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
-              colorType='literal'
-              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
-              labelsRadiusMultiplier={1}
-              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
-              data={[ //, , , , 
-                { angle: 7, label: '35.0%', color: '#D900FF' },
-                { angle: 6, label: '30.0%', color: '#00F0FF' },
-                { angle: 3, label: '15.0%', color: '#8C57B8' },
-                { angle: 2, label: '10.0%', color: '#80FF80' },
-                { angle: 2, label: '10.0%', color: '#40FFC0' },
+              data={[ //, , , ,
+                { angle: 19.4, label: '35.0%', color: '#D900FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 39.4, label: '30.0%', color: '#00F0FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 19.4, label: '15.0%', color: '#8C57B8' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 9.4, label: '10.0%', color: '#80FF80' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 9.4, label: '10.0%', color: '#40FFC0' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
               ]}
-              width={200}
-              height={200}>
+              {...DONUT_STYLE}>
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
-              className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
-              colorType='literal'
-              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
-              labelsRadiusMultiplier={1}
-              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
-              data={[ //, , , , 
-                { angle: 4, label: '35.0%', color: '#00f0ff' },
-                { angle: 2, label: '30.0%', color: '#033134' },
-                { angle: 3, label: '15.0%', color: '#240223' },
-                { angle: 2, label: '10.0%', color: '#fd2bf5' },
+              data={[ //, , , ,
+                { angle: 40, label: '35.0%', color: '#00f0ff' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 10, label: '30.0%', color: '#033134' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 27.6, label: '15.0%', color: '#240223' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 20, label: '10.0%', color: '#fd2bf5' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
               ]}
-              width={200}
-              height={200}>
+              {...DONUT_STYLE}>
             </RadialChart>
           </div>
           <div className={style.infoContainerChart}>
             <RadialChart
-              className={'donut-chart-example'}
-              innerRadius={80}
-              radius={100}
-              colorType='literal'
-              labelsStyle={{ fontSize: 15, fontWeight: 'bold', fill: '#FFF' }}
-              labelsRadiusMultiplier={1}
-              style={{stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.5}}
-              data={[ //, , , , 
-                { angle: 7, label: '35.0%', color: '#D900FF' },
-                { angle: 6, label: '30.0%', color: '#00F0FF' },
-                { angle: 3, label: '15.0%', color: '#8C57B8' },
-                { angle: 2, label: '10.0%', color: '#80FF80' },
-                { angle: 2, label: '10.0%', color: '#40FFC0' },
+              data={[ //, , , ,
+                { angle: 25, label: '35.0%', color: '#D900FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 20, label: '30.0%', color: '#00F0FF' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 17, label: '15.0%', color: '#8C57B8' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 25, label: '10.0%', color: '#80FF80' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
+                { angle: 10, label: '10.0%', color: '#40FFC0' },
+                { angle: 0.6, name: 'Desktop', color: 'transparent' },
               ]}
-              width={200}
-              height={200}>
+              {...DONUT_STYLE}>
             </RadialChart>
           </div>
         </div>
         <div className={style.infoContainerDis}>
 
-        <div className={style.infoContainerDiscrete}>
+          <div className={style.infoContainerDiscrete}>
 
-          <DiscreteColorLegend
+            <DiscreteColorLegend
               orientation='vertical'
               items={[
-                { title: <LabelSub title='Desktop' subtitle='66.0%'/>, color: radialColors[0] },
-                { title: <LabelSub title='Mobile' subtitle='33.0%'/>, color: radialColors[1] }
+                { title: <LabelSub title='Desktop' subtitle='66.0%' />, color: radialColors[0] },
+                { title: <LabelSub title='Mobile' subtitle='33.0%' />, color: radialColors[1] }
               ]}
             />
-        </div>
-        
-        <div className={style.infoContainerDiscrete}>
-          <DiscreteColorLegend
+          </div>
+
+          <div className={style.infoContainerDiscrete}>
+            <DiscreteColorLegend
               orientation='vertical'
               items={[
-                { title: <LabelSub title='New users' subtitle='60.0%'/>, color: radialColors[0] },
+                { title: <LabelSub title='New users' subtitle='60.0%' />, color: radialColors[0] },
+                { title: <LabelSub title='Returning' subtitle='40.0%' />, color: radialColors[0] },
               ]}
             />
-        </div>
+          </div>
 
-        <div className={style.infoContainerDiscrete}>
-          <DiscreteColorLegend
+          <div className={style.infoContainerDiscrete}>
+            <DiscreteColorLegend
               orientation='vertical'
               items={[
-                { title: <LabelSub title='Direct' subtitle='35.0%'/>, color: radialColors[0] },
-                { title: <LabelSub title='Campaign' subtitle='30.0%'/>, color: radialColors[1] },
-                { title: <LabelSub title='Social' subtitle='15.0%'/>, color: radialColors[2] },
-                { title: <LabelSub title='Organic' subtitle='10.0%'/>, color: radialColors[3] },
-                { title: <LabelSub title='Referral' subtitle='10.0%'/>, color: radialColors[4] },
+                { title: <LabelSub title='Direct' subtitle='35.0%' />, color: radialColors[0] },
+                { title: <LabelSub title='Campaign' subtitle='30.0%' />, color: radialColors[1] },
+                { title: <LabelSub title='Social' subtitle='15.0%' />, color: radialColors[2] },
+                { title: <LabelSub title='Organic' subtitle='10.0%' />, color: radialColors[3] },
+                { title: <LabelSub title='Referral' subtitle='10.0%' />, color: radialColors[4] },
               ]}
             />
-        </div>
+          </div>
 
-        <div className={style.infoContainerDiscrete}>
+          <div className={style.infoContainerDiscrete}>
 
-          <LabelsItme
-            items={[
-              { title: '<span style="color:#40ffc0;">CPU</span> utilization', subtitle: '23%', center: true },
-              { title: '<span style="color:#fd2bf5;">Memory</span> usage', subtitle: '56.5%', center: true }
-            ]}
-          />
+            <DiscreteColorLegend
+              orientation='vertical'
+              items={[
+                { title: <LabelSub title='CPU utilize' subtitle='35.0%' />, color: '#40ffc0' },
+                { title: <LabelSub title='Memory' subtitle='30.0%' />, color: '#fd2bf5' },
+              ]}
+            />
 
-        </div>
+          </div>
 
-        <div className={style.infoContainerDiscrete}>
+          <div className={style.infoContainerDiscrete}>
 
-          <LabelsItme
-            items={[
-              { title: 'Disk <span style="color:#40ffc0">write</span>', subtitle: '0.3 Mb/s', center: true },
-              { title: 'Disk <span style="color:#80ff80">read</span>', subtitle: '0.1 Mb/s', center: true },
-              { title: 'Network <span style="color:#fd2bf5">In</span>', subtitle: '0.3 mbps', center: true },
-              { title: 'Network <span style="color:#931fff">out</span>', subtitle: '0.8 mbps', center: true }
-            ]}
-          />
+            <LabelsItme
+              items={[
+                { title: 'Disk <span style="color:#40ffc0">write</span>', subtitle: '0.3 Mb/s', center: true },
+                { title: 'Disk <span style="color:#80ff80">read</span>', subtitle: '0.1 Mb/s', center: true },
+                { title: 'Network <span style="color:#fd2bf5">In</span>', subtitle: '0.3 mbps', center: true },
+                { title: 'Network <span style="color:#931fff">out</span>', subtitle: '0.8 mbps', center: true }
+              ]}
+            />
 
-        </div>
+          </div>
 
         </div>
         <div className={style.legend}>
