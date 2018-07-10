@@ -6,7 +6,7 @@ import { History } from 'history'
 import { observer, inject } from 'mobx-react';
 import { STORE_BAND } from 'app/constants';
 import { BandStore } from 'app/stores';
-import { BandImagesList, BandServicesList, BandImage, BandService } from 'app/types';
+import { BandImagesList, BandServicesList, BandImage, BandService, BandServicesDict, BandServicesMap } from 'app/types';
 import { Iterator } from 'mobx';
 import { ShowIf } from './components/Utils/show-if'
 
@@ -18,7 +18,7 @@ export interface AppProps {
 
 export interface AppState {
   images?: BandImage[];
-  services?: BandService[];
+  services?: BandServicesMap;
 }
 
 @inject(STORE_BAND)
@@ -42,11 +42,12 @@ export class App extends React.Component<AppProps, AppState> {
   render() {
     const { images, services } = this.state;
     const { band, history } = this.props;
+
     return (
       <ShowIf condition={images && services}>
         <Router history={history}>
           <Switch>
-            <Route path="/" component={Root} images={images} services={services} />
+            <Route path="/" render={(props: RouteComponentProps<any>) => <Root images={images} services={services} {...props} />} />
           </Switch>
         </Router>
       </ShowIf>

@@ -19,7 +19,7 @@ export class BandStore {
 
   @computed
   get services() {
-    return this.servicesRegistry.values();
+    return this.servicesRegistry;
   };
 
   @computed
@@ -38,7 +38,11 @@ export class BandStore {
     return BandApi.services()
       .then(action((records: BandServicesList) => {
         this.servicesRegistry.clear();
-        records.forEach(record => this.servicesRegistry.set(record.name, record));
+
+        records.forEach(record => {
+          const pos = `${record.pos[0]}x${record.pos[1]}`
+          this.servicesRegistry.set(pos, record)
+        });
         return this.services;
       }))
       .finally(action(() => {

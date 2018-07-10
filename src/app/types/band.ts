@@ -1,12 +1,24 @@
+import { ObservableMap } from "../../../node_modules/mobx";
 
 export type BandServicesList = BandService[];
-
+export interface BandServicesDict {
+  [k: string]: BandService
+}
+export type BandServicesMap =  ObservableMap<BandService>
 export interface BandService {
   name: string;
+  title: string;
   status: string;
+  pos: [number, number];
+  mem: number;
+  cpu: number;
+  sla: number;
+  app_uptime?: number;
 }
 
 export type BandImagesList = BandImage[];
+
+
 
 export interface BandImage {
   name: string;

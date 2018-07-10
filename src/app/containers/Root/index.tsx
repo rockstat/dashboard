@@ -4,8 +4,12 @@ import { RouteComponentProps } from 'react-router';
 import { Header, DashboardHeader } from 'app/components';
 
 import { AppProps } from 'app/index';
+import { BandImage, BandService, BandServicesMap } from 'app/types';
 
-export interface RootProps extends RouteComponentProps<AppProps> { }
+export interface RootProps extends RouteComponentProps<AppProps> {
+  images?: BandImage[];
+  services?: BandServicesMap;
+}
 
 export class Root extends React.Component<RootProps, {}> {
   render() {

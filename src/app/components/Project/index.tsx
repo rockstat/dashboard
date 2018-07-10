@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 import { ProjectsInterface } from '../../constants';
 import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
+import { BandService } from 'app/types';
 
 interface ProjectProps {
   // number: number;
-  container: ProjectsInterface;
+  container: BandService;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -18,7 +19,7 @@ export class Project extends React.Component<ProjectProps, {}> {
 
   render() {
     const { container } = this.props;
-    const { name, date, cpu, resp, mem } = container;
+    // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
 
@@ -31,8 +32,8 @@ export class Project extends React.Component<ProjectProps, {}> {
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
         >
-          <div className={styles.name}> {name} </div>
-          <div className={styles.date}> {date} </div>
+          <div className={styles.name}> {container.title} </div>
+          <div className={styles.date}> {container.app_uptime} </div>
 
           <div className={styles.dataContainer}>
             <div className={styles.resp}>
@@ -40,13 +41,13 @@ export class Project extends React.Component<ProjectProps, {}> {
                 <div
                   className={styles.line}
                   style={{
-                    transform: `translateX(${-(100 - resp)}%)`
+                    transform: `translateX(${-(100 - container.sla)}%)`
                   }}
                 />
               </div>
               <div className={styles.title}>
-                <span>sla</span>
-                <span>{' '}{resp} %</span>
+                <span>SLA</span>
+                <span>{' '}{container.sla} %</span>
               </div>
             </div>
             <div className={styles.cpu}>
@@ -54,13 +55,13 @@ export class Project extends React.Component<ProjectProps, {}> {
                 <div
                   className={styles.line}
                   style={{
-                    transform: `translateX(${-(100 - cpu)}%)`
+                    transform: `translateX(${-(100 - container.cpu)}%)`
                   }}
                 />
               </div>
               <div className={styles.title}>
-                <span>cpu</span>
-                <span>{' '}{cpu} %</span>
+                <span>CPU</span>
+                <span>{' '}{container.cpu} %</span>
               </div>
             </div>
             <div className={styles.mem}>
@@ -68,13 +69,13 @@ export class Project extends React.Component<ProjectProps, {}> {
                 <div
                   className={styles.line}
                   style={{
-                    transform: `translateX(${-(100 - mem)}%)`
+                    transform: `translateX(${-(100 - container.mem)}%)`
                   }}
                 />
               </div>
               <div className={styles.title}>
-                <span>mem</span>
-                <span>{' '}{mem} %</span>
+                <span>MEM</span>
+                <span>{' '}{container.mem} %</span>
               </div>
             </div>
           </div>
