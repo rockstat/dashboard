@@ -3,7 +3,7 @@ import { requests } from '../lib/agent';
 
 export const BandApi = {
   images: () =>
-    requests.get<BandImagesList>(`/images`),
+    requests.get<BandImagesList>(`/list_images`),
   services: () =>
     requests.get<BandServicesList>(`/list`),
   create: (project) =>
