@@ -66,22 +66,23 @@ module.exports = {
               loader: 'css-loader',
               query: {
                 modules: true,
+                minimize: true,
                 sourceMap: !isProduction,
                 importLoaders: 1,
                 localIdentName: '[local]__[hash:base64:5]'
               }
             },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  autoprefixer({
-                    browsers: ['ie >= 8', 'last 4 version']
-                  })
-                ],
-                sourceMap: true
-              }
-            },
+            // {
+            //   loader: 'postcss-loader',
+            //   options: {
+            //     plugins: [
+            //       autoprefixer({
+            //         browsers: ['ie >= 8', 'last 4 version']
+            //       })
+            //     ],
+            //     sourceMap: true
+            //   }
+            // },
             {
               loader: 'sass-loader',
               options: {
@@ -119,7 +120,7 @@ module.exports = {
   plugins: [
     new WebpackCleanupPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.css',
+      filename: '[name]-[hash].css',
       disable: !isProduction
     }),
     new HtmlWebpackPlugin({
