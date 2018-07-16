@@ -72,17 +72,17 @@ module.exports = {
                 localIdentName: '[local]__[hash:base64:5]'
               }
             },
-            // {
-            //   loader: 'postcss-loader',
-            //   options: {
-            //     plugins: [
-            //       autoprefixer({
-            //         browsers: ['ie >= 8', 'last 4 version']
-            //       })
-            //     ],
-            //     sourceMap: true
-            //   }
-            // },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [
+                  autoprefixer({
+                    browsers: ['ie >= 8', 'last 4 version']
+                  })
+                ],
+                sourceMap: !isProduction
+              }
+            },
             {
               loader: 'sass-loader',
               options: {
