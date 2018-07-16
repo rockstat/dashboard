@@ -8,6 +8,16 @@ import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
 import { BandService } from 'app/types';
 
+import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
+
+
+const DisplayUptime = ({ uptime }: { uptime: number }) => {
+  const formatted = formatDistance(subMilliseconds(new Date(), uptime), new Date())
+  return (
+    <span>{formatted}</span>
+  )
+}
+
 interface ProjectProps {
   // number: number;
   container: BandService;
@@ -33,7 +43,7 @@ export class Project extends React.Component<ProjectProps, {}> {
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
         >
           <div className={styles.name}> {container.title} </div>
-          <div className={styles.date}> {container.app_uptime} </div>
+          <div className={styles.date}> <DisplayUptime uptime={container.uptime} /> </div>
 
           <div className={styles.dataContainer}>
             <div className={styles.resp}>

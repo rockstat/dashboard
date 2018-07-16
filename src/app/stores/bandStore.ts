@@ -40,7 +40,7 @@ export class BandStore {
         this.servicesRegistry.clear();
 
         records.forEach(record => {
-          const pos = `${record.pos[0]}x${record.pos[1]}`
+          const pos = `${record.pos.col}x${record.pos.row}`
           this.servicesRegistry.set(pos, record)
         });
         return this.services;

@@ -5,10 +5,8 @@ import * as cl from 'classnames';
 import { Project } from '../../components';
 
 import { RootProps } from 'app/containers/Root';
-import { BandServicesDict } from 'app/types';
 
 interface ProjecstState {
-  // projects: BandServicesDict;
   modalPosition: number;
 }
 
@@ -21,10 +19,10 @@ const ContainerGrid = (props: ProjectsProps) => {
 
   return (
     <div className={cl(styles.projectsContainer, 'projects-container')}>
-      {Array.apply(0, Array(6)).map(function (_, y) {
+      {Array.apply(0, Array(6)).map(function (_, row) {
 
-        return Array.apply(0, Array(6)).map(function (_, x) {
-          const pos = `${x}x${y}`;
+        return Array.apply(0, Array(6)).map(function (_, col) {
+          const pos = `${col}x${row}`;
           return (
             <Project
               container={services && services.get(pos)}
