@@ -7,7 +7,7 @@ const sourcePath = path.join(__dirname, './src');
 const outPath = path.join(__dirname, './dist');
 const jsyaml = require('js-yaml');
 
-const envName = process.env === 'production' ? 'production' : 'development';
+const envName = process.env.NODE_ENV === 'production' ? 'production' : 'development';
 const envConfig = jsyaml.load(readFileSync('./env_conf.yml'));
 const config = envConfig[envName];
 
