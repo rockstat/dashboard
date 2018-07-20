@@ -10,7 +10,7 @@ export class LabelSub extends React.Component<{ title: string, subtitle: string 
       <span className={style.infoContainerLabel}>
         <span className={style.infoContainerLabelTitle}>{title}</span>
         <span className={style.infoContainerLabelValue}>
-          {subtitle}
+          { subtitle }
         </span>
       </span>
     );

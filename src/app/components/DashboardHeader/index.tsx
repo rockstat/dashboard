@@ -9,7 +9,7 @@ import { formatDate, parseDate } from 'react-day-picker/moment';
 import * as MomentLocaleUtils from 'react-day-picker/moment';
 
 import Select from 'react-select';
-import { options as selectOption, stepValueProps } from '../../constants/stepValues';
+import { options as selectOption, stepValueProps } from '../../constants';
 
 // Make sure moment.js has the required locale data
 import 'moment/locale/ru';
@@ -55,13 +55,13 @@ export class DashboardHeader extends React.Component<DashboardHeaderProps, Dashb
   }
 
   handleFromChange = (from: DashboardHeaderTypes) => {
-    this.setState({ 
+    this.setState({
       from: from
      });
   }
 
   handleToChange = (to: DashboardHeaderTypes) => {
-    this.setState({ 
+    this.setState({
       to: to
      }, this.showFromMonth);
   }
@@ -105,7 +105,7 @@ export class DashboardHeader extends React.Component<DashboardHeaderProps, Dashb
             <DayPickerInput
               ref={el => (this.to = el)}
               value={to}
-              localeUtils={MomentLocaleUtils}
+              localeUtils={ MomentLocaleUtils }
               placeholder="To"
               format="LL"
               formatDate={formatDate}

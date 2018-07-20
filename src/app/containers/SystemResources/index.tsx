@@ -37,7 +37,9 @@ export class SystemResources extends React.Component<{}, {}> {
               toFixed={2}
             />
           </div>
+
           <div className={styles.cpuMeter}><CpuMeter cpu={39.5} /></div>
+          
           <div className={styles.netInbound}>
             <CircleComponent 
               topText={'Net Inbound'}
