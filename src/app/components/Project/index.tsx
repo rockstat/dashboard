@@ -6,9 +6,10 @@ import { Link } from 'react-router-dom';
 import { ProjectsInterface } from '../../constants';
 import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
-import { BandService } from 'app/types';
+import { BandService, BandServicesMap } from 'app/types';
 
 import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
+import { AddProject } from 'app/components/Project/AddProject';
 
 
 const DisplayUptime = ({ uptime }: { uptime: number }) => {
@@ -21,6 +22,7 @@ const DisplayUptime = ({ uptime }: { uptime: number }) => {
 interface ProjectProps {
   // number: number;
   container: BandService;
+  all?: BandServicesMap;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -28,7 +30,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container } = this.props;
+    const { container, all } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -37,7 +39,7 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? <div className={styles.addProject}>+</div> :
+      !this.props.container ? <AddProject all={all} /> :
         <div
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}

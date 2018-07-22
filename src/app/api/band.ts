@@ -7,10 +7,9 @@ export const BandApi = {
   services: () =>
     requests.get<BandServicesList>(`/list`),
   create: (project) =>
-    requests.post<Stub>(`/projects`, project),
+    requests.post<Stub>(`/run/${project.name}`, project),
   ads: (id, filter) =>
     requests.get<Stub>(`/projects/${id}/ads/${filter}`),
   getRegions: () =>
     requests.get<Stub>('/info/regions')
 };
-

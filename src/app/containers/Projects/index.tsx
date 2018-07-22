@@ -20,12 +20,14 @@ const ContainerGrid = (props: ProjectsProps) => {
   return (
     <div className={cl(styles.projectsContainer, 'projects-container')}>
       {Array.apply(0, Array(6)).map(function (_, row) {
+        console.log(services);
 
         return Array.apply(0, Array(6)).map(function (_, col) {
           const pos = `${col}x${row}`;
           return (
             <Project
               container={services && services.get(pos)}
+              all={services && services}
               key={pos}
             // number={5}
             // onClickSettings={this._openSettings}

@@ -63,4 +63,16 @@ export class BandStore {
         this.imagesLoading = false;
       }));
   }
+
+  @action
+  addServices(service) {
+    this.servicesLoading = true;
+    return BandApi.create(service)
+      .then(action((record: BandService) => {
+        // this.servicesRegistry.clear();
+      }))
+      .finally(action(() => {
+        this.servicesLoading = false;
+      }));
+  }
 }
