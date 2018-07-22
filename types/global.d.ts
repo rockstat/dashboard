@@ -11,9 +11,14 @@ declare module '*.scss' {
   export = content;
 }
 
+interface ApiAuth {
+  username: string;
+  password: string
+}
 
 declare var ENV: string;
 declare var API_URL_TMPL: string;
+declare var API_AUTH: ApiAuth | undefined;
 
 interface GlobalEnvironment {
   ENV:any;

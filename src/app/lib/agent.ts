@@ -7,9 +7,16 @@ import { BandServicesList, ApiWrapper, BandImagesList, Stub, GenricCallee } from
 // import authStore from './stores/authStore';
 
 
+const headers = {}
+if (API_AUTH){
+  const basicAuth = 'Basic ' + btoa(API_AUTH.username + ':' + API_AUTH.password);
+  headers['Authorization'] = basicAuth
+}
+
 const client = Axios.create({
   baseURL: API_URL_TMPL.replace('<host>', document.location.hostname),
   timeout: 3000,
+  headers
 });
 
 const encode = encodeURIComponent;

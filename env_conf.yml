@@ -3,3 +3,9 @@ development:
 
 production:
   api_url_tmpl: https://<host>/api
+
+remote_stage:
+  api_url_tmpl: http://rstat-stage.test/api
+  api_auth:
+    username: admin
+    password: 123123

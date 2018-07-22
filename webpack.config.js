@@ -7,7 +7,7 @@ const sourcePath = path.join(__dirname, './src');
 const outPath = path.join(__dirname, './dist');
 const jsyaml = require('js-yaml');
 
-const envName = process.env.NODE_ENV === 'production' ? 'production' : 'development';
+const envName = process.env.NODE_ENV === 'production' ? 'production' : process.env.NODE_ENV || 'development';
 const envConfig = jsyaml.load(readFileSync('./env_conf.yml'));
 const config = envConfig[envName];
 
@@ -129,6 +129,7 @@ module.exports = {
     new webpack.DefinePlugin({
       ENV: JSON.stringify(envName),
       API_URL_TMPL: JSON.stringify(config.api_url_tmpl),
+      API_AUTH: JSON.stringify(config.api_auth),
     })
   ],
   devServer: {
