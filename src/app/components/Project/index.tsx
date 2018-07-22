@@ -23,6 +23,7 @@ interface ProjectProps {
   // number: number;
   container: BandService;
   all?: BandServicesMap;
+  creat: (service: BandService) => void;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -30,7 +31,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, all } = this.props;
+    const { container, all, creat } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -39,7 +40,7 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? <AddProject all={all} /> :
+      !this.props.container ? <AddProject creat={creat} all={all} /> :
         <div
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}

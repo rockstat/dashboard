@@ -1,28 +1,21 @@
 import * as React from 'react';
 import * as styles from './style.scss';
 import * as cl from 'classnames';
-import { STORE_BAND } from 'app/constants';
 import { BandServicesMap, BandService } from 'app/types';
-import { observer, inject } from 'mobx-react';
-import { BandStore } from 'app/stores';
 
 export interface AddProjectProps {
   all?: BandServicesMap;
-  [STORE_BAND]: BandStore;
+  creat: (service: BandService) => void;
 }
 
 interface AddProjectState {
   active: boolean;
 }
 
-@inject(STORE_BAND)
-@observer
 export class AddProject extends React.Component<AddProjectProps, AddProjectState> {
   state = {
     active: false
   }
-
-  inputContainerIverlay: HTMLInputElement;
 
   changeAdd = () => {
     this.setState({
@@ -31,13 +24,10 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
   }
 
   addContainer = async(service: BandService) => {
-    const { band } = this.props;
     this.setState({
       active: false
     });
-
-    await band.addServices(service);
-    await band.loadServices();
+    this.props.creat(service);
   }
 
   onFocusAddContainer = () => {
@@ -60,7 +50,6 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
         />
         <div className={cl(styles.addProjectBtn, {[styles.active]: active})} onClick={this.changeAdd}>+</div>
         <div className={cl(styles.addProjectList, {[styles.active]: active})}>
-
           {
             allLIst && allLIst.map((item, index) => {
               return (
@@ -71,7 +60,6 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
               )
             })
           }
-
         </div>
       </div>
     )
