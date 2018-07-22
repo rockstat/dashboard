@@ -26,14 +26,11 @@ const ContainerGrid = (props: ProjectsProps) => {
     const { band } = props;
 
     await band.addServices(service);
-    await band.loadServices();
   }
 
   return (
     <div className={cl(styles.projectsContainer, 'projects-container')}>
       {Array.apply(0, Array(6)).map(function (_, row) {
-        console.log(services);
-
         return Array.apply(0, Array(6)).map(function (_, col) {
           const pos = `${col}x${row}`;
           return (
@@ -58,6 +55,17 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
   state = {
     modalPosition: 0
   }
+  componentWillMount() {
+    this.interval = setInterval(() => {
+      this.props[STORE_BAND].loadServices();
+    }, 3000);
+  }
+
+  componentWillUnmount() {
+    // clearInterval(this.interval);
+  }
+
+  interval: NodeJS.Timer | number;
   // _openSettings = (index: number, e: HTMLDivElement) => {
   //   this.setState({
   //     showAdd: true,

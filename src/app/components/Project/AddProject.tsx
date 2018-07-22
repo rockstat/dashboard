@@ -39,8 +39,9 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
   render() {
     const { active } = this.state;
     const { all } = this.props;
-    let allLIst = [];
+    let allLIst: BandService[] = [];
     all && all.forEach(item => allLIst.push(item));
+    let validCervicesAdd: string[] = ['sxgeo', 'mmgeo', 'uaparser'];
 
     return (
       <div className={cl(styles.addProject, {[styles.active]: active})}>
@@ -52,6 +53,7 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
         <div className={cl(styles.addProjectList, {[styles.active]: active})}>
           {
             allLIst && allLIst.map((item, index) => {
+              if (validCervicesAdd.indexOf(item.name) < 0) return;
               return (
                 <div key={index} onClick={this.addContainer.bind(this, item)} className={styles.itemListVariant}>
                   <div className={styles.title}>{ item.title }</div>
