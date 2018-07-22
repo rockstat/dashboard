@@ -6,10 +6,11 @@ import { Link } from 'react-router-dom';
 import { ProjectsInterface } from '../../constants';
 import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
-import { BandService, BandServicesMap } from 'app/types';
+import { BandService, BandServicesMap, BandImage } from 'app/types';
 
 import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
 import { AddProject } from 'app/components/Project/AddProject';
+import { RemoveIcon } from 'app/icons/RemoveIcons';
 
 
 const DisplayUptime = ({ uptime }: { uptime: number }) => {
@@ -22,7 +23,7 @@ const DisplayUptime = ({ uptime }: { uptime: number }) => {
 interface ProjectProps {
   // number: number;
   container: BandService;
-  all?: BandServicesMap;
+  all?: BandImage[];
   creat: (service: BandService) => void;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
@@ -95,6 +96,7 @@ export class Project extends React.Component<ProjectProps, {}> {
 
           <div className={styles.eventContainer}>
             <div className={styles.settings} onClick={(e) => onClickSettings(number, this.projetContainer)}><SettingsIcon /></div>
+            {/* <div className={styles.remove}><RemoveIcon /></div> */}
             <Link to={'/ide'} target={'__blank'} className={styles.linkTo}><LinkToIdeIcon /></Link>
           </div>
         </div>

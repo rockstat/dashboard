@@ -69,10 +69,25 @@ export class BandStore {
     this.servicesLoading = true;
     return BandApi.create(service)
       .then(action((record: BandService) => {
-        // this.servicesRegistry.clear();
+        let serviceDetect: boolean = false;
+
+        this.servicesRegistry.forEach(item => {
+          if (item.name === record.name) serviceDetect = true;
+        });
+
+        if (!serviceDetect) {
+          const pos = `${record.pos.col}x${record.pos.row}`;
+          this.servicesRegistry.set(pos, record);
+        }
       }))
       .finally(action(() => {
         this.servicesLoading = false;
       }));
+  }
+
+  @action
+  deleteServices(serviceName) {
+    this.servicesLoading = true;
+    return BandApi.deleteService(serviceName)
   }
 }

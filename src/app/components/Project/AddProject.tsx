@@ -1,10 +1,10 @@
 import * as React from 'react';
 import * as styles from './style.scss';
 import * as cl from 'classnames';
-import { BandServicesMap, BandService } from 'app/types';
+import { BandServicesMap, BandService, BandImage } from 'app/types';
 
 export interface AddProjectProps {
-  all?: BandServicesMap;
+  all?: BandImage[];
   creat: (service: BandService) => void;
 }
 
@@ -39,7 +39,7 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
   render() {
     const { active } = this.state;
     const { all } = this.props;
-    let allLIst: BandService[] = [];
+    let allLIst: BandImage[] = [];
     all && all.forEach(item => allLIst.push(item));
     let validCervicesAdd: string[] = ['sxgeo', 'mmgeo', 'uaparser'];
 
@@ -53,10 +53,10 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
         <div className={cl(styles.addProjectList, {[styles.active]: active})}>
           {
             allLIst && allLIst.map((item, index) => {
-              if (validCervicesAdd.indexOf(item.name) < 0) return;
+              if (validCervicesAdd.indexOf(item.key) < 0) return;
               return (
                 <div key={index} onClick={this.addContainer.bind(this, item)} className={styles.itemListVariant}>
-                  <div className={styles.title}>{ item.title }</div>
+                  <div className={styles.title}>{ item.key }</div>
                   <div className={styles.add}>+</div>
                 </div>
               )

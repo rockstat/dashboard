@@ -154,12 +154,27 @@
     width: 100%;
     margin-top: 38px;
 
-    .settings, .linkTo {
+    .settings, .linkTo, .remove {
       width: 26px;
       height: 26px;
       cursor: pointer;
       svg {
         width: 100%;
+      }
+    }
+    .remove {
+      border: 1px solid #222;
+      padding: 3%;
+      border-radius: 2px;
+      width: 22px;
+      height: 22px;
+      margin-right: auto;
+      svg {
+        top: -6px;
+        position: relative;
+      }
+      svg path {
+        fill: #828282;
       }
     }
   }

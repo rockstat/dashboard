@@ -1,9 +1,12 @@
+@import '../../base/fonts.scss';
+
 .headerContent {
   display: flex;
   align-items: baseline;
   padding: 15px 0;
   .logo {
     width: 8%;
+    margin-right: 53px;
     svg {
       width: 100%;
       path {
@@ -13,23 +16,66 @@
   }
   .menu {
     display: flex;
-    width: 15%;
     justify-content: space-between;
-    margin-left: auto;
     .menuItem {
       color: #fff;
       text-decoration: underline;
       font-size: 18px;
       opacity: 0.7;
+      margin-right: 8px;
       transition: opacity .2s ease;
+      text-decoration: none;
+      text-transform: uppercase;
+      @include mainFont(14px, 500);
+      opacity: 0.3;
+      pointer-events: none;
+      &:first-child {
+        color: #00F0FF;
+        opacity: 1;
+      }
       &:hover {
         opacity: 1;
       }
     }
   }
-  .user {
-    opacity: 0.7;
-    font-size: 18px;
-    margin-left: 20px;
+  .selctedContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 999;
+    width: 40%;
+    margin-left: auto;
+    .stepContainer {
+      width: 20%;
+      @include mainFont(14px, 500);
+    }
   }
 }
+
+// .headerContent {
+//   margin: 10px 0 25px;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   .title {
+//     @include mainFont(24px, 500);
+//     font-family: 'Raleway', sans-serif;
+//     font-weight: 500;
+//     font-size: 24px;
+//     line-height: 28px;
+//     color: #F2F2F2;
+//   }
+//   .selctedContainer {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     position: relative;
+//     z-index: 999;
+//     width: 40%;
+//     .stepContainer {
+//       width: 20%;
+//       @include mainFont(16px, 500);
+//     }
+//   }
+// }

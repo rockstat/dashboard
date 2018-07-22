@@ -20,7 +20,7 @@ export interface ProjectsProps extends RootProps {
 
 
 const ContainerGrid = (props: ProjectsProps) => {
-  const { services, ...rest } = props;
+  const { services, images, ...rest } = props;
   
   const creatService = async(service: BandService) => {
     const { band } = props;
@@ -36,7 +36,7 @@ const ContainerGrid = (props: ProjectsProps) => {
           return (
             <Project
               container={services && services.get(pos)}
-              all={services && services}
+              all={images && images}
               key={pos}
               creat={creatService}
             // number={5}

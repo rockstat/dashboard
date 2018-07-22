@@ -16,7 +16,7 @@ export class Root extends React.Component<RootProps, {}> {
     return (
       <div className='rockstat'>
         <Header />
-        <DashboardHeader />
+        {/* <DashboardHeader /> */}
         <Graph {...this.props} />
         <Projects  {...this.props} />
         {/* <SystemResources /> */}
