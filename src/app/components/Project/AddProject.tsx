@@ -2,19 +2,24 @@ import * as React from 'react';
 import * as styles from './style.scss';
 import * as cl from 'classnames';
 import { BandServicesMap, BandService, BandImage } from 'app/types';
+import { validServicesChanges } from 'app/constants/validServicesChanges';
 
 export interface AddProjectProps {
   all?: BandImage[];
   creat: (service: BandService) => void;
+  pos: string;
+  serviceLoading: boolean;
 }
 
 interface AddProjectState {
   active: boolean;
+  loadingService: string;
 }
 
 export class AddProject extends React.Component<AddProjectProps, AddProjectState> {
   state = {
-    active: false
+    active: false,
+    loadingService: ''
   }
 
   changeAdd = () => {
@@ -23,9 +28,10 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
     });
   }
 
-  addContainer = async(service: BandService) => {
+  addContainer = async(service: BandService, pos: string) => {
     this.setState({
-      active: false
+      active: false,
+      loadingService: pos
     });
     this.props.creat(service);
   }
@@ -37,14 +43,13 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
   }
 
   render() {
-    const { active } = this.state;
-    const { all } = this.props;
+    const { active, loadingService } = this.state;
+    const { all, pos, serviceLoading } = this.props;
     let allLIst: BandImage[] = [];
     all && all.forEach(item => allLIst.push(item));
-    let validCervicesAdd: string[] = ['sxgeo', 'mmgeo', 'uaparser'];
 
     return (
-      <div className={cl(styles.addProject, {[styles.active]: active})}>
+      <div className={cl(styles.addProject, {[styles.active]: active}, {[styles.loading]: loadingService === pos && serviceLoading})}>
         <div 
           className={cl(styles.overlay, {[styles.active]: active})}
           onClick={this.onFocusAddContainer}
@@ -53,9 +58,11 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
         <div className={cl(styles.addProjectList, {[styles.active]: active})}>
           {
             allLIst && allLIst.map((item, index) => {
-              if (validCervicesAdd.indexOf(item.key) < 0) return;
               return (
-                <div key={index} onClick={this.addContainer.bind(this, item)} className={styles.itemListVariant}>
+                <div 
+                  key={index}
+                  onClick={this.addContainer.bind(this, item, pos)}
+                  className={cl(styles.itemListVariant, {[styles.disabled]: validServicesChanges.indexOf(item.key) < 0})}>
                   <div className={styles.title}>{ item.key }</div>
                   <div className={styles.add}>+</div>
                 </div>

@@ -46,9 +46,11 @@
     z-index: 999;
     width: 40%;
     margin-left: auto;
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
     .stepContainer {
       width: 20%;
-      @include mainFont(14px, 500);
     }
   }
 }

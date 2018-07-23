@@ -4,14 +4,15 @@ import * as cl from 'classnames';
 import { STORE_BAND } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { BandStore } from 'app/stores';
-
+import { ShowIf } from '../../components/Utils/show-if';
 import { Project } from '../../components';
-
 import { RootProps } from 'app/containers/Root';
-import { BandService } from 'app/types';
+import { BandService, BandServicesMap, BandImage, BandImagesList } from 'app/types';
 
 interface ProjecstState {
   modalPosition: number;
+  services?: BandServicesMap
+  images?: BandImagesList
 }
 
 export interface ProjectsProps extends RootProps { 
@@ -20,12 +21,16 @@ export interface ProjectsProps extends RootProps {
 
 
 const ContainerGrid = (props: ProjectsProps) => {
-  const { services, images, ...rest } = props;
-  
+  const { services, images, band, ...rest } = props;
   const creatService = async(service: BandService) => {
     const { band } = props;
 
     await band.addServices(service);
+  }
+  const deleteService = async(serviceName: string) => {
+    const { band } = props;
+
+    await band.deleteServices(serviceName);
   }
 
   return (
@@ -35,10 +40,13 @@ const ContainerGrid = (props: ProjectsProps) => {
           const pos = `${col}x${row}`;
           return (
             <Project
-              container={services && services.get(pos)}
+              container={services.get(pos)}
               all={images && images}
               key={pos}
+              pos={pos}
+              serviceLoading={band.serviceOnceLoading}
               creat={creatService}
+              deleteService={deleteService}
             // number={5}
             // onClickSettings={this._openSettings}
             />
@@ -48,17 +56,36 @@ const ContainerGrid = (props: ProjectsProps) => {
     </div>
   )
 }
-  
+
 @inject(STORE_BAND)
 @observer
 export class Projects extends React.Component<ProjectsProps, ProjecstState> {
   state = {
-    modalPosition: 0
+    modalPosition: 0,
+    services: undefined,
+    images: undefined
   }
   componentWillMount() {
-    this.interval = setInterval(() => {
-      this.props[STORE_BAND].loadServices();
-    }, 3000);
+    const { band } = this.props;
+    // const test = new WebSocket('ws://admin:123123@rstat-stage.test/api/list', ['protocol1', 'protocol2']);
+    // test.onopen = () => console.log('Websocket open');
+    // test.onclose = (eventError) => console.log(`Websocket close ${eventError.wasClean ? 'clean' : 'not clean'}`);
+    // test.onmessage = (data) => console.log('Получены данные', data);
+    // test.onerror = (error) => console.log('Error - ', error);
+    Promise.resolve()
+      .then(() => band.loadImages())
+      .then(images => { this.setState({ images }) })
+      .then(() => band.loadServices())
+      .then(services => { this.setState({ services }) })
+      .then(() => {
+        this.interval = setInterval(() => {
+          band.loadServices().then(() => {
+            this.setState({
+              services: band.services
+            })
+          })
+        }, 3000);
+      })
   }
 
   componentWillUnmount() {
@@ -79,8 +106,17 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
   //   })
   // }
 
+  websocketConnect = (data) => {
+    console.log(data);
+  }
+
   render() {
-    // let { showAdd, modalPosition, elements } = this.state;
-    return <ContainerGrid {...this.props} />
+    let { services, images } = this.state;
+
+    return (
+      <ShowIf condition={services && images}>
+          <ContainerGrid {...this.props} services={services} images={images}/>
+      </ShowIf>
+    )
   }
 }

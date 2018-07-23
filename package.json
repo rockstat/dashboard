@@ -63,12 +63,14 @@
     "mobx-react": "^4.4.2",
     "mobx-react-router": "^4.0.1",
     "moment": "^2.22.2",
+    "promise.prototype.finally": "^3.1.0",
     "react": "^16.2.0",
     "react-day-picker": "^7.1.9",
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-select": "^1.2.1",
-    "react-vis": "^1.9.3"
+    "react-vis": "^1.9.3",
+    "react-websocket": "^2.0.0"
   }
 }

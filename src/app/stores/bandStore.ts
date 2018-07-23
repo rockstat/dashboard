@@ -6,6 +6,7 @@ export class BandStore {
 
   // Common logic
   @observable servicesLoading = false;
+  @observable serviceOnceLoading = false;
   @observable imagesLoading = false;
   @observable servicesRegistry = observable.map<BandService>();
   @observable imagesRegistry = observable.map<BandImage>();
@@ -66,7 +67,7 @@ export class BandStore {
 
   @action
   addServices(service) {
-    this.servicesLoading = true;
+    this.serviceOnceLoading = true;
     return BandApi.create(service)
       .then(action((record: BandService) => {
         let serviceDetect: boolean = false;
@@ -81,13 +82,14 @@ export class BandStore {
         }
       }))
       .finally(action(() => {
-        this.servicesLoading = false;
+        this.serviceOnceLoading = false;
       }));
   }
 
   @action
   deleteServices(serviceName) {
-    this.servicesLoading = true;
+    this.serviceOnceLoading = true;
     return BandApi.deleteService(serviceName)
+      .finally(action(() => this.serviceOnceLoading = false))
   }
 }

@@ -9,7 +9,7 @@ export const BandApi = {
   create: (project) =>
     requests.post<Stub>(`/run/${project.key}`, project),
   deleteService: (name) =>
-    requests.get<Stub>(`/remove/${name}`),
+    requests.get<Stub>(`/rm/${name}`),
   ads: (id, filter) =>
     requests.get<Stub>(`/projects/${id}/ads/${filter}`),
   getRegions: () =>

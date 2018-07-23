@@ -11,7 +11,7 @@ import { BandService, BandServicesMap, BandImage } from 'app/types';
 import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
 import { AddProject } from 'app/components/Project/AddProject';
 import { RemoveIcon } from 'app/icons/RemoveIcons';
-
+import { validServicesChanges } from 'app/constants/validServicesChanges';
 
 const DisplayUptime = ({ uptime }: { uptime: number }) => {
   const formatted = formatDistance(subMilliseconds(new Date(), uptime), new Date())
@@ -25,6 +25,9 @@ interface ProjectProps {
   container: BandService;
   all?: BandImage[];
   creat: (service: BandService) => void;
+  deleteService: (serviceName: string) => void;
+  pos: string;
+  serviceLoading: boolean;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -32,7 +35,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, all, creat } = this.props;
+    const { container, all, creat, deleteService, pos, serviceLoading } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -41,7 +44,7 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? <AddProject creat={creat} all={all} /> :
+      !this.props.container ? <AddProject serviceLoading={serviceLoading} creat={creat} all={all} pos={pos}/> :
         <div
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
@@ -96,7 +99,10 @@ export class Project extends React.Component<ProjectProps, {}> {
 
           <div className={styles.eventContainer}>
             <div className={styles.settings} onClick={(e) => onClickSettings(number, this.projetContainer)}><SettingsIcon /></div>
-            {/* <div className={styles.remove}><RemoveIcon /></div> */}
+            {
+              validServicesChanges.indexOf(container.name) > -1 &&
+                <div className={styles.remove} onClick={deleteService.bind(this, container.name)}><RemoveIcon /></div>
+            }
             <Link to={'/ide'} target={'__blank'} className={styles.linkTo}><LinkToIdeIcon /></Link>
           </div>
         </div>
