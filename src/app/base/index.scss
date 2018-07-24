@@ -214,6 +214,7 @@
 
   .DayPicker--interactionDisabled .DayPicker-Day {
     cursor: default;
+    color: #4C4C4C !important;
   }
 
   .DayPicker-Footer {
@@ -243,7 +244,7 @@
   }
 
   .DayPicker-Day--disabled {
-    color: #dce0e0;
+    color: #4C4C4C !important;
     cursor: default;
     /* background-color: #eff1f1; */
   }
@@ -314,9 +315,13 @@
   }
   .InputFromTo .DayPicker-Day--start {
     border-radius: 100% !important;
+    background-color: #00f0ff !important;
+    color: #000 !important;
     padding: 5px 10px !important;
   }
   .InputFromTo .DayPicker-Day--end {
+    background-color: #00f0ff !important;
+    color: #000 !important;
     border-radius: 100% !important;
     padding: 5px 10px !important;
   }
@@ -325,7 +330,7 @@
     color: $color;
   }
   .InputFromTo-line {
-    color: #04e1e1;
+    color: #00f0ff;
   }
   /**
  * React Select

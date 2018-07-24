@@ -42,6 +42,30 @@ export class AddProject extends React.Component<RunServiceProps, RunServiceState
     });
   }
 
+  validServicesChanges = (image: BandImage) => {
+    let result: {changeDetect: boolean, scopes: string[]} = {
+      changeDetect: false,
+      scopes: []
+    };
+
+    if (image.meta.managed) {
+      let config = image.meta;
+      result = {
+        changeDetect: false,
+        scopes: [config.persistent && 'persistent', config.protected && 'protected']
+      }
+    }
+
+    if (!image.meta.managed || image.meta.managed === undefined) {
+      result = {
+        ...result,
+        changeDetect: true
+      }
+    }
+
+    return result;
+  }
+
   render() {
     const { active, loadingService } = this.state;
     const { all, pos, serviceLoading } = this.props;
@@ -62,8 +86,7 @@ export class AddProject extends React.Component<RunServiceProps, RunServiceState
                 <div
                   key={index}
                   onClick={this.runService.bind(this, item, pos)}
-                  // , {[styles.disabled]: validServicesChanges.indexOf(item.key) < 0}
-                  className={cl(styles.itemListVariant)}>
+                  className={cl(styles.itemListVariant, {[styles.disabled]: this.validServicesChanges(item).changeDetect})}>
                   <div className={styles.title}>{ item.meta.title }</div>
                   <div className={styles.add}>+</div>
                 </div>

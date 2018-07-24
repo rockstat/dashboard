@@ -29,6 +29,7 @@ export interface BandImage {
   key?: string;
   path: string;
   meta: {
+    managed?: boolean;
     persistent: boolean;
     protected: boolean;
     title: string;
