@@ -1,2 +1,2 @@
-export * from './band';
-export * from './stat';
+export * from 'app/api/band';
+export * from 'app/api/stat';

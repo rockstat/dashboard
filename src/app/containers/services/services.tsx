@@ -1,13 +1,15 @@
 import * as React from 'react';
-import * as styles from './style.scss';
 import * as cl from 'classnames';
 import { STORE_BAND } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { BandStore } from 'app/stores';
-import { ShowIf } from '../../components/Utils/show-if';
-import { Project } from '../../components';
+import { ShowIf } from 'app/components/Utils/show-if';
+import { Project } from 'app/components';
 import { RootProps } from 'app/containers/Root';
 import { BandService, BandServicesMap, BandImage, BandImagesList } from 'app/types';
+
+import * as styles from './style.scss';
+
 
 interface ProjecstState {
   modalPosition: number;
@@ -15,19 +17,18 @@ interface ProjecstState {
   images?: BandImagesList
 }
 
-export interface ProjectsProps extends RootProps { 
+export interface ProjectsProps extends RootProps {
   [STORE_BAND]?: BandStore;
- }
+}
 
 
 const ContainerGrid = (props: ProjectsProps) => {
   const { services, images, band, ...rest } = props;
-  const creatService = async(service: BandService) => {
+  const runService = async (image: BandImage, pos: string) => {
     const { band } = props;
-
-    await band.addServices(service);
+    await band.runService(image.key, pos);
   }
-  const deleteService = async(serviceName: string) => {
+  const deleteService = async (serviceName: string) => {
     const { band } = props;
 
     await band.deleteServices(serviceName);
@@ -45,7 +46,7 @@ const ContainerGrid = (props: ProjectsProps) => {
               key={pos}
               pos={pos}
               serviceLoading={band.serviceOnceLoading}
-              creat={creatService}
+              onRunClick={runService}
               deleteService={deleteService}
             // number={5}
             // onClickSettings={this._openSettings}
@@ -115,7 +116,7 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
 
     return (
       <ShowIf condition={services && images}>
-          <ContainerGrid {...this.props} services={services} images={images}/>
+        <ContainerGrid {...this.props} services={services} images={images} />
       </ShowIf>
     )
   }

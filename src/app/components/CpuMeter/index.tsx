@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { CpuLine, ArrowIcon } from '../../icons';
+import { CpuLine, ArrowIcon } from 'app/icons';
 
 import * as styles from './style.scss';
 

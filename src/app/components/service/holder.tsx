@@ -1,22 +1,22 @@
 import * as React from 'react';
 import * as styles from './style.scss';
 import * as cl from 'classnames';
-import { BandServicesMap, BandService, BandImage } from 'app/types';
-import { validServicesChanges } from 'app/constants/validServicesChanges';
+import { BandServicesMap, BandImage } from 'app/types';
+// import { validServicesChanges } from 'app/constants/validServicesChanges';
 
-export interface AddProjectProps {
+export interface RunServiceProps {
   all?: BandImage[];
-  creat: (service: BandService) => void;
+  onRunClick: (service: BandImage, pos: string) => void;
   pos: string;
   serviceLoading: boolean;
 }
 
-interface AddProjectState {
+interface RunServiceState {
   active: boolean;
   loadingService: string;
 }
 
-export class AddProject extends React.Component<AddProjectProps, AddProjectState> {
+export class AddProject extends React.Component<RunServiceProps, RunServiceState> {
   state = {
     active: false,
     loadingService: ''
@@ -28,12 +28,12 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
     });
   }
 
-  addContainer = async(service: BandService, pos: string) => {
+  runService = async(image: BandImage, pos: string) => {
     this.setState({
       active: false,
       loadingService: pos
     });
-    this.props.creat(service);
+    this.props.onRunClick(image, pos);
   }
 
   onFocusAddContainer = () => {
@@ -50,7 +50,7 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
 
     return (
       <div className={cl(styles.addProject, {[styles.active]: active}, {[styles.loading]: loadingService === pos && serviceLoading})}>
-        <div 
+        <div
           className={cl(styles.overlay, {[styles.active]: active})}
           onClick={this.onFocusAddContainer}
         />
@@ -59,10 +59,11 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
           {
             allLIst && allLIst.map((item, index) => {
               return (
-                <div 
+                <div
                   key={index}
-                  onClick={this.addContainer.bind(this, item, pos)}
-                  className={cl(styles.itemListVariant, {[styles.disabled]: validServicesChanges.indexOf(item.key) < 0})}>
+                  onClick={this.runService.bind(this, item, pos)}
+                  // , {[styles.disabled]: validServicesChanges.indexOf(item.key) < 0}
+                  className={cl(styles.itemListVariant)}>
                   <div className={styles.title}>{ item.key }</div>
                   <div className={styles.add}>+</div>
                 </div>

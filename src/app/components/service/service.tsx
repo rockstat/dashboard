@@ -1,17 +1,16 @@
 import * as React from 'react';
-import * as styles from './style.scss';
 import * as cl from 'classnames';
 import { Link } from 'react-router-dom';
-
-import { ProjectsInterface } from '../../constants';
+import { ProjectsInterface } from 'app/constants';
 import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
 import { BandService, BandServicesMap, BandImage } from 'app/types';
-
 import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
-import { AddProject } from 'app/components/Project/AddProject';
+import { AddProject } from './holder';
 import { RemoveIcon } from 'app/icons/RemoveIcons';
 import { validServicesChanges } from 'app/constants/validServicesChanges';
+
+import * as styles from './style.scss';
 
 const DisplayUptime = ({ uptime }: { uptime: number }) => {
   const formatted = formatDistance(subMilliseconds(new Date(), uptime), new Date())
@@ -24,7 +23,7 @@ interface ProjectProps {
   // number: number;
   container: BandService;
   all?: BandImage[];
-  creat: (service: BandService) => void;
+  onRunClick: (image: BandImage, pos: string) => void;
   deleteService: (serviceName: string) => void;
   pos: string;
   serviceLoading: boolean;
@@ -35,7 +34,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, all, creat, deleteService, pos, serviceLoading } = this.props;
+    const { container, all, onRunClick, deleteService, pos, serviceLoading } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -44,7 +43,7 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? <AddProject serviceLoading={serviceLoading} creat={creat} all={all} pos={pos}/> :
+      !this.props.container ? <AddProject serviceLoading={serviceLoading} onRunClick={onRunClick} all={all} pos={pos}/> :
         <div
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}

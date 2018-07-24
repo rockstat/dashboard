@@ -1,5 +1,5 @@
-import { ApiWrapper, Stub } from '../types'
-import { requests } from '../lib/agent';
+import { ApiWrapper, Stub } from 'app/types'
+import { requests } from 'app/lib/agent';
 
 export const StatApi = {
   web_categories: () =>

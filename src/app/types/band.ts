@@ -1,4 +1,4 @@
-import { ObservableMap } from "../../../node_modules/mobx";
+import { ObservableMap } from "mobx";
 
 export type BandServicesList = BandService[];
 export interface BandServicesDict {

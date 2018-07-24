@@ -1,1 +1,1 @@
-export * from './band';
+export * from 'app/types/band';
