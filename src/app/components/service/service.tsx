@@ -22,7 +22,7 @@ const DisplayUptime = ({ uptime }: { uptime: number }) => {
 interface ProjectProps {
   // number: number;
   container: BandService;
-  all?: BandImage[];
+  images?: BandImage[];
   onRunClick: (image: BandImage, pos: string) => void;
   deleteService: (serviceName: string) => void;
   pos: string;
@@ -34,7 +34,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, all, onRunClick, deleteService, pos, serviceLoading } = this.props;
+    const { container, images, onRunClick, deleteService, pos, serviceLoading } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -43,7 +43,13 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? <AddProject serviceLoading={serviceLoading} onRunClick={onRunClick} all={all} pos={pos}/> :
+      !this.props.container ? 
+        <AddProject 
+          serviceLoading={serviceLoading}
+          onRunClick={onRunClick}
+          images={images}
+          pos={pos}
+        /> :
         <div
           className={cl(styles.project)}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
@@ -99,8 +105,14 @@ export class Project extends React.Component<ProjectProps, {}> {
           <div className={styles.eventContainer}>
             <div className={styles.settings} onClick={(e) => onClickSettings(number, this.projetContainer)}><SettingsIcon /></div>
             {
-              validServicesChanges.indexOf(container.name) > -1 &&
-                <div className={styles.remove} onClick={deleteService.bind(this, container.name)}><RemoveIcon /></div>
+              container.meta.managed &&
+                <div className={styles.eventsContainerRules}>
+                  { container.meta.protected &&  <div className={styles.refresh}><RefreshIcon /></div>}
+                  { container.meta.persistent && <div className={styles.pause}><PauseIcon /></div>}
+                  { !container.meta.protected && !container.meta.persistent &&
+                    <div className={styles.remove} onClick={deleteService.bind(this, container.name)}><RemoveIcon /></div>
+                  }
+                </div>
             }
             <Link to={'/ide'} target={'__blank'} className={styles.linkTo}><LinkToIdeIcon /></Link>
           </div>

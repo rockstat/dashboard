@@ -5,7 +5,7 @@ import { BandServicesMap, BandImage } from 'app/types';
 // import { validServicesChanges } from 'app/constants/validServicesChanges';
 
 export interface RunServiceProps {
-  all?: BandImage[];
+  images?: BandImage[];
   onRunClick: (service: BandImage, pos: string) => void;
   pos: string;
   serviceLoading: boolean;
@@ -42,35 +42,11 @@ export class AddProject extends React.Component<RunServiceProps, RunServiceState
     });
   }
 
-  validServicesChanges = (image: BandImage) => {
-    let result: {changeDetect: boolean, scopes: string[]} = {
-      changeDetect: false,
-      scopes: []
-    };
-
-    if (image.meta.managed) {
-      let config = image.meta;
-      result = {
-        changeDetect: false,
-        scopes: [config.persistent && 'persistent', config.protected && 'protected']
-      }
-    }
-
-    if (!image.meta.managed || image.meta.managed === undefined) {
-      result = {
-        ...result,
-        changeDetect: true
-      }
-    }
-
-    return result;
-  }
-
   render() {
     const { active, loadingService } = this.state;
-    const { all, pos, serviceLoading } = this.props;
+    const { images, pos, serviceLoading } = this.props;
     let allLIst: BandImage[] = [];
-    all && all.forEach(item => allLIst.push(item));
+    images && images.forEach(item => allLIst.push(item));
 
     return (
       <div className={cl(styles.addProject, {[styles.active]: active}, {[styles.loading]: loadingService === pos && serviceLoading})}>
@@ -86,8 +62,10 @@ export class AddProject extends React.Component<RunServiceProps, RunServiceState
                 <div
                   key={index}
                   onClick={this.runService.bind(this, item, pos)}
-                  className={cl(styles.itemListVariant, {[styles.disabled]: this.validServicesChanges(item).changeDetect})}>
-                  <div className={styles.title}>{ item.meta.title }</div>
+                  className={cl(styles.itemListVariant
+                  // {[styles.disabled]: this.validServicesChanges(item).changeDetect}
+                )}>
+                  <div className={styles.title}>{ item.title }</div>
                   <div className={styles.add}>+</div>
                 </div>
               )

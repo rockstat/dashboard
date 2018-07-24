@@ -166,7 +166,7 @@
     width: 100%;
     margin-top: 38px;
 
-    .settings, .linkTo, .remove {
+    .settings, .linkTo {
       width: 26px;
       height: 26px;
       cursor: pointer;
@@ -174,19 +174,40 @@
         width: 100%;
       }
     }
-    .remove {
-      border: 1px solid #222;
-      padding: 3%;
-      border-radius: 2px;
-      width: 22px;
-      height: 22px;
+
+    .eventsContainerRules {
+      display: flex;
+      justify-content: space-between;
       margin-right: auto;
-      svg {
-        top: -6px;
-        position: relative;
+      .refresh, .pause, .remove {
+        width: 26px;
+        height: 26px;
+        cursor: pointer;
+        svg {
+          width: 100%;
+        }
       }
-      svg path {
-        fill: #828282;
+      .remove {
+        border: 1px solid #222;
+        padding: 3%;
+        border-radius: 2px;
+        width: 22px;
+        height: 22px;
+        margin-right: auto;
+        margin: 2px;
+        position: relative;
+        svg {
+          position: absolute;
+          width: 50%;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+        }
+        svg path {
+          fill: #828282;
+        }
       }
     }
   }

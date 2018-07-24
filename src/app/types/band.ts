@@ -17,6 +17,11 @@ export interface BandService {
   mem?: number;
   cpu?: number;
   sla?: number;
+  meta: {
+    managed: boolean;
+    protected: boolean;
+    persistent: boolean;
+  }
 }
 
 export type BandImagesList = BandImage[];
@@ -28,12 +33,7 @@ export interface BandImage {
   base?: string;
   key?: string;
   path: string;
-  meta: {
-    managed?: boolean;
-    persistent: boolean;
-    protected: boolean;
-    title: string;
-  }
+  title: string;
 }
 
 export type GenricCallee = <T>(url: string, body?: any) => Promise<T>;

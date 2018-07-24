@@ -34,6 +34,29 @@ const ContainerGrid = (props: ProjectsProps) => {
     await band.deleteServices(serviceName);
   }
 
+  const renderImages = () => {
+    const imagesResult: BandImage[] = [];
+
+    images.forEach(item => {
+      let detectRunImage: boolean = true;
+      services.forEach(service => {
+        if (item.key === service.name) {
+          detectRunImage = false;
+          
+          return;
+        }
+      })
+
+      if (detectRunImage) {
+        imagesResult.push(item);
+      }
+    })
+
+    return imagesResult;
+  }
+
+  const resultImages = renderImages();
+
   return (
     <div className={cl(styles.projectsContainer, 'projects-container')}>
       {Array.apply(0, Array(6)).map(function (_, row) {
@@ -42,7 +65,7 @@ const ContainerGrid = (props: ProjectsProps) => {
           return (
             <Project
               container={services.get(pos)}
-              all={images && images}
+              images={resultImages}
               key={pos}
               pos={pos}
               serviceLoading={band.serviceOnceLoading}
