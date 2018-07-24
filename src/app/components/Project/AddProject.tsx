@@ -63,7 +63,7 @@ export class AddProject extends React.Component<AddProjectProps, AddProjectState
                   key={index}
                   onClick={this.addContainer.bind(this, item, pos)}
                   className={cl(styles.itemListVariant, {[styles.disabled]: validServicesChanges.indexOf(item.key) < 0})}>
-                  <div className={styles.title}>{ item.key }</div>
+                  <div className={styles.title}>{ item.meta.title }</div>
                   <div className={styles.add}>+</div>
                 </div>
               )

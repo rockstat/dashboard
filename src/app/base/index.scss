@@ -307,18 +307,18 @@
 
   .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
     background-color: #000 !important;
-    color: #4a90e2;
+    color: #00f0ff;
   }
   .InputFromTo .DayPicker-Day {
     border-radius: 0 !important;
   }
   .InputFromTo .DayPicker-Day--start {
-    border-top-left-radius: 50% !important;
-    border-bottom-left-radius: 50% !important;
+    border-radius: 100% !important;
+    padding: 5px 10px !important;
   }
   .InputFromTo .DayPicker-Day--end {
-    border-top-right-radius: 50% !important;
-    border-bottom-right-radius: 50% !important;
+    border-radius: 100% !important;
+    padding: 5px 10px !important;
   }
   .InputFromTo .DayPickerInput-Overlay {
     width: 417px;

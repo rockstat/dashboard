@@ -28,6 +28,11 @@ export interface BandImage {
   base?: string;
   key?: string;
   path: string;
+  meta: {
+    persistent: boolean;
+    protected: boolean;
+    title: string;
+  }
 }
 
 export type GenricCallee = <T>(url: string, body?: any) => Promise<T>;
