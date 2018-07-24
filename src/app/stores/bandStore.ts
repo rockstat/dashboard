@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import { BandApi, StatApi } from '../api';
+import { BandApi, StatApi } from 'app/api';
 import { BandServicesList, BandImagesList, BandService, BandImage } from 'app/types';
 
 export class BandStore {
@@ -66,9 +66,9 @@ export class BandStore {
   }
 
   @action
-  addServices(service) {
+  runService(name: string, pos: string) {
     this.serviceOnceLoading = true;
-    return BandApi.create(service)
+    return BandApi.run(name, pos)
       .then(action((record: BandService) => {
         let serviceDetect: boolean = false;
 

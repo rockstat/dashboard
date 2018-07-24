@@ -25,7 +25,7 @@ import {
   STORE_STAT
 } from 'app/constants';
 
-import { LabelSub, LabelsItme } from '../../components';
+import { LabelSub, LabelsItme } from 'app/components';
 
 export interface TodoAppProps extends RouteComponentProps<any> { }
 

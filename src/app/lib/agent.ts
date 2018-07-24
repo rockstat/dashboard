@@ -1,6 +1,6 @@
 
 import Axios from 'axios';
-import { BandServicesList, ApiWrapper, BandImagesList, Stub, GenricCallee } from '../types'
+import { BandServicesList, ApiWrapper, BandImagesList, Stub, GenricCallee } from 'app/types'
 
 // import commonStore from './stores/commonStore';
 // import userStore from './stores/userStore';

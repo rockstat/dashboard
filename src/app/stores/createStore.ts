@@ -1,8 +1,8 @@
 import { History } from 'history';
 import { STORE_STAT, STORE_BAND, STORE_TIME } from 'app/constants';
 import { StatStore } from 'app/stores';
-import { BandStore } from './bandStore';
-import { TimeStore } from './timeStore';
+import { BandStore } from 'app/stores/bandStore';
+import { TimeStore } from 'app/stores/timeStore';
 
 export function createStores(history: History, defaultTodos?: any) {
   const statStore = new StatStore();

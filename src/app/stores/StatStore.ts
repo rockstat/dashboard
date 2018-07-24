@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
-import { BandApi, StatApi } from '../api';
+import { BandApi, StatApi } from 'app/api';
 
-import { EventsStat, eventsStat, eventsTitles } from './data/events';
+import { EventsStat, eventsStat, eventsTitles } from 'app/stores/data/events';
 
 interface EventsByTimeStatRow {
   

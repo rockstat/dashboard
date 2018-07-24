@@ -1,13 +1,13 @@
-import { BandServicesList, ApiWrapper, BandImagesList, Stub } from '../types'
-import { requests } from '../lib/agent';
+import { BandServicesList, ApiWrapper, BandImagesList, Stub } from 'app/types'
+import { requests } from 'app/lib/agent';
 
 export const BandApi = {
   images: () =>
     requests.get<BandImagesList>(`/list_images`),
   services: () =>
     requests.get<BandServicesList>(`/list`),
-  create: (project) =>
-    requests.post<Stub>(`/run/${project.key}`, project),
+  run: (name: string, pos: string) =>
+    requests.post<Stub>(`/run/${name}`, { pos: pos }),
   deleteService: (name) =>
     requests.get<Stub>(`/rm/${name}`),
   ads: (id, filter) =>

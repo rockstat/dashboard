@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as cl from 'classnames';
 import * as style from './style.scss';
 
-import { CircleComponentInfo } from '../index';
+import { CircleComponentInfo } from 'app/components';
 
-import { RefreshIcon } from '../../icons/RefreshIcon';
+import { RefreshIcon } from 'app/icons/RefreshIcon';
 
 interface InformationContainerProps {
   title: string;
