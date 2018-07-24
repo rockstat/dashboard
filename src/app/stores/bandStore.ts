@@ -92,4 +92,17 @@ export class BandStore {
     return BandApi.deleteService(serviceName)
       .finally(action(() => this.serviceOnceLoading = false))
   }
+
+  @action
+  restratService(serviceName) {
+    this.serviceOnceLoading = true;
+    return BandApi.restratService(serviceName)
+      .finally(() => this.serviceOnceLoading = false)
+  }
+  @action
+  stopService(serviceName) {
+    this.serviceOnceLoading = true;
+    return BandApi.stopService(serviceName)
+      .finally(() => this.serviceOnceLoading = false)
+  }
 }

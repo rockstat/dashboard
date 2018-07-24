@@ -24,15 +24,10 @@ export interface ProjectsProps extends RootProps {
 
 const ContainerGrid = (props: ProjectsProps) => {
   const { services, images, band, ...rest } = props;
-  const runService = async (image: BandImage, pos: string) => {
-    const { band } = props;
-    await band.runService(image.key, pos);
-  }
-  const deleteService = async (serviceName: string) => {
-    const { band } = props;
-
-    await band.deleteServices(serviceName);
-  }
+  const runService = async (image: BandImage, pos: string) => await band.runService(image.key, pos);
+  const deleteService = async (serviceName: string) => await band.deleteServices(serviceName);
+  const restartService = async(serviceName: string) => await band.restratService(serviceName);
+  const stopService = async(serviceName: string) => await band.stopService(serviceName);
 
   const renderImages = () => {
     const imagesResult: BandImage[] = [];
@@ -66,6 +61,8 @@ const ContainerGrid = (props: ProjectsProps) => {
             <Project
               container={services.get(pos)}
               images={resultImages}
+              restartService={restartService}
+              stopService={stopService}
               key={pos}
               pos={pos}
               serviceLoading={band.serviceOnceLoading}

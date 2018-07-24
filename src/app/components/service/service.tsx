@@ -25,6 +25,8 @@ interface ProjectProps {
   images?: BandImage[];
   onRunClick: (image: BandImage, pos: string) => void;
   deleteService: (serviceName: string) => void;
+  restartService: (serviceName: string) => void;
+  stopService: (serviceName: string) => void;
   pos: string;
   serviceLoading: boolean;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
@@ -34,7 +36,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, images, onRunClick, deleteService, pos, serviceLoading } = this.props;
+    const { container, images, onRunClick, deleteService, pos, serviceLoading, restartService, stopService } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -107,8 +109,8 @@ export class Project extends React.Component<ProjectProps, {}> {
             {
               container.meta.managed &&
                 <div className={styles.eventsContainerRules}>
-                  { container.meta.protected &&  <div className={styles.refresh}><RefreshIcon /></div>}
-                  { container.meta.persistent && <div className={styles.pause}><PauseIcon /></div>}
+                  { container.meta.protected &&  <div className={styles.refresh} onClick={restartService.bind(this, container.name)}><RefreshIcon /></div>}
+                  { container.meta.persistent && <div className={styles.pause} onClick={stopService.bind(this, container.name)}><PauseIcon /></div>}
                   { !container.meta.protected && !container.meta.persistent &&
                     <div className={styles.remove} onClick={deleteService.bind(this, container.name)}><RemoveIcon /></div>
                   }
