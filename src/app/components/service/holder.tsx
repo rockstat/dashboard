@@ -8,7 +8,6 @@ export interface RunServiceProps {
   images?: BandImage[];
   onRunClick: (service: BandImage, pos: string) => void;
   pos: string;
-  serviceLoading: boolean;
 }
 
 interface RunServiceState {
@@ -44,12 +43,12 @@ export class AddProject extends React.Component<RunServiceProps, RunServiceState
 
   render() {
     const { active, loadingService } = this.state;
-    const { images, pos, serviceLoading } = this.props;
+    const { images, pos } = this.props;
     let allLIst: BandImage[] = [];
     images && images.forEach(item => allLIst.push(item));
 
     return (
-      <div className={cl(styles.addProject, {[styles.active]: active}, {[styles.loading]: loadingService === pos && serviceLoading})}>
+      <div className={cl(styles.addProject, {[styles.active]: active})}>
         <div
           className={cl(styles.overlay, {[styles.active]: active})}
           onClick={this.onFocusAddContainer}

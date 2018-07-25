@@ -19,13 +19,19 @@ interface ProjecstState {
 
 export interface ProjectsProps extends RootProps {
   [STORE_BAND]?: BandStore;
+  setNewServices?: (services: BandServicesMap) => void;
 }
 
 
 const ContainerGrid = (props: ProjectsProps) => {
-  const { services, images, band, ...rest } = props;
-  const runService = async (image: BandImage, pos: string) => await band.runService(image.key, pos);
-  const deleteService = async (serviceName: string) => await band.deleteServices(serviceName);
+  const { services, images, setNewServices, band, ...rest } = props;
+  const runService = async (image: BandImage, pos: string) => {
+    band.runService(image.key, pos).then(services => setNewServices(services));
+  };
+  const deleteService = async (serviceName: string) => {
+    band.deleteServices(serviceName)
+      .then(services => setNewServices(services));
+  }
   const restartService = async(serviceName: string) => await band.restratService(serviceName);
   const stopService = async(serviceName: string) => await band.stopService(serviceName);
 
@@ -65,7 +71,6 @@ const ContainerGrid = (props: ProjectsProps) => {
               stopService={stopService}
               key={pos}
               pos={pos}
-              serviceLoading={band.serviceOnceLoading}
               onRunClick={runService}
               deleteService={deleteService}
             // number={5}
@@ -114,6 +119,7 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
   }
 
   interval: NodeJS.Timer | number;
+  setNewServices = (services: BandServicesMap) => this.setState({ services });
   // _openSettings = (index: number, e: HTMLDivElement) => {
   //   this.setState({
   //     showAdd: true,
@@ -136,7 +142,7 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
 
     return (
       <ShowIf condition={services && images}>
-        <ContainerGrid {...this.props} services={services} images={images} />
+        <ContainerGrid {...this.props} services={services} images={images} setNewServices={this.setNewServices} />
       </ShowIf>
     )
   }

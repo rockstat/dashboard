@@ -6,7 +6,6 @@ export class BandStore {
 
   // Common logic
   @observable servicesLoading = false;
-  @observable serviceOnceLoading = false;
   @observable imagesLoading = false;
   @observable servicesRegistry = observable.map<BandService>();
   @observable imagesRegistry = observable.map<BandImage>();
@@ -67,42 +66,62 @@ export class BandStore {
 
   @action
   runService(name: string, pos: string) {
-    this.serviceOnceLoading = true;
     return BandApi.run(name, pos)
       .then(action((record: BandService) => {
         let serviceDetect: boolean = false;
 
         this.servicesRegistry.forEach(item => {
           if (item.name === record.name) serviceDetect = true;
+
+          return;
         });
 
         if (!serviceDetect) {
           const pos = `${record.pos.col}x${record.pos.row}`;
           this.servicesRegistry.set(pos, record);
         }
-      }))
-      .finally(action(() => {
-        this.serviceOnceLoading = false;
-      }));
+
+        return this.servicesRegistry;
+      })
+    );
   }
 
   @action
   deleteServices(serviceName) {
-    this.serviceOnceLoading = true;
     return BandApi.deleteService(serviceName)
-      .finally(action(() => this.serviceOnceLoading = false))
+      .then(action((record) => {
+        if (record) {
+          let serviceDetect: boolean = false;
+          let serviceIndex: string = '-1';
+
+          this.servicesRegistry.forEach((item, index) => {
+            if (item.name === serviceName) {
+              serviceDetect = true;
+              serviceIndex = index;
+            }
+  
+            return;
+          });
+  
+          if (!serviceDetect && serviceIndex !== '-1') {
+            this.servicesRegistry.delete(serviceIndex);
+          }
+  
+          return this.servicesRegistry;
+        }
+      })
+    )
   }
 
   @action
   restratService(serviceName) {
-    this.serviceOnceLoading = true;
     return BandApi.restratService(serviceName)
-      .finally(() => this.serviceOnceLoading = false)
+      .then(action((record: BandService) => {
+
+      }))
   }
   @action
   stopService(serviceName) {
-    this.serviceOnceLoading = true;
     return BandApi.stopService(serviceName)
-      .finally(() => this.serviceOnceLoading = false)
   }
 }

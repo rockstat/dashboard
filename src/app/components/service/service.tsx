@@ -28,7 +28,6 @@ interface ProjectProps {
   restartService: (serviceName: string) => void;
   stopService: (serviceName: string) => void;
   pos: string;
-  serviceLoading: boolean;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -36,7 +35,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
   render() {
-    const { container, images, onRunClick, deleteService, pos, serviceLoading, restartService, stopService } = this.props;
+    const { container, images, onRunClick, deleteService, pos, restartService, stopService } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -47,7 +46,6 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       !this.props.container ? 
         <AddProject 
-          serviceLoading={serviceLoading}
           onRunClick={onRunClick}
           images={images}
           pos={pos}
@@ -116,7 +114,9 @@ export class Project extends React.Component<ProjectProps, {}> {
                   }
                 </div>
             }
-            <Link to={'/ide'} target={'__blank'} className={styles.linkTo}><LinkToIdeIcon /></Link>
+            <a href={`https://theia.stage.rstat.org/?open=${container.name}`} target={'__blank'} className={styles.linkTo}>
+              <LinkToIdeIcon />
+            </a>
           </div>
         </div>
     )
