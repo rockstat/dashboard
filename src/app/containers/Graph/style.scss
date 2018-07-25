@@ -12,6 +12,7 @@
     align-items: center;
     justify-content: space-between;
     z-index: 5;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .infoContainerChart {
     /* background-color: #f00; */
@@ -29,6 +30,7 @@
     display: flex;
     justify-content: space-between;
     z-index: 5;
+    font-family: Arial, Helvetica, sans-serif;
     .infoContainerDiscrete {
       width: 200px;
       height: 200px;
@@ -48,6 +50,7 @@
     position: absolute;
     right: 0;
     width: 150px;
+    font-family: Arial, Helvetica, sans-serif;
     /* height: 200px; */
     /* background-color: #f00; */
   }

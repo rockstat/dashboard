@@ -1,3 +1,5 @@
+@import '../../base/fonts.scss';
+
 .addProject {
   width: 185px;
   height: 185px;
@@ -73,10 +75,10 @@
         }
       }
       .title {
-        font-size: 16px;
+        @include mainFont(16px, 500);
       }
       .add {
-        font-size: 16px;
+        @include mainFont(16px, 500);
         visibility: hidden;
       }
     }
@@ -99,16 +101,19 @@
   transform-origin: center;
   background-color: #000;
   position: relative;
+  line-height: 16px;
   cursor: pointer;
   .name {
-    font-size: 18px;
+    @include mainFont(18px, 500);
+    line-height: 21px;
   }
   .date {
-    font-size: 12px;
+    @include mainFont(12px, 500);
     color: #ffffff70;
+    line-height: 14px;
   }
   .dataContainer {
-    margin-top: 10px;
+    margin-top: 15px;
     .resp, .cpu, .mem {
       display: flex;
       align-items: center;
@@ -126,7 +131,7 @@
         }
       }
       .title {
-        font-size: 10px;
+        @include mainFont(10px, 500);
         color: #ffffff70;
         margin-left: 10px;
         width: 33%;
