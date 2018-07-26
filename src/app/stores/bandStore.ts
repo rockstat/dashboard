@@ -117,7 +117,10 @@ export class BandStore {
   restratService(serviceName) {
     return BandApi.restratService(serviceName)
       .then(action((record: BandService) => {
+        const pos = `${record.pos.col}x${record.pos.row}`
+        this.servicesRegistry.set(pos, record);
 
+        return this.servicesRegistry;
       }))
   }
   @action

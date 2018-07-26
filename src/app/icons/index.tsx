@@ -6,3 +6,5 @@ export * from 'app/icons/CirclIcon';
 export * from 'app/icons/SettingsIcon';
 export * from 'app/icons/RefreshIcon';
 export * from 'app/icons/PauseIcon';
+export * from 'app/icons/PlayIcon';
+export * from 'app/icons/RebuildIcon';

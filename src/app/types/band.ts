@@ -19,6 +19,7 @@ export interface BandService {
   sla?: number;
   meta: {
     managed: boolean;
+    native: boolean;
     protected: boolean;
     persistent: boolean;
   }

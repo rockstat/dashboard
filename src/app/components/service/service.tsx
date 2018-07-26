@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as cl from 'classnames';
 import { Link } from 'react-router-dom';
 import { ProjectsInterface } from 'app/constants';
-import { SettingsIcon, RefreshIcon, PauseIcon } from 'app/icons';
+import { SettingsIcon, RefreshIcon, PauseIcon, PlayIcon, RebuildIcon } from 'app/icons';
 import { LinkToIdeIcon } from 'app/icons/LinkToIdeIcon';
 import { BandService, BandServicesMap, BandImage } from 'app/types';
 import { formatDistance, subSeconds, subMilliseconds } from 'date-fns'
@@ -23,7 +23,8 @@ interface ProjectProps {
   // number: number;
   container: BandService;
   images?: BandImage[];
-  onRunClick: (image: BandImage, pos: string) => void;
+  adddService: (image: BandImage, pos: string) => void;
+  runOrRebuildService: (image: BandService, pos: string) => void;
   deleteService: (serviceName: string) => void;
   restartService: (serviceName: string) => void;
   stopService: (serviceName: string) => void;
@@ -31,11 +32,54 @@ interface ProjectProps {
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
+interface EventsIcons {
+  restart?: JSX.Element;
+  ['start/stop']?: JSX.Element;
+  settings?: JSX.Element;
+  remove?: JSX.Element;
+  rebuilt?: JSX.Element;
+}
+
 export class Project extends React.Component<ProjectProps, {}> {
   projetContainer: HTMLDivElement;
 
+  renderEvents = (Service: BandService) => {
+    const { deleteService, restartService, stopService, runOrRebuildService, pos } = this.props;
+    let events: EventsIcons = {
+      restart: <div key={0} className={styles.refresh} onClick={restartService.bind(this, Service.name)}><RefreshIcon /></div>,
+      ['start/stop']: Service.state === 'running' ?
+        <div key={1} className={styles.pause} onClick={stopService.bind(this, Service.name)}><PauseIcon /></div> :
+        <div key={1} className={styles.play} onClick={runOrRebuildService.bind(this, Service, pos)}><PlayIcon /></div>,
+      settings: <div key={2} className={styles.settings}><SettingsIcon /></div>,
+      remove: <div key={3} onClick={deleteService.bind(this, Service.name)} className={styles.remove}><RemoveIcon /></div>,
+      rebuilt: <div key={4} className={styles.rebuild} onClick={runOrRebuildService.bind(this, Service, pos)}><RebuildIcon /></div>
+    }
+    let eventsVisibile: string[] = [];
+    let result: JSX.Element[] = [];
+
+    if (Service.meta.managed){
+      eventsVisibile = [...eventsVisibile, 'restart'];
+      if (!Service.meta.protected && Service.meta.persistent) {
+        eventsVisibile = [...eventsVisibile, 'start/stop'];
+      }
+    }
+      
+    if (Service.meta.native) {
+      eventsVisibile = [...eventsVisibile, 'settings'];
+      if (!Service.meta.protected) {
+        eventsVisibile = [...eventsVisibile, 'remove', 'rebuild'];
+      }
+    }
+
+    eventsVisibile.map(item => {
+      result = [...result, events[item]];
+    });
+
+      return result;
+  }
+
   render() {
-    const { container, images, onRunClick, deleteService, pos, restartService, stopService } = this.props;
+    const { container, images, pos, adddService } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -46,12 +90,12 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       !this.props.container ? 
         <AddProject 
-          onRunClick={onRunClick}
+          onRunClick={adddService}
           images={images}
           pos={pos}
         /> :
         <div
-          className={cl(styles.project)}
+          className={cl(styles.project, {[styles.loading]: container.state !== 'running'})}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
         >
           <div className={styles.name}> {container.title} </div>
@@ -103,17 +147,9 @@ export class Project extends React.Component<ProjectProps, {}> {
           </div>
 
           <div className={styles.eventContainer}>
-            <div className={styles.settings} onClick={(e) => onClickSettings(number, this.projetContainer)}><SettingsIcon /></div>
-            {
-              container.meta.managed &&
-                <div className={styles.eventsContainerRules}>
-                  { container.meta.protected &&  <div className={styles.refresh} onClick={restartService.bind(this, container.name)}><RefreshIcon /></div>}
-                  { container.meta.persistent && <div className={styles.pause} onClick={stopService.bind(this, container.name)}><PauseIcon /></div>}
-                  { !container.meta.protected && !container.meta.persistent &&
-                    <div className={styles.remove} onClick={deleteService.bind(this, container.name)}><RemoveIcon /></div>
-                  }
-                </div>
-            }
+              <div className={styles.eventsContainerRules}>
+                { this.renderEvents(container) }
+              </div>
             <a href={`https://theia.stage.rstat.org/?open=${container.name}`} target={'__blank'} className={styles.linkTo}>
               <LinkToIdeIcon />
             </a>
