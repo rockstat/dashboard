@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import { Router, Route, Switch, RouteComponentProps } from 'react-router';
-import { Root } from 'app/containers';
 import { History } from 'history'
 import { observer, inject } from 'mobx-react';
 // import { inject } from 'app/lib/inject'
 import { STORE_BAND } from 'app/constants';
+import { Root, Dashboard } from 'app/containers'
 import { BandStore, AppStateStore, StatStore } from 'app/stores';
 
 
@@ -23,11 +23,14 @@ export class App extends React.Component<AppProps, {}> {
     const { history } = this.props;
 
     return (
-      <Router history={history}>
-        <Switch>
-          <Route path="/" render={(props: RouteComponentProps<any>) => <Root {...props} />} />
-        </Switch>
-      </Router>
+      <Root>
+        <Router history={history}>
+          <Switch>
+            <Route path="/logs" />} />
+            <Route path="/" component={Dashboard} />} />
+          </Switch>
+        </Router>
+      </Root>
     );
   }
 }

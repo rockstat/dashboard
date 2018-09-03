@@ -19,11 +19,11 @@ const DisplayUptime = ({ uptime }: { uptime: number }) => {
   )
 }
 
-interface ProjectProps {
+interface ServiceProps {
   // number: number;
   container: BandService;
   images?: BandImage[];
-  adddService: (image: BandImage, pos: string) => void;
+  addService: (image: BandImage, pos: string) => void;
   runOrRebuildService: (image: BandService, pos: string) => void;
   deleteService: (serviceName: string) => void;
   restartService: (serviceName: string) => void;
@@ -40,7 +40,7 @@ interface EventsIcons {
   rebuilt?: JSX.Element;
 }
 
-export class Project extends React.Component<ProjectProps, {}> {
+export class Project extends React.Component<ServiceProps, {}> {
   projetContainer: HTMLDivElement;
 
   renderEvents = (Service: BandService) => {
@@ -63,7 +63,7 @@ export class Project extends React.Component<ProjectProps, {}> {
         eventsVisibile = [...eventsVisibile, 'start/stop'];
       }
     }
-      
+
     if (Service.meta.native) {
       eventsVisibile = [...eventsVisibile, 'settings'];
       if (!Service.meta.protected) {
@@ -79,7 +79,7 @@ export class Project extends React.Component<ProjectProps, {}> {
   }
 
   render() {
-    const { container, images, pos, adddService } = this.props;
+    const { container, images, pos, addService } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -88,9 +88,9 @@ export class Project extends React.Component<ProjectProps, {}> {
       //
       // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
       //
-      !this.props.container ? 
-        <AddProject 
-          onRunClick={adddService}
+      !this.props.container ?
+        <AddProject
+          onRunClick={addService}
           images={images}
           pos={pos}
         /> :

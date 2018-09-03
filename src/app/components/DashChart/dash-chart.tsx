@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as style from './style.scss';
+import * as style from './dash-chart.scss';
 import { subDays, format as formatDate } from 'date-fns';
 import d3 from 'app/lib/d3';
 import { inject, observer } from 'mobx-react';
@@ -15,7 +15,6 @@ import {
   Borders,
   Crosshair,
   MarkSeries,
-  RadialChart,
 } from 'react-vis';
 import { StatStore } from 'app/stores';
 import {
@@ -76,7 +75,7 @@ const radialColors = ['#D900FF', '#00F0FF', '#8C57B8', '#80FF80', '#40FFC0'];
 
 @inject(STORE_STAT)
 @observer
-export class Graph extends React.Component<DashChartProps, DashChartState> {
+export class DashChart extends React.Component<DashChartProps, DashChartState> {
   state = {
     eventsTitles: [],
     eventsByGroups: {},

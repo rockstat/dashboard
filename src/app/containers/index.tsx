@@ -1,4 +1,3 @@
-export * from 'app/containers/Graph';
-export * from 'app/containers/Root';
-export * from 'app/containers/services/services';
+export * from 'app/containers/dashboard/dashboard';
+export * from 'app/containers/root/root';
 export * from 'app/containers/SystemResources';

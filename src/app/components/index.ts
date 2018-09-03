@@ -8,4 +8,6 @@ export * from 'app/components/LabelsItem';
 export * from 'app/components/InformationContainer';
 export * from 'app/components/CircleComponentInfo';
 // export * from 'app/components/DashboardHeader';
+export * from 'app/components/DashChart/dash-chart';
+export * from 'app/components/services-grid/services-grid';
 export * from './show-if';
