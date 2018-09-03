@@ -1,8 +1,7 @@
 import * as React from 'react';
-
 import * as style from './style.scss';
 import { subDays, format as formatDate } from 'date-fns';
-
+import d3 from 'app/lib/d3';
 import { inject, observer } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
 import {
@@ -13,14 +12,10 @@ import {
   HorizontalGridLines,
   AreaSeries,
   DiscreteColorLegend,
-  GradientDefs,
   Borders,
   Crosshair,
-  LineMarkSeries,
   MarkSeries,
   RadialChart,
-  Hint,
-  checkLocationChange,
 } from 'react-vis';
 import { StatStore } from 'app/stores';
 import {
@@ -28,19 +23,7 @@ import {
 } from 'app/constants';
 
 import { LabelSub, LabelsItme, ShowIf } from 'app/components';
-import { GroupSeries, GroupsSeries, EventByTime } from 'app/types';
-
-interface VisSeries {
-  fill: string | number,
-  key: string | number,
-  data: GroupSeries,
-  opacity: number,
-  style: {
-    stroke: string,
-    strokeWidth: string,
-    strokeOpacity: number
-  }
-}
+import { GroupsSeries, EventByTime } from 'app/types';
 
 export interface DashChartProps extends RouteComponentProps<any> { }
 
@@ -53,7 +36,7 @@ export interface DashChartState {
 }
 
 const CHARTW = 1250;
-const CHARTH = 500;
+const CHARTH = 350;
 
 const DONUT_RADIUS = 95;
 const DONUT_WIDTH = 15;
@@ -69,7 +52,6 @@ const DONUT_STYLE = {
   height: 200,
 }
 
-type SeriesPoints = Array<{ x: number, y: number }>;
 
 const seriesGroups = {
   page: { display: 1, color: '#00BEDE' },
@@ -105,7 +87,6 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
 
   // constructor(props) {
   //   super(props);
-
   // }
 
   componentWillMount() {
@@ -114,12 +95,15 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
     const dtFrom = subDays(dtTill, 1);
 
     const statStore = this.props[STORE_STAT] as StatStore;
+
     statStore.loadSeries().then(() => {
       const { eventsByTime, eventsByGroups } = statStore;
       const eventsTitles = Object.keys(eventsByGroups).map(e => e.replace('_', ' '));
       const timeTicks = Object.keys(eventsByTime).map(t => ({ x: t, y: 0 }))
       this.setState({ eventsByGroups, eventsByTime, timeTicks, eventsTitles });
     })
+
+    // statStore.loadCommon()
   }
 
   handleMouseOver(name, dp) {
@@ -138,15 +122,20 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
           height={CHARTH}
           onMouseLeave={() => this.setState({ crosshairValues: [] })}
         >
-          <MarkSeries data={timeTicks} onNearestX={(dp) => this.handleMouseOver(name, dp)} />
-          {Object.entries(eventsByGroups).map(([name, data], i) =>
-            <AreaSeries
-              data={data}
-              fill={seriesGroups[name].color}
-              key={name}
-              opacity={0.5}
-              style={{ stroke: '#000', strokeWidth: '2px', strokeOpacity: 0.2 }}
-            />)}
+          <VerticalGridLines style={{ stroke: '#fff', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTW / 25 / 2)} />
+          <HorizontalGridLines style={{ stroke: '#fff', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTH / 25 / 2)} />
+          <MarkSeries data={timeTicks} onNearestX={(dp) => this.handleMouseOver(name, dp)} size={0} />
+          {Object.entries(eventsByGroups)
+            .filter(([name, data]) =>
+              seriesGroups[name] && seriesGroups[name].display == 1)
+            .map(([name, data]) =>
+              <AreaSeries
+                data={data}
+                fill={seriesGroups[name].color}
+                key={name}
+                opacity={0.5}
+                style={{ stroke: d3.color(seriesGroups[name].color).darker().hex(), strokeWidth: '1px', strokeOpacity: 1 }}
+              />)}
 
           <Borders style={{
             bottom: { fill: '#131313', },
@@ -155,24 +144,22 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
             top: { fill: '#131313' }
           }} />
           <XAxis
-            tickTotal={Math.round(CHARTW / 25 / 2)}
+            tickTotal={4}
             tickFormat={function (d) {
               const nd = new Date(d * 1000);
               return nd.toLocaleDateString().substr(0, 5).replace('/', '.') + ' ' + nd.toLocaleTimeString().substr(0, 5)
             }}
           />
           <YAxis tickTotal={Math.round(CHARTH / 25 / 2)} />
-          <VerticalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTW / 25)} />
-          <HorizontalGridLines style={{ stroke: '#000', strokeOpacity: 0.1 }} tickTotal={Math.round(CHARTH / 25)} />
           <Crosshair
+            className={style.crosshairExtra}
             values={this.state.crosshairValues}
             titleFormat={(values) => ({ title: ':', value: formatDate(values[0].x * 1000, 'dd.MM.YY kk:mm') })}
             itemsFormat={(values) => values.map(v => ({ title: v.name, value: v.y }))}
-            marginTop={220}
           />
         </XYPlot>
 
-        <div className={style.infoContainer}>
+        {/* <div className={style.infoContainer}>
           <div className={style.infoContainerChart}>
             <RadialChart
               // colorRange={radialColors}
@@ -246,11 +233,9 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
               {...DONUT_STYLE}>
             </RadialChart>
           </div>
-        </div>
-        <div className={style.infoContainerDis}>
-
+        </div> */}
+        {/* <div className={style.infoContainerDis}>
           <div className={style.infoContainerDiscrete}>
-
             <DiscreteColorLegend
               orientation='vertical'
               items={[
@@ -268,8 +253,7 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
                 { title: <LabelSub title='Returning' subtitle='40.0%' />, color: radialColors[0] },
               ]}
             />
-          </div>
-
+          </div>=
           <div className={style.infoContainerDiscrete}>
             <DiscreteColorLegend
               orientation='vertical'
@@ -282,9 +266,7 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
               ]}
             />
           </div>
-
           <div className={style.infoContainerDiscrete}>
-
             <DiscreteColorLegend
               orientation='vertical'
               items={[
@@ -292,11 +274,8 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
                 { title: <LabelSub title='Memory' subtitle='30.0%' />, color: '#fd2bf5' },
               ]}
             />
-
           </div>
-
           <div className={style.infoContainerDiscrete}>
-
             <LabelsItme
               items={[
                 { title: 'Disk <span style="color:#40ffc0">write</span>', subtitle: '0.3 Mb/s', center: true },
@@ -306,7 +285,7 @@ export class Graph extends React.Component<DashChartProps, DashChartState> {
               ]}
             />
           </div>
-        </div>
+        </div> */}
         <div className={style.legend}>
           <ShowIf condition={eventsTitles.length}>
             <DiscreteColorLegend

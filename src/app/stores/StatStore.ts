@@ -1,14 +1,13 @@
 import { observable, action, computed } from 'mobx';
 import { BandApi, StatApi } from 'app/api';
 
-import { eventsStat } from 'app/stores/data/events';
-import { GroupsSeries, BandEventsStat, EventByTime } from 'app/types';
+import { GroupsSeries, BandEventsStat, EventByTime, BandCommonStat } from 'app/types';
 
 export class StatStore {
-  events = eventsStat;
-
   eventsByGroups: GroupsSeries = {};
   eventsByTime: EventByTime = {}
+  commonStat: { [k: string]: Array<[string, number]> } = {}
+
 
   @action
   loadSeries() {
@@ -24,7 +23,17 @@ export class StatStore {
             return dp
           })
         });
-        return this.eventsByGroups;
+      }))
+  }
+
+  @action
+  loadCommon() {
+    return StatApi.common_stat()
+      .then(action((records: BandCommonStat) => {
+        this.commonStat = {};
+        records.forEach(({ name, data }) => {
+          this.commonStat[name] = data;
+        });
       }))
   }
 

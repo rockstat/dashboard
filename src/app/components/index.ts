@@ -7,5 +7,5 @@ export * from 'app/components/CircleComponent';
 export * from 'app/components/LabelsItem';
 export * from 'app/components/InformationContainer';
 export * from 'app/components/CircleComponentInfo';
-export * from 'app/components/DashboardHeader';
+// export * from 'app/components/DashboardHeader';
 export * from './show-if';

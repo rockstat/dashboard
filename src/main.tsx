@@ -19,8 +19,8 @@ import '!style-loader!css-loader!../node_modules/react-vis/dist/style.css'
 useStrict(true);
 
 // prepare MobX stores
-const history = createBrowserHistory();
-const rootStore = createStores(history);
+export const history = createBrowserHistory();
+export const rootStore = createStores(history);
 
 // render react DOM
 ReactDOM.render(

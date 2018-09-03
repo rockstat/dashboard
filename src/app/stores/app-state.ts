@@ -1,7 +1,7 @@
 import { observable, action, computed } from 'mobx';
 import { subDays, differenceInDays } from 'date-fns';
 
-export class TimeStore {
+export class AppStateStore {
 
 
 

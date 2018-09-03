@@ -4,14 +4,16 @@ import { Router, Route, Switch, RouteComponentProps } from 'react-router';
 import { Root } from 'app/containers';
 import { History } from 'history'
 import { observer, inject } from 'mobx-react';
+// import { inject } from 'app/lib/inject'
 import { STORE_BAND } from 'app/constants';
-import { BandStore } from 'app/stores';
-import { BandImagesList, BandServicesList, BandImage, BandService, BandServicesDict, BandServicesMap } from 'app/types';
+import { BandStore, AppStateStore, StatStore } from 'app/stores';
 
 
 export interface AppProps {
   history: History;
-  [STORE_BAND]?: BandStore;
+  bandStore?: BandStore;
+  appStateStore?: AppStateStore;
+  statStore?: StatStore;
 }
 
 @inject(STORE_BAND)

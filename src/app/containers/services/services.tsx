@@ -18,32 +18,32 @@ interface ProjecstState {
 }
 
 export interface ProjectsProps extends RootProps {
-  [STORE_BAND]?: BandStore;
   setNewServices?: (services: BandServicesMap) => void;
 }
 
 
 const ContainerGrid = (props: ProjectsProps) => {
-  const { services, images, setNewServices, band, ...rest } = props;
+  const { services, images, setNewServices, bandStore, ...rest } = props;
+  // const bandStore = this.props[STORE_BAND] as BandStore;
 
   const adddService = async (image: BandImage, pos: string) => {
-    band.runService(image.key, pos).then(services => setNewServices(services));
+    bandStore.runService(image.key, pos).then(services => setNewServices(services));
   };
 
   const runOrRebuildService = async (service: BandService, pos: string) => {
-    band.runService(service.name, pos).then(services => setNewServices(services))
+    bandStore.runService(service.name, pos).then(services => setNewServices(services))
   }
 
   const deleteService = async (serviceName: string) => {
-    band.deleteServices(serviceName)
+    bandStore.deleteServices(serviceName)
       .then(services => setNewServices(services));
   }
 
   const restartService = async(serviceName: string) => {
-    await band.restratService(serviceName);
+    await bandStore.restratService(serviceName);
   }
   const stopService = async(serviceName: string) => {
-    await band.stopService(serviceName);
+    await bandStore.stopService(serviceName);
   }
 
   const renderImages = () => {
@@ -104,22 +104,22 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
     images: undefined
   }
   componentWillMount() {
-    const { band } = this.props;
+    const bandStore = this.props[STORE_BAND] as BandStore;
     // const test = new WebSocket('ws://admin:123123@rstat-stage.test/api/list', ['protocol1', 'protocol2']);
     // test.onopen = () => console.log('Websocket open');
     // test.onclose = (eventError) => console.log(`Websocket close ${eventError.wasClean ? 'clean' : 'not clean'}`);
     // test.onmessage = (data) => console.log('Получены данные', data);
     // test.onerror = (error) => console.log('Error - ', error);
     Promise.resolve()
-      .then(() => band.loadImages())
+      .then(() => bandStore.loadImages())
       .then(images => { this.setState({ images }) })
-      .then(() => band.loadServices())
+      .then(() => bandStore.loadServices())
       .then(services => { this.setState({ services }) })
       .then(() => {
         this.interval = setInterval(() => {
-          band.loadServices().then(() => {
+          bandStore.loadServices().then(() => {
             this.setState({
-              services: band.services
+              services: bandStore.services
             })
           })
         }, 3000);

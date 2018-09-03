@@ -25,6 +25,14 @@ export interface BandService {
   }
 }
 
+
+export type BandCommonStatParam = {
+  name: string,
+  data: Array<[string, number]>
+}
+
+export type BandCommonStat = BandCommonStatParam[]
+
 export interface BandEventStat {
   name: string,
   data: Array<[string, string]>

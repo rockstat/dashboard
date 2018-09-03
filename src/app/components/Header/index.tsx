@@ -8,31 +8,36 @@ import { menu } from 'app/constants';
 import { options as selectOption, stepValueProps } from 'app/constants/stepValues';
 import { format, parseDate, formatDate } from 'app/lib/date';
 import { observer, inject } from 'mobx-react';
-import { STORE_TIME } from 'app/constants';
-import { TimeStore } from 'app/stores';
+import { STORE_APP_STATE } from 'app/constants';
+import { AppStateStore } from 'app/stores';
 
 export interface HeaderProps {
-  timeStore?: TimeStore;
+
 }
 export interface HeaderState {
-  from?: Date;
-  to?: Date;
+  from: Date;
+  to: Date;
   options: stepValueProps[];
   changeOption: stepValueProps | null;
 }
 
-@inject(STORE_TIME)
+@inject(STORE_APP_STATE)
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
-  state = {
-    from: this.props.timeStore.fromDate,
-    to: this.props.timeStore.toDate,
-    options: selectOption,
-    changeOption: null
-  };
 
   to: DayPickerInput;
   timeout: number;
+
+  constructor(props){
+    super(props);
+    const appState = props[STORE_APP_STATE] as AppStateStore;
+    this.state = {
+      to: appState.toDate,
+      from: appState.fromDate,
+      options: selectOption,
+      changeOption: null
+    };
+  }
 
   componentWillUnmount() {
     window.clearTimeout(this.timeout);
@@ -70,7 +75,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             {
               menu.map((item, index) => {
                 return (
-                  <Link to={item.link} key={index} className={styles.menuItem}> { item.name } </Link>
+                  <Link to={item.link} key={index} className={styles.menuItem}> {item.name} </Link>
                 )
               })
             }

@@ -1,5 +1,4 @@
-export const STORE_TODO = 'todo';
-export const STORE_BAND = 'band';
-export const STORE_ROUTER = 'router';
-export const STORE_STAT = 'stat';
-export const STORE_TIME = 'timeStore';
+export const STORE_ROUTER = 'routerStore';
+export const STORE_BAND = 'bandStore';
+export const STORE_STAT = 'statStore';
+export const STORE_APP_STATE = 'appStateStore';
