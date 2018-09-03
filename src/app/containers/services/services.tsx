@@ -3,7 +3,7 @@ import * as cl from 'classnames';
 import { STORE_BAND } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { BandStore } from 'app/stores';
-import { ShowIf } from 'app/components/Utils/show-if';
+import { ShowIf } from 'app/components/show-if';
 import { Project } from 'app/components';
 import { RootProps } from 'app/containers/Root';
 import { BandService, BandServicesMap, BandImage, BandImagesList } from 'app/types';
@@ -54,7 +54,7 @@ const ContainerGrid = (props: ProjectsProps) => {
       services.forEach(service => {
         if (item.key === service.name) {
           detectRunImage = false;
-          
+
           return;
         }
       })
@@ -150,7 +150,7 @@ export class Projects extends React.Component<ProjectsProps, ProjecstState> {
   }
 
   render() {
-    let { services, images } = this.state;
+    const { services, images } = this.state;
 
     return (
       <ShowIf condition={services && images}>

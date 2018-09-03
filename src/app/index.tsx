@@ -7,7 +7,6 @@ import { observer, inject } from 'mobx-react';
 import { STORE_BAND } from 'app/constants';
 import { BandStore } from 'app/stores';
 import { BandImagesList, BandServicesList, BandImage, BandService, BandServicesDict, BandServicesMap } from 'app/types';
-import { Iterator } from 'mobx';
 
 
 export interface AppProps {

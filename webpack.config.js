@@ -134,6 +134,7 @@ module.exports = {
   ],
   devServer: {
     contentBase: sourcePath,
+    open: false,
     hot: true,
     inline: true,
     historyApiFallback: {

@@ -2,18 +2,7 @@ export interface EventsStat {
   [k:string]: Array<{x:number, y:number}>
 }
 
-export const eventsTitles: { [k: string]: string } = {
-  "link_click": "Link Click",
-  "page_loaded": "Page Loaded",
-  "page_unload": "Page Unload",
-  "pageview": "Pageview",
-  "session": "Session",
-  "field_blur": "Field Blur",
-  "field_focus": "Field Focus",
-  "form_submit": "Form Submit",
-  "field_change": "Field Change",
-  "field_invalid": "Field Invalid"
-};
+
 
 export const eventsStat: EventsStat = {
   "link_click": [

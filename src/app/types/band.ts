@@ -4,7 +4,7 @@ export type BandServicesList = BandService[];
 export interface BandServicesDict {
   [k: string]: BandService
 }
-export type BandServicesMap =  ObservableMap<BandService>
+export type BandServicesMap = ObservableMap<BandService>
 export interface BandService {
   name: string;
   title: string;
@@ -25,9 +25,23 @@ export interface BandService {
   }
 }
 
+export interface BandEventStat {
+  name: string,
+  data: Array<[string, string]>
+};
+export type BandEventsStat = Array<BandEventStat>
+
+export interface DataPoint {
+  x: string | number;
+  y: number;
+}
+
+export type EventByTime = { [k: string]: { [k: string]: number } };
+
+export type GroupSeries = Array<DataPoint>;
+export type GroupsSeries = { [k: string]: GroupSeries }
+
 export type BandImagesList = BandImage[];
-
-
 
 export interface BandImage {
   name: string;

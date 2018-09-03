@@ -1,8 +1,10 @@
-import { ApiWrapper, Stub } from 'app/types'
+import { ApiWrapper, Stub, BandEventsStat } from 'app/types'
 import { requests } from 'app/lib/agent';
 
 export const StatApi = {
-  web_categories: () =>
-    requests.get<Stub>(`/dashboard_stat`),
+  groups_stat: () =>
+    requests.get<Stub>(`/groups_stat`),
+  events_stat: () =>
+    requests.get<BandEventsStat>(`/events_stat`),
 };
 
