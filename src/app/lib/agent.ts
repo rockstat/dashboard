@@ -13,11 +13,12 @@ if (API_AUTH) {
   headers['Authorization'] = basicAuth
 }
 
+const loc = document.location;
 export const host = document.location.hostname;
 export const protocol = document.location.protocol;
 export const baseDomain = host.indexOf('app.') === 0 ? host.substr(4) : host;
 export const baseURL = API_URL_TMPL.replace('<host>', document.location.hostname)
-export const wsURL = baseURL.replace('https://', 'wss://').replace("http://", "ws://");
+export const wsURL = `${(loc.protocol === 'https:' ? 'wss' : 'ws')}://${loc.hostname}/ws`;
 
 const client = Axios.create({
   baseURL: baseURL,

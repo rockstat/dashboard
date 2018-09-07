@@ -8,11 +8,11 @@ import { menu } from 'app/constants';
 import { options as selectOption, stepValueProps } from 'app/constants/stepValues';
 import { format, parseDate, formatDate } from 'app/lib/date';
 import { observer, inject } from 'mobx-react';
-import { STORE_APP_STATE } from 'app/constants';
+import { APP_STATE } from 'app/constants';
 import { AppStateStore } from 'app/stores';
 
 export interface HeaderProps {
-
+  logsBadge?: string;
 }
 export interface HeaderState {
   from: Date;
@@ -21,7 +21,7 @@ export interface HeaderState {
   changeOption: stepValueProps | null;
 }
 
-@inject(STORE_APP_STATE)
+@inject(APP_STATE)
 @observer
 export class Header extends React.Component<HeaderProps, HeaderState> {
 
@@ -30,13 +30,16 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
   constructor(props) {
     super(props);
-    const appState = props[STORE_APP_STATE] as AppStateStore;
+    const appState = props[APP_STATE] as AppStateStore;
     this.state = {
       to: appState.toDate,
       from: appState.fromDate,
       options: selectOption,
       changeOption: null
     };
+
+
+
   }
 
   componentWillUnmount() {
@@ -61,6 +64,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   render() {
+    const { logsBadge } = this.props;
     const { from, to, options, changeOption } = this.state;
     const modifiers = { start: from, end: to };
     const now = new Date();
@@ -72,13 +76,17 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             <LogoIcon />
           </Link>
           <div className={styles.menu}>
-            {
-              menu.map((item, index) => {
-                return item.extenal
-                  ? <a href={item.link} key={index} className={styles.menuItem} target="_blank"> {item.name} </a>
-                  : <Link to={item.link} key={index} className={styles.menuItem}> {item.name} </Link>
-              })
-            }
+            {menu.map((item, index) => {
+              return item.extenal
+                ?
+                <a href={item.link} key={index} className={styles.menuItem} target="_blank">
+                  {` ${item.name} `}
+                </a>
+                :
+                <Link to={item.link} key={index} className={styles.menuItem}>
+                  {` ${item.name} `}
+                </Link>
+            })}
           </div>
           <div className={styles.selctedContainer}>
             <div className="InputFromTo">

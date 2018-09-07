@@ -20,7 +20,7 @@ const autoprefixer = require('autoprefixer');
 module.exports = {
   context: sourcePath,
   entry: {
-    main: './main.tsx'
+    main: './index.tsx'
   },
   output: {
     path: outPath,
@@ -130,12 +130,20 @@ module.exports = {
       ENV: JSON.stringify(envName),
       API_URL_TMPL: JSON.stringify(config.api_url_tmpl),
       API_AUTH: JSON.stringify(config.api_auth),
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
     contentBase: sourcePath,
     open: false,
     hot: true,
+    hotOnly: true,
+    host: '127.0.0.1',
+    port: 3000,
+    public: 'app.stat.rock.dev',
+    publicPath: 'https://app.stat.rock.dev/',
+    // progress: true,
+    // colors: true,
     inline: true,
     historyApiFallback: {
       disableDotRule: true

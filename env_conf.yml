@@ -1,5 +1,5 @@
 development:
-  api_url_tmpl: http://<host>:10000
+  api_url_tmpl: https://<host>/api
 
 production:
   api_url_tmpl: https://<host>/api

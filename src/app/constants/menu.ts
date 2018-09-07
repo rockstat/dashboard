@@ -1,6 +1,7 @@
 import { baseDomain, protocol, host } from 'app/lib/agent'
 
 export interface MenuItemInterfase {
+  id?: string;
   name: string;
   link: string;
   extenal?: boolean;
@@ -11,11 +12,12 @@ const baseUrl = `${protocol}//${host}`
 export const menu: Array<MenuItemInterfase> = [
   {
     name: 'Dashboard',
-    link: `${baseUrl}/`
+    link: `/`
   },
   {
+    id: 'logs',
     name: 'Logs',
-    link: `${baseUrl}/logs`
+    link: `/logs`
   },
   {
     name: 'Theia IDE',

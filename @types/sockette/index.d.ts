@@ -1,29 +1,22 @@
-// Type definitions for
-// Project:
-// Definitions by: Dmitry Rodin <https://github.com/madiedinro>
+declare module "sockette" {
+    export default class Sockette {
+        constructor(url: string, options?: SocketteOptions);
+        send(data: any): void;
+        json(data: any): void;
+        close(code?: number, reason?: string): void;
+        reconnect(): void;
+        open(): void;
+    }
 
-declare module 'sockettez' {
-
-  interface Options {
-    timeout: number,
-    maxAttempts: number,
-    onopen: (e: Event) => any
-    onmessage: (e: Event) => any
-    onreconnect: (e: Event) => any
-    onmaximum: (e: Event) => any
-    onclose: (e: Event) => any
-    onerror: (e: Event) => any
-  }
-
-
-  export class Sockette {
-    constructor(options: Options);
-
-    send(data: any): any;
-    close(code: number, reason?: string): any;
-    json(data: object): any;
-    reconnect(): any;
-    open(): any;
-  }
-
+    export interface SocketteOptions {
+        protocols?: string | string[];
+        timeout?: number;
+        maxAttempts?: number;
+        onopen?: (this: Sockette, ev: Event) => any;
+        onmessage?: (this: Sockette, ev: MessageEvent) => any;
+        onreconnect?: (this: Sockette, ev: Event | CloseEvent) => any;
+        onmaximum?: (this: Sockette, ev: CloseEvent) => any;
+        onclose?: (this: Sockette, ev: CloseEvent) => any;
+        onerror?: (this: Sockette, ev: Event) => any;
+    }
 }

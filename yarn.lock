@@ -7598,16 +7598,6 @@ sntp@2.x.x:
   dependencies:
     hoek "4.x.x"
 
-sockette-component@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/sockette-component/-/sockette-component-1.0.0.tgz#afdb07933e160fd4f373f63842c7aea14169d00f"
-  dependencies:
-    sockette "^1.0.0"
-
-sockette@^1.0.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/sockette/-/sockette-1.2.0.tgz#e08070a713169ff4f33206aa820a00a9b462cf1c"
-
 sockette@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/sockette/-/sockette-2.0.0.tgz#3da2f3459288d55cedcb6de580aeae68ae4554fc"

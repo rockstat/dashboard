@@ -1,4 +1,4 @@
-export const STORE_ROUTER = 'routerStore';
-export const STORE_BAND = 'bandStore';
-export const STORE_STAT = 'statStore';
-export const STORE_APP_STATE = 'appStateStore';
+export const ROUTER_STORE = 'routerStore';
+export const BAND_STORE = 'bandStore';
+export const STAT_STORE = 'statStore';
+export const APP_STATE = 'appState';

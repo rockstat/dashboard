@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { options as selectOption, stepValueProps } from 'app/constants/stepValues';
 import { format, parseDate, formatDate } from 'app/lib/date';
 import { observer, inject } from 'mobx-react';
-import { STORE_APP_STATE } from 'app/constants';
+import { APP_STATE } from 'app/constants';
 import { AppStateStore } from 'app/stores';
 
 interface DashboardHeaderProps {
@@ -21,7 +21,7 @@ interface DashboardHeaderState {
   changeOption: stepValueProps | null;
 }
 
-@inject(STORE_APP_STATE)
+@inject(APP_STATE)
 @observer
 export class DashboardHeader extends React.Component<{ }, DashboardHeaderState> {
   state = {
@@ -34,7 +34,7 @@ export class DashboardHeader extends React.Component<{ }, DashboardHeaderState> 
   to: DayPickerInput;
   timeout: number;
   componentWillMount(){
-    const appState = this.props[STORE_APP_STATE] as AppStateStore;
+    const appState = this.props[APP_STATE] as AppStateStore;
     this.setState({
       from: appState.fromDate,
       to: appState.toDate

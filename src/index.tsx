@@ -4,8 +4,7 @@ import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import { createBrowserHistory } from 'history';
 import { createStores } from 'app/stores';
-import { App } from 'app';
-
+import { App } from 'app/app';
 import { shim } from 'promise.prototype.finally';
 shim();
 
@@ -21,12 +20,12 @@ useStrict(true);
 
 // prepare MobX stores
 export const history = createBrowserHistory();
-export const rootStore = createStores(history);
+export const rootStore = createStores();
 
 // render react DOM
 ReactDOM.render(
   <Provider {...rootStore}>
-    <App history={history} />
+    <App history={history} {...rootStore} />
   </Provider>,
   document.getElementById('root')
 );

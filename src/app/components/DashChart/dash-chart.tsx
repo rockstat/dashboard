@@ -18,7 +18,7 @@ import {
 } from 'react-vis';
 import { StatStore } from 'app/stores';
 import {
-  STORE_STAT
+  STAT_STORE
 } from 'app/constants';
 
 import { LabelSub, LabelsItme, ShowIf } from 'app/components';
@@ -73,7 +73,7 @@ const colors = ['#D900FF', '#00F0FF', '#8C00FF', '#40FFC0', '#00F0FF'];
 const useSeries = { 'session': true, 'pageview': true, 'field_blur': true };
 const radialColors = ['#D900FF', '#00F0FF', '#8C57B8', '#80FF80', '#40FFC0'];
 
-@inject(STORE_STAT)
+@inject(STAT_STORE)
 @observer
 export class DashChart extends React.Component<DashChartProps, DashChartState> {
   state = {
@@ -93,7 +93,7 @@ export class DashChart extends React.Component<DashChartProps, DashChartState> {
     const dtTill = new Date()
     const dtFrom = subDays(dtTill, 1);
 
-    const statStore = this.props[STORE_STAT] as StatStore;
+    const statStore = this.props[STAT_STORE] as StatStore;
 
     statStore.loadSeries().then(() => {
       const { eventsByTime, eventsByGroups } = statStore;

@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Header, DashChart, ServicesGrid, ShowIf } from 'app/components';
+import { Header, DashChart, ServicesGrid } from 'app/components';
 
 import { BandImage, BandServicesMap, BandService, BandImagesList } from 'app/types';
 import { inject, observer } from 'mobx-react';
-import { STORE_BAND, STORE_STAT } from 'app/constants';
+import { BAND_STORE, STAT_STORE } from 'app/constants';
 import { BandStore } from 'app/stores';
 
 export interface DashboardProps extends RouteComponentProps<any> {
@@ -16,19 +16,19 @@ export interface DashboardState {
   services?: BandServicesMap;
 }
 
-@inject(STORE_BAND, STORE_STAT)
+@inject(BAND_STORE, STAT_STORE)
 @observer
 export class Dashboard extends React.Component<DashboardProps, DashboardState> {
   state = {}
   componentWillMount() {
-    const bandStore = this.props[STORE_BAND] as BandStore;
+    const bandStore = this.props[BAND_STORE] as BandStore;
     Promise.resolve()
       .then(() => bandStore.loadImages())
       .then(images => { this.setState({ images }) })
       .then(() => bandStore.loadServices())
       .then(services => { this.setState({ services }) })
       .then(() => {
-        this.interval = setInterval(() => {
+        this.interval = window.setInterval(() => {
           bandStore.loadServices().then(() => {
             this.setState({
               services: bandStore.services
@@ -38,36 +38,37 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
       })
   }
 
-  interval: NodeJS.Timer | number;
+  interval: number;
+
   addService = async (image: BandImage, pos: string) => {
-    this.props[STORE_BAND].runService(image.key, pos).then(services => this.setNewServices(services));
+    this.props[BAND_STORE].runService(image.key, pos).then(services => this.setNewServices(services));
   };
 
   runOrRebuildService = async (service: BandService, pos: string) => {
-    this.props[STORE_BAND].runService(service.name, pos).then(services => this.setNewServices(services))
+    this.props[BAND_STORE].runService(service.name, pos).then(services => this.setNewServices(services))
   }
 
   deleteService = async (serviceName: string) => {
-    this.props[STORE_BAND].deleteServices(serviceName)
+    this.props[BAND_STORE].deleteServices(serviceName)
       .then(services => this.setNewServices(services));
   }
 
   restartService = async (serviceName: string) => {
-    await this.props[STORE_BAND].restratService(serviceName);
+    await this.props[BAND_STORE].restratService(serviceName);
   }
 
   stopService = async (serviceName: string) => {
-    await this.props[STORE_BAND].stopService(serviceName);
+    await this.props[BAND_STORE].stopService(serviceName);
   }
 
   componentWillUnmount() {
-    // clearInterval(this.interval);
+    window.clearInterval(this.interval);
   }
 
   setNewServices = (services: BandServicesMap) => this.setState({ services });
 
   render() {
-    const bandStore = this.props[STORE_BAND] as BandStore;
+    const bandStore = this.props[BAND_STORE] as BandStore;
     return (
       <div className='rockstat'>
         <Header />

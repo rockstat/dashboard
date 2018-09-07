@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as cl from 'classnames';
-import { STORE_BAND } from 'app/constants';
+import { BAND_STORE } from 'app/constants';
 import { observer, inject } from 'mobx-react';
 import { BandStore } from 'app/stores';
 import { ShowIf } from 'app/components/show-if';
