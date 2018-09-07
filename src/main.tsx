@@ -14,6 +14,7 @@ import './app/base/fonts.scss';
 import './app/base/index.scss';
 
 import '!style-loader!css-loader!../node_modules/react-vis/dist/style.css'
+import '!style-loader!css-loader!../node_modules/react-virtualized/styles.css'
 
 // enable MobX strict mode
 useStrict(true);

@@ -28,7 +28,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
   to: DayPickerInput;
   timeout: number;
 
-  constructor(props){
+  constructor(props) {
     super(props);
     const appState = props[STORE_APP_STATE] as AppStateStore;
     this.state = {
@@ -74,9 +74,9 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
           <div className={styles.menu}>
             {
               menu.map((item, index) => {
-                return (
-                  <Link to={item.link} key={index} className={styles.menuItem}> {item.name} </Link>
-                )
+                return item.extenal
+                  ? <a href={item.link} key={index} className={styles.menuItem} target="_blank"> {item.name} </a>
+                  : <Link to={item.link} key={index} className={styles.menuItem}> {item.name} </Link>
               })
             }
           </div>

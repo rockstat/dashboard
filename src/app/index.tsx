@@ -7,6 +7,7 @@ import { observer, inject } from 'mobx-react';
 import { STORE_BAND } from 'app/constants';
 import { Root, Dashboard } from 'app/containers'
 import { BandStore, AppStateStore, StatStore } from 'app/stores';
+import { Logs } from 'app/containers/logs/logs';
 
 
 export interface AppProps {
@@ -26,7 +27,7 @@ export class App extends React.Component<AppProps, {}> {
       <Root>
         <Router history={history}>
           <Switch>
-            <Route path="/logs" />} />
+            <Route path="/logs" component={Logs} />} />
             <Route path="/" component={Dashboard} />} />
           </Switch>
         </Router>

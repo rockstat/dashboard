@@ -1,0 +1,43 @@
+.AutoSizerWrapper {
+  // flex: 1 1 auto;
+  height: calc(100vh - 70px)
+}
+
+.List {
+  // border: 1px solid #e0e0e0;
+  border: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0 25px;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 12px;
+
+  span {
+    display: inline-block;
+
+
+    &.time {
+      color: #ccc;
+      padding-right: 5px;
+      padding: 0.5em;
+    }
+
+    &.name {
+      color: #03F0FC;
+      width: 100px;
+      padding: 0.5em;
+    }
+
+    &.content {
+      color: #000000;
+      width: calc(100vw - 250px);
+    }
+
+  }
+
+}
+

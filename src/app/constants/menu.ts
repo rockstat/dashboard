@@ -1,24 +1,41 @@
+import { baseDomain, protocol, host } from 'app/lib/agent'
+
 export interface MenuItemInterfase {
   name: string;
   link: string;
+  extenal?: boolean;
 }
+
+const baseUrl = `${protocol}//${host}`
 
 export const menu: Array<MenuItemInterfase> = [
   {
     name: 'Dashboard',
-    link: '/'
+    link: `${baseUrl}/`
   },
   {
-    name: 'service Store',
-    link: '/service_store'
+    name: 'Logs',
+    link: `${baseUrl}/logs`
   },
   {
-    name: 'Data Hub',
-    link: '/data_hub'
+    name: 'Theia IDE',
+    link: `${protocol}//theia.${baseDomain}`,
+    extenal: true
   },
   {
-    name: 'Settings',
-    link: '/settings'
-  }
+    name: 'Jupyter',
+    link: `${protocol}//jupyter.${baseDomain}`,
+    extenal: true
+  },
+  {
+    name: 'Grafana',
+    link: `${protocol}//jupyter.${baseDomain}`,
+    extenal: true
+  },
+  {
+    name: 'Netdata',
+    link: `${protocol}//netdata.${baseDomain}`,
+    extenal: true
+  },
 ]
 

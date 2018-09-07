@@ -8,13 +8,19 @@ import { BandServicesList, ApiWrapper, BandImagesList, Stub, GenricCallee } from
 
 
 const headers = {}
-if (API_AUTH){
+if (API_AUTH) {
   const basicAuth = 'Basic ' + btoa(API_AUTH.username + ':' + API_AUTH.password);
   headers['Authorization'] = basicAuth
 }
 
+export const host = document.location.hostname;
+export const protocol = document.location.protocol;
+export const baseDomain = host.indexOf('app.') === 0 ? host.substr(4) : host;
+export const baseURL = API_URL_TMPL.replace('<host>', document.location.hostname)
+export const wsURL = baseURL.replace('https://', 'wss://').replace("http://", "ws://");
+
 const client = Axios.create({
-  baseURL: API_URL_TMPL.replace('<host>', document.location.hostname),
+  baseURL: baseURL,
   timeout: 3000,
   headers
 });
