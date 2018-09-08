@@ -25,16 +25,8 @@ export class AppStateStore {
   mergeInterval: number;
 
   constructor() {
-    // history?: History
-    // super();
-    // if (history) {
-    //   this.history = syncHistoryWithStore(history, this);
-    // }
     this.mergeInterval = window.setInterval(this.flushLogsTicker, 1e3);
     this.connectWS();
-
-
-    autorun(() => { console.log(`len ${this.logsSize}`) }, { delay: 500 })
   }
 
   connectWS() {
@@ -54,7 +46,7 @@ export class AppStateStore {
     const json = data[0] === '{';
     const pdata = json ? JSON.parse(data) : data;
     return {
-      time: formatDate(time, 'YYYY.MM.dd'),
+      time: time.substr(11), //formatDate(time, 'HH:mm:ss YY.MM.dd'),
       json,
       data: json ? JSON.stringify(pdata, undefined, 1) : pdata,
       ...rest
@@ -72,14 +64,14 @@ export class AppStateStore {
 
   flushLogsTicker = () => {
     if (this.buffer.length) {
-      const buffer = this.buffer;
+      const buffer = [...this.buffer];
       this.buffer = [];
       this.flushLogsBuffer(buffer);
     }
   }
 
   @action flushLogsBuffer = (buffer: Array<any>) => {
-    buffer.forEach(item => this.logsRepository.push(item))
+    this.logsRepository.splice(this.logsRepository.length, 0, ...buffer)
     console.log('buffer flushed, log len:', this.logsRepository.length)
   }
 

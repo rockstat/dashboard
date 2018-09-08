@@ -38,13 +38,12 @@ export class Logs extends React.Component<LogsProps, LogsState> {
   }
 
   render() {
-    console.log('logs', this.props)
     const { logs, logsSize } = this.props[APP_STATE] as AppStateStore;
 
     return (
       <div>
         <div className='rockstat'>
-          <Header logsBadge={""} />
+          <Header/>
         </div>
         <div className={styles.AutoSizerWrapper}>
           <AutoSizer>

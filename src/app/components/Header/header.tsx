@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import Select from 'react-select';
-import * as styles from './style.scss';
+import * as styles from './header.scss';
 import { LogoIcon } from 'app/icons';
 import { menu } from 'app/constants';
 import { options as selectOption, stepValueProps } from 'app/constants/stepValues';
@@ -10,10 +10,14 @@ import { format, parseDate, formatDate } from 'app/lib/date';
 import { observer, inject } from 'mobx-react';
 import { APP_STATE } from 'app/constants';
 import { AppStateStore } from 'app/stores';
+import { History } from 'history'
+import * as cls from 'classnames';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 export interface HeaderProps {
   logsBadge?: string;
 }
+
 export interface HeaderState {
   from: Date;
   to: Date;
@@ -21,25 +25,24 @@ export interface HeaderState {
   changeOption: stepValueProps | null;
 }
 
+export type RoutedHeaderProps = HeaderProps & RouteComponentProps<HeaderProps>;
+
 @inject(APP_STATE)
 @observer
-export class Header extends React.Component<HeaderProps, HeaderState> {
+class HeaderComponent extends React.Component<RoutedHeaderProps, HeaderState> {
 
   to: DayPickerInput;
   timeout: number;
 
   constructor(props) {
     super(props);
-    const appState = props[APP_STATE] as AppStateStore;
+    const { toDate, fromDate } = props[APP_STATE] as AppStateStore;
     this.state = {
-      to: appState.toDate,
-      from: appState.fromDate,
+      to: toDate,
+      from: fromDate,
       options: selectOption,
       changeOption: null
     };
-
-
-
   }
 
   componentWillUnmount() {
@@ -64,7 +67,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
   }
 
   render() {
-    const { logsBadge } = this.props;
+    const { match } = this.props;
     const { from, to, options, changeOption } = this.state;
     const modifiers = { start: from, end: to };
     const now = new Date();
@@ -77,13 +80,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
           </Link>
           <div className={styles.menu}>
             {menu.map((item, index) => {
+              const linkClass = cls(styles.menuItem, { [styles.activeMenu]: match.path === item.link })
               return item.extenal
                 ?
-                <a href={item.link} key={index} className={styles.menuItem} target="_blank">
+                <a href={item.link} key={index} className={linkClass} target="_blank">
                   {` ${item.name} `}
                 </a>
                 :
-                <Link to={item.link} key={index} className={styles.menuItem}>
+                <Link to={item.link} key={index} className={linkClass}>
                   {` ${item.name} `}
                 </Link>
             })}
@@ -148,3 +152,5 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
     );
   }
 }
+
+export const Header = withRouter<RoutedHeaderProps>(HeaderComponent);

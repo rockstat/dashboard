@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Router, Route, Switch } from 'react-router';
-import { History } from 'history'
 import { InjectedStores } from 'app/stores';
+import { History } from 'history'
 
 import { Root, Dashboard, Logs } from 'app/containers'
 

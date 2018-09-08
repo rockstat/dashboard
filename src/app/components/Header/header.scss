@@ -30,7 +30,7 @@
       @include mainFont(14px, 500);
       opacity: 0.3;
       // pointer-events: none;
-      &:first-child {
+      &.activeMenu {
         color: #00F0FF;
         opacity: 1;
       }

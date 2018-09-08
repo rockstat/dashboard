@@ -1,5 +1,5 @@
 export * from 'app/components/Footer';
-export * from 'app/components/Header';
+export * from 'app/components/Header/header';
 export * from 'app/components/LabelSub';
 export * from 'app/components/service';
 export * from 'app/components/CpuMeter';
