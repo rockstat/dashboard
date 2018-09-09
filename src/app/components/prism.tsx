@@ -1,8 +1,5 @@
 import * as React from "react"
 import * as PropTypes from "prop-types"
-// import * as Prism from "prismjs"
-// import "rainbow-code"
-// import "rainbow-code/src/language/generic"
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { irBlack } from 'react-syntax-highlighter/styles/hljs';
 

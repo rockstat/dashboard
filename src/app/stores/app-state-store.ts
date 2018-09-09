@@ -1,10 +1,6 @@
 import { observable, action, computed, autorun } from 'mobx';
 import { subDays, differenceInDays } from 'date-fns';
 import Sockette from 'sockette';
-import { format as formatDate } from 'date-fns'
-
-
-import { History } from 'history';
 import {
   RouterStore as BaseRouterStore,
   syncHistoryWithStore
