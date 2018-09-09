@@ -31,7 +31,7 @@ export const menu: Array<MenuItemInterfase> = [
   },
   {
     name: 'Grafana',
-    link: `${protocol}//jupyter.${baseDomain}`,
+    link: `${protocol}//grafana.${baseDomain}`,
     extenal: true
   },
   {
