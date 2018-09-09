@@ -9,12 +9,9 @@ import {
 import { wsURL } from "app/lib/agent";
 import { IObservableArray } from 'mobx/lib/types/observablearray';
 
-// extends BaseRouterStore
 export class AppStateStore {
-
-  @observable period = 1; // day by default
-  @observable offset = 0; // from now
-
+  @observable period = 1;
+  @observable offset = 0;
   buffer: Array<any> = [];
   logsRepository: IObservableArray<any> = observable.array([]);
   ws: Sockette;
@@ -38,25 +35,22 @@ export class AppStateStore {
     });
   }
 
-  formatMsg({ time, data, ...rest }) {
+  formatMsg({ time, data, ...rest }: { time: string, data: string, rest: any[] }) {
     const json = data[0] === '{';
     const pdata = json ? JSON.parse(data) : data;
     return {
-      time: time.substr(11), //formatDate(time, 'HH:mm:ss YY.MM.dd'),
+      time: time.substr(11, 13),
       json,
       data: json ? JSON.stringify(pdata, undefined, 1) : pdata,
       ...rest
     }
   }
 
-
   handleMsg = (e: MessageEvent) => {
     const sourceMsg = JSON.parse(e.data);
     const msg = this.formatMsg(sourceMsg);
     this.buffer.push(msg);
   }
-
-
 
   flushLogsTicker = () => {
     if (this.buffer.length) {
@@ -68,9 +62,7 @@ export class AppStateStore {
 
   @action flushLogsBuffer = (buffer: Array<any>) => {
     this.logsRepository.splice(this.logsRepository.length, 0, ...buffer)
-    console.log('buffer flushed, log len:', this.logsRepository.length)
   }
-
 
   @computed get logs() {
     return this.logsRepository;
@@ -97,5 +89,4 @@ export class AppStateStore {
   get now() {
     return new Date();
   }
-
 }

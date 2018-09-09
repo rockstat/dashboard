@@ -27,14 +27,15 @@ export class Logs extends React.Component<LogsProps, LogsState> {
     scrollTo: undefined
   }
 
-  //clientHeight: 456, scrollHeight: 2967, scrollTop: 2511}
   onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
-    this.setState(state => ({
-      autoScroll: true//scrollTop === 0 ? state.autoScroll : scrollHeight - clientHeight === scrollTop
-    }))
+    const autoScroll = scrollTop === 0 ? this.state.autoScroll : scrollHeight - clientHeight === scrollTop;
+    this.setState({ autoScroll })
   }
   componentWillReact() {
-    console.log("I will re-render, since the todo has changed!")
+    const { logsSize } = this.props[APP_STATE] as AppStateStore;
+    if (this.state.autoScroll) {
+      this.setState({ scrollTo: logsSize - 1 })
+    }
   }
 
   render() {
@@ -43,7 +44,7 @@ export class Logs extends React.Component<LogsProps, LogsState> {
     return (
       <div>
         <div className='rockstat'>
-          <Header/>
+          <Header />
         </div>
         <div className={styles.AutoSizerWrapper}>
           <AutoSizer>
