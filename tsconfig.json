@@ -24,5 +24,8 @@
       "app/*": ["./app/*"]
     }
   },
+  "include": [
+    "src/*", "types/*"
+  ],
   "exclude": ["dist", "build", "node_modules"]
 }
