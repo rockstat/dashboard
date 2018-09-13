@@ -1,9 +1,9 @@
-export interface stepValueProps {
-  value: string; 
+export interface IStatStepType {
+  value: string;
   label: string;
 }
 
-export const options: Array<stepValueProps> = [
+export const StatSteps: Array<IStatStepType> = [
   {
     value: '5',
     label: '5м'

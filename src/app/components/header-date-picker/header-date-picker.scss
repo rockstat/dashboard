@@ -1,0 +1,19 @@
+@import '../../base/fonts.scss';
+
+
+.datepicker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 999;
+  width: 40%;
+  margin-left: auto;
+  font-family: Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+
+  .stepContainer {
+    width: 20%;
+  }
+}

@@ -14,7 +14,7 @@ const cache = new CellMeasurerCache({
 
 export interface LogsState {
   autoScroll: boolean;
-  scrollTo: number;
+  scrollTo: number | undefined;
 }
 export interface LogsProps extends InjectedStores { }
 
@@ -30,6 +30,11 @@ export class Logs extends React.Component<LogsProps, LogsState> {
   onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
     const autoScroll = scrollTop === 0 ? this.state.autoScroll : scrollHeight - clientHeight === scrollTop;
     this.setState({ autoScroll })
+  }
+
+  componentWillMount() {
+    const { logsSize } = this.props[APP_STATE] as AppStateStore;
+    this.setState({ scrollTo: logsSize - 1 })
   }
   componentWillReact() {
     const { logsSize } = this.props[APP_STATE] as AppStateStore;

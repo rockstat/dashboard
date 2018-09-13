@@ -1,5 +1,6 @@
 export * from 'app/components/Footer';
-export * from 'app/components/Header/header';
+export * from 'app/components/header/header';
+export * from 'app/components/header-date-picker/header-date-picker';
 export * from 'app/components/LabelSub';
 export * from 'app/components/service';
 export * from 'app/components/CpuMeter';

@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Header, DashChart, ServicesGrid } from 'app/components';
+import { Header, DashChart, ServicesGrid, HeaderDatePickerComponent } from 'app/components';
 
 import { BandImage, BandServicesMap, BandService, BandImagesList } from 'app/types';
 import { inject, observer } from 'mobx-react';
-import { BAND_STORE, STAT_STORE } from 'app/constants';
-import { BandStore } from 'app/stores';
+import { BAND_STORE, STAT_STORE, APP_STATE, StatSteps } from 'app/constants';
+import { BandStore, AppStateStore } from 'app/stores';
 
 export interface DashboardProps extends RouteComponentProps<any> {
   /** MobX Stores will be injected via @inject() **/
@@ -16,7 +16,7 @@ export interface DashboardState {
   services?: BandServicesMap;
 }
 
-@inject(BAND_STORE, STAT_STORE)
+@inject(BAND_STORE, STAT_STORE, APP_STATE)
 @observer
 export class Dashboard extends React.Component<DashboardProps, DashboardState> {
   state = {}
@@ -69,9 +69,13 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
   render() {
     const bandStore = this.props[BAND_STORE] as BandStore;
+    const appState = this.props[APP_STATE] as AppStateStore;
+
     return (
       <div className='rockstat'>
-        <Header />
+        <Header>
+          {/* <HeaderDatePickerComponent key={"date-picker"} toDate={appState.toDate} fromDate={appState.toDate} steps={StatSteps}  /> */}
+        </Header>
         {/* <DashboardHeader /> */}
         <DashChart {...this.props} />
         <ServicesGrid  {...this.props}

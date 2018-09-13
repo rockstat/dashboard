@@ -4,19 +4,24 @@
   display: flex;
   align-items: baseline;
   padding: 15px 0;
+
   .logo {
     width: 8%;
     margin-right: 53px;
+
     svg {
       width: 100%;
+
       path {
         fill: #959595;
       }
     }
   }
+
   .menu {
     display: flex;
     justify-content: space-between;
+
     .menuItem {
       color: #fff;
       text-decoration: underline;
@@ -29,33 +34,19 @@
       text-transform: uppercase;
       @include mainFont(14px, 500);
       opacity: 0.3;
+
       // pointer-events: none;
       &.activeMenu {
         color: #00F0FF;
         opacity: 1;
       }
+
       &:hover {
         opacity: 1;
       }
     }
   }
-  .selctedContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    z-index: 999;
-    width: 40%;
-    margin-left: auto;
-    font-family: Helvetica, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    .stepContainer {
-      width: 20%;
-    }
-  }
 }
-
 // .headerContent {
 //   margin: 10px 0 25px;
 //   display: flex;
