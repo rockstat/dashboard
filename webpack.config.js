@@ -139,7 +139,7 @@ module.exports = {
     hot: true,
     hotOnly: true,
     host: '127.0.0.1',
-    port: 3000,
+    port: 8083,
     public: 'app.stat.rock.dev',
     publicPath: 'https://app.stat.rock.dev/',
     // progress: true,
