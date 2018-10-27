@@ -39,5 +39,10 @@ export const menu: Array<MenuItemInterfase> = [
     link: `${protocol}//netdata.${baseDomain}`,
     extenal: true
   },
+  {
+    name: 'Demo',
+    link: `${protocol}//demo.${baseDomain}`,
+    extenal: true
+  },
 ]
 
