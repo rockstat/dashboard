@@ -7,42 +7,38 @@ export interface MenuItemInterfase {
   extenal?: boolean;
 }
 
-const baseUrl = `${protocol}//${host}`
-
-export const menu: Array<MenuItemInterfase> = [
+export const menuItems: Array<MenuItemInterfase> = [
   {
     name: 'Dashboard',
     link: `/`
   },
   {
-    id: 'logs',
     name: 'Logs',
     link: `/logs`
   },
   {
     name: 'Theia IDE',
-    link: `${protocol}//theia.${baseDomain}`,
-    extenal: true
+    link: `${protocol}//theia.${baseDomain}`
   },
   {
     name: 'Jupyter',
-    link: `${protocol}//jupyter.${baseDomain}`,
-    extenal: true
+    link: `${protocol}//jupyter.${baseDomain}`
   },
   {
     name: 'Grafana',
-    link: `${protocol}//grafana.${baseDomain}`,
-    extenal: true
+    link: `${protocol}//grafana.${baseDomain}`
   },
   {
     name: 'Netdata',
-    link: `${protocol}//netdata.${baseDomain}`,
-    extenal: true
+    link: `${protocol}//netdata.${baseDomain}`
   },
   {
     name: 'Demo',
-    link: `${protocol}//demo.${baseDomain}`,
-    extenal: true
+    link: `${protocol}//demo.${baseDomain}?utm_source=rockstat-app`
+  },
+  {
+    name: 'Documentation',
+    link: `https://rock.st/docs?utm_source=rockstat-app`
   },
 ]
 

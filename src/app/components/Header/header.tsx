@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
-
+import { UniversalLink } from '../link'
 import { LogoIcon } from 'app/icons';
-import { menu } from 'app/constants';
+import { menuItems } from 'app/constants';
 import { APP_STATE } from 'app/constants';
-import { AppStateStore } from 'app/stores';
 import * as cls from 'classnames';
 import { withRouter, RouteComponentProps } from 'react-router';
 
@@ -25,26 +23,26 @@ export type RoutedHeaderProps = HeaderProps & RouteComponentProps<HeaderProps>;
 class HeaderComponent extends React.Component<RoutedHeaderProps, HeaderState> {
 
   render() {
-    const { match, children } = this.props;
 
+
+
+    const { match, children } = this.props;
     return (
       <header>
         <div className={styles.headerContent}>
-          <Link to={'/'} className={styles.logo}>
+          <UniversalLink to={'/'} className={styles.logo}>
             <LogoIcon />
-          </Link>
+          </UniversalLink>
           <div className={styles.menu}>
-            {menu.map((item, index) => {
-              const linkClass = cls(styles.menuItem, { [styles.activeMenu]: match.path === item.link })
-              return item.extenal
-                ?
-                <a href={item.link} key={index} className={linkClass} target="_blank">
-                  {` ${item.name} `}
-                </a>
-                :
-                <Link to={item.link} key={index} className={linkClass}>
-                  {` ${item.name} `}
-                </Link>
+            {menuItems.map((item, index) => {
+              console.log(index);
+              const linkClass = cls(
+                styles.menuItem,
+                { [styles.activeMenu]: match.path === item.link }
+              );
+              return <UniversalLink key={index} to={item.link} className={linkClass}>
+                {item.name}
+              </UniversalLink>
             })}
           </div>
           {children}
