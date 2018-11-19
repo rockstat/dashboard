@@ -38,7 +38,7 @@ export const menuItems: Array<MenuItemInterfase> = [
   },
   {
     name: 'Documentation',
-    link: `https://rock.st/docs?utm_source=rockstat-app`
+    link: `https://rock.st/docs/?utm_source=rockstat-app`
   },
 ]
 
