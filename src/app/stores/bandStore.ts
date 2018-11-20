@@ -2,6 +2,93 @@ import { observable, action, computed } from 'mobx';
 import { BandApi, StatApi } from 'app/api';
 import { BandServicesList, BandImagesList, BandService, BandImage } from 'app/types';
 
+const TEST_IMAGES = [
+  {
+    name: 'name1',
+    base: 'base',
+    key: 'key',
+    path: 'path',
+    title: 'TITLE'
+  },
+  {
+    name: 'name2',
+    base: 'base',
+    key: 'key',
+    path: 'path',
+    title: 'TITLE'
+  },
+  {
+    name: 'name3',
+    base: 'base',
+    key: 'key',
+    path: 'path',
+    title: 'TITLE'
+  }
+]
+
+const TEST_SERVICES = [
+  {
+    name: 'Name1',
+    title: 'title',
+    state: 'running',
+    uptime: 23,
+    pos: {
+      col: 0,
+      row: 0
+    },
+    mem: 3,
+    cpu: 5,
+    sla: 20,
+    enhancer: '123',
+    meta: {
+      managed: false,
+      native: true,
+      protected: false,
+      persistent: true
+    }
+  },
+  {
+    name: 'Name2',
+    title: 'title',
+    state: 'running',
+    uptime: 23,
+    pos: {
+      col: 1,
+      row: 0
+    },
+    mem: 3,
+    cpu: 5,
+    sla: 20,
+    enhancer: '123',
+    meta: {
+      managed: false,
+      native: true,
+      protected: false,
+      persistent: true
+    }
+  },
+  {
+    name: 'Name3',
+    title: 'title',
+    state: 'running',
+    uptime: 23,
+    pos: {
+      col: 2,
+      row: 1
+    },
+    mem: 3,
+    cpu: 5,
+    sla: 20,
+    enhancer: '123',
+    meta: {
+      managed: false,
+      native: true,
+      protected: false,
+      persistent: true
+    }
+  }
+]
+
 export class BandStore {
 
   // Common logic
@@ -33,35 +120,73 @@ export class BandStore {
   };
 
   @action
-  loadServices() {
-    this.servicesLoading = true;
-    return BandApi.services()
-      .then(action((records: BandServicesList) => {
-        this.servicesRegistry.clear();
+  updateServices(name: string, pos: string) {
+    this.services.forEach((item: BandService) => {
+       if (item.name === name) {
+          this.servicesRegistry.set(pos, item);
+       }
+    })
 
-        records.forEach(record => {
-          const pos = `${record.pos.col}x${record.pos.row}`
-          this.servicesRegistry.set(pos, record)
-        });
-        return this.services;
-      }))
-      .finally(action(() => {
-        this.servicesLoading = false;
-      }));
+    return this.services;
+  }
+
+  @action
+  loadServices() {
+    this.imagesLoading = true;
+    const testFUNC = () => TEST_SERVICES;
+    return Promise.resolve(testFUNC())
+            .then(action((records: BandServicesList) => {
+              this.servicesRegistry.clear();
+
+              records.forEach(record => {
+                const pos = `${record.pos.col}x${record.pos.row}`
+                this.servicesRegistry.set(pos, record)
+              });
+              return this.services;
+            }))
+            .finally(action(() => {
+              this.servicesLoading = false;
+            }));
+
+
+    // return BandApi.services()
+    //   .then(action((records: BandServicesList) => {
+    //     this.servicesRegistry.clear();
+
+    //     records.forEach(record => {
+    //       const pos = `${record.pos.col}x${record.pos.row}`
+    //       this.servicesRegistry.set(pos, record)
+    //     });
+    //     return this.services;
+    //   }))
+    //   .finally(action(() => {
+    //     this.servicesLoading = false;
+    //   }));
   }
 
   @action
   loadImages() {
     this.imagesLoading = true;
-    return BandApi.images()
-      .then(action((records: BandImagesList) => {
-        this.imagesRegistry.clear();
-        records.forEach(record => this.imagesRegistry.set(record.name, record));
-        return this.images;
-      }))
-      .finally(action(() => {
-        this.imagesLoading = false;
-      }));
+    const testFUNC = () => TEST_IMAGES;
+    return Promise.resolve(testFUNC())
+            .then(action((records: BandImagesList) => {
+              this.imagesRegistry.clear();
+              records.forEach(record => this.imagesRegistry.set(record.name, record));
+              return this.images;
+            }))
+            .finally(action(() => {
+              this.imagesLoading = false;
+            }));
+
+    // return BandApi.images()
+    //   .then(action((records: BandImagesList) => {
+    //     this.imagesRegistry.clear();
+    //     records.forEach(record => this.imagesRegistry.set(record.name, record));
+    //     return this.images;
+    //   }))
+    //   .finally(action(() => {
+    //     this.imagesLoading = false;
+    //   }));
   }
 
   @action

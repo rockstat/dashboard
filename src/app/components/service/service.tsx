@@ -29,6 +29,9 @@ interface ServiceProps {
   restartService: (serviceName: string) => void;
   stopService: (serviceName: string) => void;
   pos: string;
+  onDragStart: (nameContainer: string) => void;
+  onDragOver: (e: React.DragEvent<HTMLElement>) => void;
+  onDrop: (pos: string, e: React.DragEvent<HTMLElement>) => void;
   // onClickSettings: (i: number, e: HTMLDivElement) => void;
 }
 
@@ -79,7 +82,7 @@ export class Project extends React.Component<ServiceProps, {}> {
   }
 
   render() {
-    const { container, images, pos, addService } = this.props;
+    const { container, images, pos, addService, onDragStart, onDragOver, onDrop } = this.props;
     // const { name, date, cpu, resp, mem } = container;
     const number = 1;
     const onClickSettings = (...args: any[]) => { };
@@ -93,8 +96,12 @@ export class Project extends React.Component<ServiceProps, {}> {
           onRunClick={addService}
           images={images}
           pos={pos}
+          onDragOver={onDragOver}
+          onDrop={onDrop.bind(this, pos)}
         /> :
         <div
+          onDragStart={onDragStart.bind(this, container.name)}
+          draggable
           className={cl(styles.project, {[styles.loading]: container.state !== 'running'})}
           ref={(ref: HTMLDivElement) => this.projetContainer = ref}
         >

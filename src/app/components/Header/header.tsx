@@ -23,10 +23,8 @@ export type RoutedHeaderProps = HeaderProps & RouteComponentProps<HeaderProps>;
 class HeaderComponent extends React.Component<RoutedHeaderProps, HeaderState> {
 
   render() {
-
-
-
     const { match, children } = this.props;
+
     return (
       <header>
         <div className={styles.headerContent}>

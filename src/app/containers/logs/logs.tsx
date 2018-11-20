@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from "react-virtualized";
-import { Header, ShowIf } from 'app/components';
+import { Header, ShowIf, BarLogs } from 'app/components';
 import * as styles from './logs.scss';
 import { PrismCode } from 'app/components/prism';
 import { observer, inject } from 'mobx-react';
@@ -49,7 +49,9 @@ export class Logs extends React.Component<LogsProps, LogsState> {
     return (
       <div>
         <div className='rockstat'>
-          <Header />
+          <Header>
+            <BarLogs/>
+          </Header>
         </div>
         <div className={styles.AutoSizerWrapper}>
           <AutoSizer>

@@ -11,6 +11,8 @@ import * as styles from './style.scss';
 
 interface ServicesGridState {
   modalPosition: number;
+  drag: boolean;
+  changePostionContainerName: string;
 }
 
 export interface ServicesGridProps {
@@ -20,6 +22,7 @@ export interface ServicesGridProps {
   onDelete: (name: string) => any;
   onRun: (service: BandService, pos: string) => any;
   onAdd: (service: BandImage, pos: string) => any;
+  updateService: (name: string, pos: string) => void;
   services?: BandServicesMap
   images?: BandImagesList
 }
@@ -45,7 +48,9 @@ const renderImages = (images, services) => {
 
 export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGridState> {
   state = {
-    modalPosition: 0
+    modalPosition: 0,
+    drag: false,
+    changePostionContainerName: ''
   }
 
   // _openSettings = (index: number, e: HTMLDivElement) => {
@@ -59,6 +64,27 @@ export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGri
   //     showAdd: false
   //   })
   // }
+
+  onDragStart = (nameContainer: string) => {
+    this.setState({
+      changePostionContainerName: nameContainer
+    });
+  }
+
+  onDragOver = (e: React.DragEvent<HTMLElement>) => {
+    const { drag } = this.state;
+    e.preventDefault();
+    if (!drag) {
+      this.setState({ drag: true });
+    }
+  }
+
+  onDrop = (pos: string, e: React.DragEvent<HTMLElement>) => {
+    const { changePostionContainerName } = this.state;
+    e.preventDefault();
+
+    this.props.updateService(changePostionContainerName, pos);
+  }
 
   render() {
     const { services, images } = this.props;
@@ -81,6 +107,9 @@ export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGri
                   stopService={this.props.onStop}
                   addService={this.props.onAdd}
                   deleteService={this.props.onDelete}
+                  onDragStart={this.onDragStart}
+                  onDragOver={this.onDragOver}
+                  onDrop={this.onDrop}
                 />
               )
             })

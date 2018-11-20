@@ -8,3 +8,7 @@ export * from 'app/icons/RefreshIcon';
 export * from 'app/icons/PauseIcon';
 export * from 'app/icons/PlayIcon';
 export * from 'app/icons/RebuildIcon';
+export * from 'app/icons/logsplayicon';
+export * from 'app/icons/logspauseicon';
+export * from 'app/icons/logsarrowdownicon';
+export * from 'app/icons/logssearchicon';

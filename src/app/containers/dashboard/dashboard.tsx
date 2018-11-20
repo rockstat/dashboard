@@ -67,6 +67,14 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
   setNewServices = (services: BandServicesMap) => this.setState({ services });
 
+  updateService = (name: string, pos: string) => {
+    const newServices = this.props[BAND_STORE].updateServices(name, pos);
+
+    this.setState({
+      services: newServices
+    });
+  }
+
   render() {
     const bandStore = this.props[BAND_STORE] as BandStore;
     const appState = this.props[APP_STATE] as AppStateStore;
@@ -86,6 +94,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
           onDelete={this.deleteService}
           onRun={this.runOrRebuildService}
           onAdd={this.addService}
+          updateService={this.updateService}
         />
         {/* <SystemResources /> */}
       </div>
