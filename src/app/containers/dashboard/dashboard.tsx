@@ -69,7 +69,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
   updateService = (name: string, pos: string) => {
     const newServices = this.props[BAND_STORE].updateServices(name, pos);
-
+    
     this.setState({
       services: newServices
     });
