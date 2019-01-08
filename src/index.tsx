@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 import { useStrict } from 'mobx';
 import { Provider } from 'mobx-react';
 import { createBrowserHistory } from 'history';
-import { createStores } from 'app/stores';
+import { rootStore } from 'app/stores';
 import { App } from 'app/app';
 import { shim } from 'promise.prototype.finally';
 shim();
@@ -20,8 +20,8 @@ useStrict(true);
 
 // prepare MobX stores
 export const history = createBrowserHistory();
-export const rootStore = createStores();
 
+// console.log(rootStore)
 // render react DOM
 ReactDOM.render(
   <Provider {...rootStore}>

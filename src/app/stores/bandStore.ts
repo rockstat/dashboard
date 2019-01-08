@@ -1,6 +1,6 @@
 import { observable, action, computed } from 'mobx';
 import { BandApi, StatApi } from 'app/api';
-import { BandServicesList, BandImagesList, BandService, BandImage } from 'app/types';
+import { BandServicesList, BandImagesList, BandService, BandImage, BandServicePos } from 'app/types';
 
 // const TEST_IMAGES = [
 //   {
@@ -89,13 +89,29 @@ import { BandServicesList, BandImagesList, BandService, BandImage } from 'app/ty
 //   }
 // ]
 
-export class BandStore {
 
+const posToStr = (pos) => {
+  return `${pos.col}x${pos.row}`
+}
+const strPosToObj = (pos) => {
+  const [col, row]:[number, number] = pos.split('x')
+  return {col, row}
+}
+
+export class BandStore {
+  interval: number
+  interval2: number
   // Common logic
   @observable servicesLoading = false;
   @observable imagesLoading = false;
   @observable servicesRegistry = observable.map<BandService>();
   @observable imagesRegistry = observable.map<BandImage>();
+  constructor() {
+    this.interval = window.setInterval(() => {this.loadServices().then(() => {})}, 5000)
+    this.interval2 = window.setInterval(() => {this.loadImages().then(() => {})}, 60000)
+    this.loadImages().then(() => {})
+    this.loadServices().then(() => {})
+  }
 
   clear() {
     this.servicesRegistry.clear();
@@ -104,9 +120,8 @@ export class BandStore {
 
   @observable currentProjectId = null;
 
-  @computed
-  get services() {
-    return this.servicesRegistry;
+  @computed get services() {
+    return this.servicesRegistry.toJSON();
   };
 
   @computed
@@ -114,30 +129,36 @@ export class BandStore {
     return this.imagesRegistry.values();
   };
 
-  @computed
-  get service() {
-    return this.servicesRegistry.get(this.currentProjectId);
-  };
+  // @computed
+  // get service() {
+  //   return this.servicesRegistry.get(this.currentProjectId);
+  // };
 
   @action
   updateServices(name: string, pos: string) {
-    this.services.forEach((item: BandService) => {
-      if (item.name === name) {
-        const posParse: string[] = pos.split('x');
-        const posOldItem = `${item.pos.col}x${item.pos.row}`
-        this.servicesRegistry.delete(posOldItem);
-        this.servicesRegistry.set(pos, {
-          ...item,
-          pos: {
-            col: Number(posParse[0]),
-            row: Number(posParse[1])
-          }
-        });
-      }
-    });
+    console.log(name, pos)
+    return BandApi.setPos(name, pos)
+      .then(action((record: BandService) => {}))
+      .then(action(() => this.loadServices()))
+    // this.services.forEach((item: BandService) => {
+    // if (item.name === name) {
+    //   const posParse: string[] = pos.split('x');
+    //   const posOldItem = `${item.pos.col}x${item.pos.row}`
+    //   this.servicesRegistry.delete(posOldItem);
+    //   this.servicesRegistry.set(pos, {
+    //     ...item,
+    //     pos: {
+    //       col: Number(posParse[0]),
+    //       row: Number(posParse[1])
+    //     }
+    //   });
+    // }
+    // });
 
-    return this.services;
+    // 
   }
+
+
 
   @action
   loadServices() {
@@ -161,11 +182,9 @@ export class BandStore {
     return BandApi.services()
       .then(action((records: BandServicesList) => {
         this.servicesRegistry.clear();
-
-        records.forEach(record => {
-          const pos = `${record.pos.col}x${record.pos.row}`
-          this.servicesRegistry.set(pos, record)
-        });
+        records.forEach(action((record: BandService) => {
+          this.servicesRegistry.set(posToStr(record.pos), record)
+        }));
         return this.services;
       }))
       .finally(action(() => {
@@ -190,7 +209,7 @@ export class BandStore {
     return BandApi.images()
       .then(action((records: BandImagesList) => {
         this.imagesRegistry.clear();
-        records.forEach(record => this.imagesRegistry.set(record.name, record));
+        records.forEach(action((record: BandImage) => this.imagesRegistry.set(record.name, record)));
         return this.images;
       }))
       .finally(action(() => {
@@ -202,22 +221,24 @@ export class BandStore {
   runService(name: string, pos: string) {
     return BandApi.run(name, pos)
       .then(action((record: BandService) => {
-        let serviceDetect: boolean = false;
+        // let serviceDetect: boolean = false;
+        this.servicesRegistry.set(pos, record);
 
-        this.servicesRegistry.forEach(item => {
-          if (item.name === record.name) serviceDetect = true;
+        // this.servicesRegistry.forEach(item => {
+        //   if (item.name === record.name){
+        //     serviceDetect = true;
+        //   }
+        //   return;
+        // });
 
-          return;
-        });
+        // if (!serviceDetect) {
+        //   const pos = `${record.pos.col}x${record.pos.row}`;
 
-        if (!serviceDetect) {
-          const pos = `${record.pos.col}x${record.pos.row}`;
-          this.servicesRegistry.set(pos, record);
-        }
+        // }
 
-        return this.servicesRegistry;
+        return this.services;
       })
-    );
+      );
   }
 
   @action
@@ -233,18 +254,18 @@ export class BandStore {
               serviceDetect = true;
               serviceIndex = index;
             }
-  
+
             return;
           });
-  
+
           if (!serviceDetect && serviceIndex !== '-1') {
             this.servicesRegistry.delete(serviceIndex);
           }
-  
+
           return this.servicesRegistry;
         }
       })
-    )
+      )
   }
 
   @action
@@ -261,4 +282,10 @@ export class BandStore {
   stopService(serviceName) {
     return BandApi.stopService(serviceName)
   }
+
+  async reloadData() {
+    await this.loadImages()
+    await this.loadServices()
+  }
+
 }

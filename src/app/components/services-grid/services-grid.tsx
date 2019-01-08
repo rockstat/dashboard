@@ -5,7 +5,7 @@ import { observer, inject } from 'mobx-react';
 import { BandStore } from 'app/stores';
 import { ShowIf } from 'app/components/show-if';
 import { Project } from 'app/components';
-import { BandServicesMap, BandImage, BandImagesList, BandService } from 'app/types';
+import { BandServicesMap, BandImage, BandImagesList, BandService, BandServicePos } from 'app/types';
 
 import * as styles from './style.scss';
 
@@ -24,7 +24,8 @@ export interface ServicesGridProps {
   onAdd: (service: BandImage, pos: string) => any;
   updateService: (name: string, pos: string) => void;
   services?: BandServicesMap
-  images?: BandImagesList
+  images?: BandImagesList;
+  servicesLoading: boolean;
 }
 
 
@@ -33,10 +34,12 @@ const renderImages = (images, services) => {
 
   images.forEach(item => {
     let detectRunImage: boolean = true;
-    services.forEach(service => {
-      if (item.key === service.name) {
-        detectRunImage = false;
-        return;
+    Object.values(services).forEach((service: BandService) => {
+      if (item && item.key){
+        if (item.key === service.name) {
+          detectRunImage = false;
+          return;
+        }
       }
     })
     if (detectRunImage) {
@@ -64,6 +67,9 @@ export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGri
   //     showAdd: false
   //   })
   // }
+  componentWillMount(){
+
+  }
 
   onDragStart = (nameContainer: string) => {
     this.setState({
@@ -87,9 +93,9 @@ export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGri
   }
 
   render() {
-    const { services, images } = this.props;
+    const { images } = this.props;
+    const services = this.props[BAND_STORE].services || {}
     const resultImages = renderImages(images, services)
-
     return (
       <ShowIf condition={services && images}>
         <div className={cl(styles.projectsContainer, 'projects-container')}>
@@ -100,7 +106,7 @@ export class ServicesGrid extends React.Component<ServicesGridProps, ServicesGri
                 <Project
                   key={pos}
                   pos={pos}
-                  container={services.get(pos)}
+                  container={(this.props.services || {})[pos]}
                   images={resultImages}
                   restartService={this.props.onRestart}
                   runOrRebuildService={this.props.onRun}

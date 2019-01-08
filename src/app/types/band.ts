@@ -5,15 +5,16 @@ export interface BandServicesDict {
   [k: string]: BandService
 }
 export type BandServicesMap = ObservableMap<BandService>
+export interface BandServicePos {
+  col?: number,
+  row?: number
+}
 export interface BandService {
   name: string;
   title: string;
   state: string;
   uptime?: number;
-  pos?: {
-    col?: number,
-    row?: number
-  };
+  pos: BandServicePos;
   mem?: number;
   cpu?: number;
   sla?: number;

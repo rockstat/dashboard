@@ -12,7 +12,6 @@ export interface AppProps extends InjectedStores {
 export class App extends React.Component<AppProps, {}> {
 
   render() {
-    console.log(this.props);
     const { history } = this.props;
     return (
       <Root>

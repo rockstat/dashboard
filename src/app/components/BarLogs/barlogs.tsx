@@ -15,7 +15,11 @@ interface BarLogsState {
   activeService: ServiceOption;
 }
 
-export class BarLogs extends React.Component<{}, BarLogsState> {
+interface BarLogsProps {
+  wsConnected: boolean;
+}
+
+export class BarLogs extends React.Component<BarLogsProps, BarLogsState> {
   state = {
     logStatus: 'play',
     servicesOptions: [
@@ -46,7 +50,7 @@ export class BarLogs extends React.Component<{}, BarLogsState> {
     const { logStatus } = this.state;
 
     this.setState({
-      logStatus: logStatus === 'play' ? 'pause' : 'play'
+      logStatus: logStatus == 'play' ? 'pause' : 'play'
     });
   }
 
@@ -58,7 +62,8 @@ export class BarLogs extends React.Component<{}, BarLogsState> {
 
   render() {
     const { logStatus, servicesOptions, activeService } = this.state;
-
+    const { wsConnected } = this.props;
+    
     return (
       <div className={styles.container}>
         <div className={styles.btnContainer}>
@@ -97,7 +102,7 @@ export class BarLogs extends React.Component<{}, BarLogsState> {
         </div>
         <div className={styles.statusContainer}>
         {
-          logStatus === 'play' ?
+          wsConnected ?
             <div className={styles.online}>
               <div className={styles.circle} />
               <div className={styles.text}>online</div>

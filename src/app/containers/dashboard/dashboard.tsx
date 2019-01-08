@@ -4,7 +4,7 @@ import { Header, DashChart, ServicesGrid, HeaderDatePickerComponent } from 'app/
 
 import { BandImage, BandServicesMap, BandService, BandImagesList } from 'app/types';
 import { inject, observer } from 'mobx-react';
-import { BAND_STORE, STAT_STORE, APP_STATE, StatSteps } from 'app/constants';
+import { BAND_STORE, STAT_STORE, APP_STATE } from 'app/constants';
 import { BandStore, AppStateStore } from 'app/stores';
 
 export interface DashboardProps extends RouteComponentProps<any> {
@@ -13,44 +13,50 @@ export interface DashboardProps extends RouteComponentProps<any> {
 
 export interface DashboardState {
   images?: BandImagesList;
-  services?: BandServicesMap;
+  // services?: BandServicesMap;
 }
 
-@inject(BAND_STORE, STAT_STORE, APP_STATE)
+// @inject(appState, STAT_STORE, APP_STATE)
+@inject(APP_STATE, STAT_STORE, BAND_STORE)
 @observer
 export class Dashboard extends React.Component<DashboardProps, DashboardState> {
   state = {}
-  componentWillMount() {
-    const bandStore = this.props[BAND_STORE] as BandStore;
-    Promise.resolve()
-      .then(() => bandStore.loadImages())
-      .then(images => { this.setState({ images }) })
-      .then(() => bandStore.loadServices())
-      .then(services => { this.setState({ services }) })
-      .then(() => {
-        this.interval = window.setInterval(() => {
-          bandStore.loadServices().then(() => {
-            this.setState({
-              services: bandStore.services
-            })
-          })
-        }, 3000);
-      })
-  }
-
   interval: number;
 
+  async componentWillMount() {
+    const bandStore = this.props[BAND_STORE] as BandStore;
+    // await bandStore.reloadData()
+    // Promise.resolve()
+    //   .then(() => bandStore.loadServices())
+    //   .then(() => bandStore.loadImages())
+    //   .then(images => { this.setState({ images }) })
+    //   // .then(services => { this.setState({ services }) })
+    //   .then(() => {
+    //     this.interval = window.setInterval(() => {
+    //       bandStore.loadServices().then(() => {
+    //         // this.setState({
+    //         //   services: bandStore.services
+    //         // })
+    //       })
+    //     }, 5000);
+    //   })
+  }
+
+
+
   addService = async (image: BandImage, pos: string) => {
-    this.props[BAND_STORE].runService(image.key, pos).then(services => this.setNewServices(services));
+    await this.props[BAND_STORE].runService(image.key, pos)
+    // .then(services => this.setNewServices(services));
   };
 
   runOrRebuildService = async (service: BandService, pos: string) => {
-    this.props[BAND_STORE].runService(service.name, pos).then(services => this.setNewServices(services))
+    await this.props[BAND_STORE].runService(service.name, pos)
+    // .then(services => this.setNewServices(services))
   }
 
   deleteService = async (serviceName: string) => {
-    this.props[BAND_STORE].deleteServices(serviceName)
-      .then(services => this.setNewServices(services));
+    await this.props[BAND_STORE].deleteServices(serviceName)
+    // .then(services => this.setNewServices(services));
   }
 
   restartService = async (serviceName: string) => {
@@ -65,20 +71,20 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
     window.clearInterval(this.interval);
   }
 
-  setNewServices = (services: BandServicesMap) => this.setState({ services });
+  // setNewServices = (services: BandServicesMap) => this.setState({ services });
 
   updateService = (name: string, pos: string) => {
-    const newServices = this.props[BAND_STORE].updateServices(name, pos);
-    
-    this.setState({
-      services: newServices
-    });
+    this.props[BAND_STORE].updateServices(name, pos);
+
+    // this.setState({
+    //   services: newServices
+    // });
   }
+
 
   render() {
     const bandStore = this.props[BAND_STORE] as BandStore;
     const appState = this.props[APP_STATE] as AppStateStore;
-
     return (
       <div className='rockstat'>
         <Header>
@@ -88,7 +94,8 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
         <DashChart {...this.props} />
         <ServicesGrid  {...this.props}
           images={bandStore.images}
-          services={bandStore.services}
+          servicesLoading={this.props[BAND_STORE].servicesLoading}
+          services={this.props[BAND_STORE].services}
           onRestart={this.restartService}
           onStop={this.stopService}
           onDelete={this.deleteService}

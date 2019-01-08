@@ -16,6 +16,8 @@ export const BandApi = {
     requests.get<Stub>(`/stop/${name}`),
   ads: (id, filter) =>
     requests.get<Stub>(`/projects/${id}/ads/${filter}`),
+  setPos: (id, pos: string) =>
+    requests.post<Stub>(`/set_pos/${id}`, { pos: pos }),
   getRegions: () =>
     requests.get<Stub>('/info/regions')
 };

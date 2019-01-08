@@ -12,6 +12,7 @@ import { IObservableArray } from 'mobx/lib/types/observablearray';
 export class AppStateStore {
   @observable period = 1;
   @observable offset = 0;
+  @observable wsConnected = false;
   buffer: Array<any> = [];
   logsRepository: IObservableArray<any> = observable.array([]);
   ws: Sockette;
@@ -26,11 +27,11 @@ export class AppStateStore {
     this.ws = new Sockette(wsURL, {
       timeout: 5e3,
       maxAttempts: 10,
-      onopen: e => console.log('Connected!', e),
+      onopen: e => action(() => { this.wsConnected = true }),
       onmessage: this.handleMsg,
       onreconnect: e => console.log('Reconnecting...', e),
       onmaximum: e => console.log('Stop Attempting!', e),
-      onclose: e => console.log('Closed!', e),
+      onclose: e => action(() => { this.wsConnected = false }),
       onerror: e => console.log('Error:', e)
     });
   }

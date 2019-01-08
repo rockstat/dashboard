@@ -88,9 +88,6 @@ export class Project extends React.Component<ServiceProps, {}> {
     const onClickSettings = (...args: any[]) => { };
 
     return (
-      //
-      // Тут бы конечно вообще в одну сущность слить, или враппер какой-нить чтобы дальше их перетаскивать можно было.
-      //
       !this.props.container ?
         <AddProject
           onRunClick={addService}

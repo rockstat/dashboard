@@ -44,13 +44,13 @@ export class Logs extends React.Component<LogsProps, LogsState> {
   }
 
   render() {
-    const { logs, logsSize } = this.props[APP_STATE] as AppStateStore;
+    const { logs, logsSize, wsConnected } = this.props[APP_STATE] as AppStateStore;
 
     return (
       <div>
         <div className='rockstat'>
           <Header>
-            <BarLogs/>
+            <BarLogs wsConnected={wsConnected}/>
           </Header>
         </div>
         <div className={styles.AutoSizerWrapper}>
