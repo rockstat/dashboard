@@ -1,10 +1,10 @@
 
+@import 'app/base/fonts.scss';
 
 .container {
   margin-left: 50px;
   display: flex;
-  @include mainFont(24px, 500);
-  font-family: 'Raleway', sans-serif;
+  @include mainFont(14px, 500);
   .btnContainer {
     display: flex;
     .playBtnContainer {

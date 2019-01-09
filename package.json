@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server --mode development --progress --color",
     "start_remote_stage": "NODE_ENV=remote_stage webpack-dev-server --mode development --progress --color",
-    "build": "rimraf dist && NODE_ENV=production webpack -p --progress --color",
+    "build": "rimraf dist && mkdir dist && NODE_ENV=production webpack -p --progress --color",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,css}\""
   },
   "license": "MIT",

@@ -21,7 +21,8 @@
       "@types"
     ],
     "paths": {
-      "app/*": ["./app/*"]
+      "app/*": ["./app/*"],
+      "@app/*": ["src/*"]
     }
   },
   "include": [

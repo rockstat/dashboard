@@ -1,10 +1,10 @@
 import * as React from 'react';
-import * as styles from './style.scss';
+import * as styles from './style.scss'
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 import Select from 'react-select';
-import { options as selectOption, stepValueProps } from 'app/constants/stepValues';
+import { options as selectOption, stepValueProps } from '@app/constants/stepValues';
 import { format, parseDate, formatDate } from 'app/lib/date';
 import { observer, inject } from 'mobx-react';
 import { APP_STATE } from 'app/constants';
