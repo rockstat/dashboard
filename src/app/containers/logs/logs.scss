@@ -16,15 +16,9 @@
   align-items: flex-start;
   padding: 0 5px;
   border-bottom: 1px solid #e0e0e0;
-  font-size: 10px;
-  font-family:  "Monaco","Lucida Console", "monospace";
-  font-weight: 400;
-  // @include mainFont(24px, 500);
-  // font-family: 'Raleway', sans-serif;
+  @include monoFont(10px, 400);
   span {
     display: inline-block;
-
-
     &.time {
       color: #ccc;
       padding-right: 5px;

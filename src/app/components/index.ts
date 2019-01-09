@@ -12,4 +12,5 @@ export * from 'app/components/CircleComponentInfo';
 export * from 'app/components/DashChart/dash-chart';
 export * from 'app/components/services-grid/services-grid';
 export * from './show-if';
-export * from './BarLogs/barlogs';
+export * from './HeaderToolbar/online-status';
+export * from './HeaderToolbar/barlogs';

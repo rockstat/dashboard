@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from "react-virtualized";
-import { Header, ShowIf, BarLogs } from 'app/components';
+import { Header, ShowIf, BarLogs, OnlineStatus } from 'app/components';
 import * as styles from './logs.scss';
 import { PrismCode } from 'app/components/prism';
 import { observer, inject } from 'mobx-react';
@@ -76,7 +76,8 @@ export class Logs extends React.Component<LogsProps, LogsState> {
       <div>
         <div className='rockstat'>
           <Header>
-            <BarLogs autoScroll={autoScroll} logsEnabled={logsEnabled} toggleLogs={this.toggleLogsEnabled} toggleAutoScroll={this.toggleAutoScroll} wsConnected={wsConnected} />
+            <BarLogs autoScroll={autoScroll} logsEnabled={logsEnabled} toggleLogs={this.toggleLogsEnabled} toggleAutoScroll={this.toggleAutoScroll} />
+            <OnlineStatus wsConnected={wsConnected}/>
           </Header>
         </div>
         <div className={styles.AutoSizerWrapper}>

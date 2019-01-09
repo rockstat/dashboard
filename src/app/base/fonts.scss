@@ -5,3 +5,11 @@
   font-size: $size;
   font-weight: $weight;
 }
+
+
+@mixin monoFont($size, $weight) {
+  font-family:  "Monaco","Lucida Console", "monospace";
+  font-size: $size;
+  font-weight: $weight;
+}
+

@@ -1,0 +1,132 @@
+
+@import 'app/base/fonts.scss';
+
+.container {
+  margin-left: 25px;
+  display: flex;
+  @include mainFont(14px, 500);
+  .btnContainer {
+    display: flex;
+    .playBtnContainer {
+      position: relative;
+      width: 26px;
+      height: 19px;
+      .play, .pause {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity .3s ease, visibility .3s ease;
+        will-change: opacity;
+        cursor: pointer;
+        &.show {
+          visibility: visible;
+          opacity: 1;
+        }
+        svg {
+          width: 100%;
+        }
+      }
+    }
+    .arrowDown {
+      width: 26px;
+      height: 24px;
+      margin-left: 5px;
+      cursor: pointer;
+      svg {
+        width: 100%;
+      }
+    }
+  }
+  .changeServices {
+    width: 121px;
+    margin-left: 5px;
+    .selectContainer {
+      border: 1px solid #878787;
+      font-size: 12px;
+      :global .Select-control {
+        height: 22px;
+      }
+      :global .Select-placeholder {
+        line-height: 24px
+      }
+      :global .Select-value {
+        line-height: 24px !important;
+      }
+      :global .Select-value-label {
+        line-height: 24px;
+      }
+      :global .Select-input {
+        height: 24px;
+      }
+      :global .Select-arrow {
+        border-color: #828282 transparent transparent;
+      }
+      :global .Select.is-open .Select-control .Select-arrow {
+        border-color: transparent transparent #828282;
+      }
+      :global .Select-menu-outer {
+        border-color: #828282;
+      }
+      :global .is-open .Select-arrow {
+        border-top-color: #828282;
+      }
+      :global .Select-arrow-zone:hover>.Select-arrow {
+        border-top-color: #828282;
+      }
+    }
+  }
+  .searchContainer {
+    position: relative;
+    margin-left: 5px;
+    width: 121px;
+    input {
+      border: 1px solid #828282;
+      padding: 4px 24px 5px 4px;
+      background-color: transparent;
+      color: #fff;
+      font-size: 12px;
+      width: 100%;
+    }
+    .searchIcon {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 15px;
+      height: 21px;
+      bottom: 0;
+      margin: auto 6px;
+      svg {
+        width: 100%;
+      }
+    }
+  }
+  .statusContainer {
+    @include monoFont(10px, 400);
+    position: relative;
+    margin-left: 15px;
+    display: flex;
+    .online, .offline {
+      display: flex;
+      align-items: center;
+      .circle {
+        width: 10px;
+        height: 10px;
+        background-color: #40FFC0;
+        border-radius: 100%;
+        margin-right: 11px;
+      }
+      .text {
+        color: #545454;
+        text-transform: capitalize;
+      }
+    }
+    .offline {
+      .circle {
+        background-color: #FD2BF5;
+      }
+    }
+  }
+}
