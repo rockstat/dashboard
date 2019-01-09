@@ -90,7 +90,7 @@ export class Logs extends React.Component<LogsProps, LogsState> {
                 rowHeight={cache.rowHeight}
                 rowCount={logsSize}
                 className={styles.List}
-                overscanRowCount={3}
+                overscanRowCount={15}
                 scrollToAlignment={"end"}
                 scrollToIndex={this.state.scrollTo}
                 rowRenderer={this.renderRow}
