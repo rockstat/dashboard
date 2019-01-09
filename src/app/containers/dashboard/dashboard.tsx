@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Header, DashChart, ServicesGrid, HeaderDatePickerComponent } from 'app/components';
+import { Header, OnlineStatus, DashChart, ServicesGrid, HeaderDatePickerComponent } from 'app/components';
 
 import { BandImage, BandServicesMap, BandService, BandImagesList } from 'app/types';
 import { inject, observer } from 'mobx-react';
@@ -84,11 +84,12 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
 
   render() {
     const bandStore = this.props[BAND_STORE] as BandStore;
-    const appState = this.props[APP_STATE] as AppStateStore;
+    const { wsConnected } = this.props[APP_STATE] as AppStateStore;
     return (
       <div className='rockstat'>
         <Header>
           {/* <HeaderDatePickerComponent key={"date-picker"} toDate={appState.toDate} fromDate={appState.toDate} steps={StatSteps}  /> */}
+          <OnlineStatus wsConnected={wsConnected} />
         </Header>
         {/* <DashboardHeader /> */}
         <DashChart {...this.props} />
