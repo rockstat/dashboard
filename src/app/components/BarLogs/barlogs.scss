@@ -3,6 +3,8 @@
 .container {
   margin-left: 50px;
   display: flex;
+  @include mainFont(24px, 500);
+  font-family: 'Raleway', sans-serif;
   .btnContainer {
     display: flex;
     .playBtnContainer {

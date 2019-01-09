@@ -42,12 +42,15 @@ export class AppStateStore {
   }
 
   formatMsg({ time, data, ...rest }: { time: string, data: string, rest: any[] }) {
-    const json = data[0] === '{';
-    const pdata = json ? JSON.parse(data) : data;
+    const json = data[0] === '{';    
+    try{
+      data = JSON.parse(data)
+    }
+    catch(err) {}
     return {
-      time: time.substr(11, 13),
+      time,
       json,
-      data: json ? JSON.stringify(pdata, undefined, 1) : pdata,
+      data: json ? JSON.stringify(data, undefined, 1) : data,
       ...rest
     }
   }
