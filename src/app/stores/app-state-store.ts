@@ -23,15 +23,20 @@ export class AppStateStore {
     this.connectWS();
   }
 
+  @action
+  setSocketState(state: boolean) {
+    this.wsConnected = state;
+  }
+
   connectWS() {
     this.ws = new Sockette(wsURL, {
       timeout: 5e3,
       maxAttempts: 10,
-      onopen: e => action(() => { this.wsConnected = true }),
+      onopen: e => this.setSocketState(true),
       onmessage: this.handleMsg,
       onreconnect: e => console.log('Reconnecting...', e),
       onmaximum: e => console.log('Stop Attempting!', e),
-      onclose: e => action(() => { this.wsConnected = false }),
+      onclose: e => this.setSocketState(false),
       onerror: e => console.log('Error:', e)
     });
   }
