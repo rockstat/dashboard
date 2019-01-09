@@ -33,7 +33,6 @@ class HeaderComponent extends React.Component<RoutedHeaderProps, HeaderState> {
           </UniversalLink>
           <div className={styles.menu}>
             {menuItems.map((item, index) => {
-              console.log(index);
               const linkClass = cls(
                 styles.menuItem,
                 { [styles.activeMenu]: match.path === item.link }

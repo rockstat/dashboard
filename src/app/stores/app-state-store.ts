@@ -13,6 +13,12 @@ export class AppStateStore {
   @observable period = 1;
   @observable offset = 0;
   @observable wsConnected = false;
+  @observable autoScroll = true;
+  @observable logsEnabled = true;
+  @observable scrollTo: number | undefined = 0;
+  @observable maxScroll = 0;
+
+
   buffer: Array<any> = [];
   logsRepository: IObservableArray<any> = observable.array([]);
   ws: Sockette;
@@ -24,6 +30,28 @@ export class AppStateStore {
   }
 
   @action
+  toggleLogs() {
+    this.logsEnabled = !this.logsEnabled;
+  }
+
+  @action
+  toggleAutoScroll(enabled?: boolean) {
+    const useValue = enabled !== undefined ? enabled : !this.autoScroll;
+    if (useValue === false) {
+      this.autoScroll = false
+      this.scrollTo = undefined
+    } else {
+      this.autoScroll = true
+      this.scrollTo = this.maxScroll
+    }
+  }
+
+  @action
+  setScrollTo(value?: number | undefined) {
+    this.scrollTo = value;
+  }
+
+  @action
   setSocketState(state: boolean) {
     this.wsConnected = state;
   }
@@ -31,7 +59,7 @@ export class AppStateStore {
   connectWS() {
     this.ws = new Sockette(wsURL, {
       timeout: 5e3,
-      maxAttempts: 10,
+      maxAttempts: 9999,
       onopen: e => this.setSocketState(true),
       onmessage: this.handleMsg,
       onreconnect: e => console.log('Reconnecting...', e),
@@ -42,11 +70,11 @@ export class AppStateStore {
   }
 
   formatMsg({ time, data, ...rest }: { time: string, data: string, rest: any[] }) {
-    const json = data[0] === '{';    
-    try{
+    const json = data[0] === '{';
+    try {
       data = JSON.parse(data)
     }
-    catch(err) {}
+    catch (err) { }
     return {
       time,
       json,
@@ -56,21 +84,27 @@ export class AppStateStore {
   }
 
   handleMsg = (e: MessageEvent) => {
-    const sourceMsg = JSON.parse(e.data);
-    const msg = this.formatMsg(sourceMsg);
-    this.buffer.push(msg);
+    if (this.logsEnabled) {
+      const sourceMsg = JSON.parse(e.data);
+      const msg = this.formatMsg(sourceMsg);
+      this.buffer.push(msg);
+    }
   }
 
   flushLogsTicker = () => {
     if (this.buffer.length) {
-      const buffer = [...this.buffer];
+      // moving buffer
+      const buffer = this.buffer;
       this.buffer = [];
-      this.flushLogsBuffer(buffer);
+      // merge buffers
+      this.mergeLogsBuffer(buffer);
     }
   }
 
-  @action flushLogsBuffer = (buffer: Array<any>) => {
-    this.logsRepository.splice(this.logsRepository.length, 0, ...buffer)
+  @action mergeLogsBuffer = (buffer: Array<any>) => {
+    const insertAt = this.logsRepository.length
+    this.logsRepository.splice(insertAt, 0, ...buffer)
+    this.maxScroll = this.logsRepository.length - 1;
   }
 
   @computed get logs() {

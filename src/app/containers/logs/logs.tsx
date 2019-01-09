@@ -13,7 +13,6 @@ const cache = new CellMeasurerCache({
 });
 
 export interface LogsState {
-  autoScroll: boolean;
   scrollTo: number | undefined;
 }
 export interface LogsProps extends InjectedStores { }
@@ -23,34 +22,61 @@ export interface LogsProps extends InjectedStores { }
 @observer
 export class Logs extends React.Component<LogsProps, LogsState> {
   state = {
-    autoScroll: true,
     scrollTo: undefined
   }
 
-  onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
-    const autoScroll = scrollTop === 0 ? this.state.autoScroll : scrollHeight - clientHeight === scrollTop;
-    this.setState({ autoScroll })
+  toggleAutoScroll = () => {
+    this.props[APP_STATE].toggleAutoScroll()
+    // this.setState((state, props) => {
+    //   return { autoScroll: !state.autoScroll };
+    // })
   }
 
-  componentWillMount() {
-    const { logsSize } = this.props[APP_STATE] as AppStateStore;
-    this.setState({ scrollTo: logsSize - 1 })
+  toggleLogsEnabled = () => {
+    this.props[APP_STATE].toggleLogs()
+    // this.setState((state, props) => {
+    //   return { logsEnabled: !state.logsEnabled };
+    // })
   }
-  componentWillReact() {
-    const { logsSize } = this.props[APP_STATE] as AppStateStore;
-    if (this.state.autoScroll) {
-      this.setState({ scrollTo: logsSize - 1 })
+
+  onScroll = ({ clientHeight, scrollHeight, scrollTop }) => {
+    // const autoScroll = scrollTop === 0 ? this.state.autoScroll : scrollHeight - clientHeight === scrollTop;
+    // console.log(`on scroll autoScroll:${autoScroll}`)
+    // this.setState({ autoScroll })
+  }
+
+  updateScroll() {
+    const { maxScroll, setScrollTo, autoScroll } = this.props[APP_STATE] as AppStateStore;
+    if (autoScroll) {
+      const scrollTo = maxScroll
+      // setScrollTo(scrollTo);
+      this.setState({ scrollTo })
+    } else {
+      // setScrollTo(undefined);
+      this.setState({ scrollTo: undefined })
     }
   }
 
+  componentWillMount() {
+    const { maxScroll, scrollTo } = this.props[APP_STATE] as AppStateStore;
+    this.updateScroll();
+  }
+
+  componentWillReact() {
+    this.updateScroll();
+  }
+
   render() {
-    const { logs, logsSize, wsConnected } = this.props[APP_STATE] as AppStateStore;
+    const appState = this.props[APP_STATE] as AppStateStore;
+    const { logs, logsSize, wsConnected, toggleLogs, logsEnabled, autoScroll} = appState
+    // const {  } = this.state
+
 
     return (
       <div>
         <div className='rockstat'>
           <Header>
-            <BarLogs wsConnected={wsConnected}/>
+            <BarLogs autoScroll={autoScroll} logsEnabled={logsEnabled} toggleLogs={this.toggleLogsEnabled} toggleAutoScroll={this.toggleAutoScroll} wsConnected={wsConnected} />
           </Header>
         </div>
         <div className={styles.AutoSizerWrapper}>

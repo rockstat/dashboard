@@ -17,6 +17,10 @@ interface BarLogsState {
 
 interface BarLogsProps {
   wsConnected: boolean;
+  toggleAutoScroll: () => void;
+  toggleLogs: () => void;
+  autoScroll: boolean;
+  logsEnabled: boolean;
 }
 
 export class BarLogs extends React.Component<BarLogsProps, BarLogsState> {
@@ -61,28 +65,28 @@ export class BarLogs extends React.Component<BarLogsProps, BarLogsState> {
   }
 
   render() {
-    const { logStatus, servicesOptions, activeService } = this.state;
-    const { wsConnected } = this.props;
-    
+    const { servicesOptions, activeService } = this.state;
+    const { wsConnected, logsEnabled, toggleAutoScroll, toggleLogs, autoScroll } = this.props;
+
     return (
       <div className={styles.container}>
         <div className={styles.btnContainer}>
           <div className={styles.playBtnContainer}>
             <div
-              className={cl(styles.play, {[styles.show]: logStatus === 'pause'})}
-              onClick={this.changeStatus}
+              className={cl(styles.play, { [styles.show]: !logsEnabled })}
+              onClick={() => toggleLogs()}
             >
-              <LogsPlayIcon/>
+              <LogsPlayIcon />
             </div>
             <div
-              className={cl(styles.pause, {[styles.show]: logStatus === 'play'})}
-              onClick={this.changeStatus}
+              className={cl(styles.pause, { [styles.show]: logsEnabled })}
+              onClick={() => toggleLogs()}
             >
               <LogsPauseIcon />
             </div>
           </div>
-          <div className={styles.arrowDown}>
-            <LogsArrowDownIcon />
+          <div className={styles.arrowDown} onClick={() => toggleAutoScroll()}>
+            <LogsArrowDownIcon enabled={autoScroll} />
           </div>
         </div>
         <div className={styles.changeServices}>
@@ -101,18 +105,18 @@ export class BarLogs extends React.Component<BarLogsProps, BarLogsState> {
           </div>
         </div>
         <div className={styles.statusContainer}>
-        {
-          wsConnected ?
-            <div className={styles.online}>
-              <div className={styles.circle} />
-              <div className={styles.text}>online</div>
-            </div>
-          :
-          <div className={styles.offline}>
-            <div className={styles.circle} />
-            <div className={styles.text}>offline</div>
-          </div>
-        }
+          {
+            wsConnected ?
+              <div className={styles.online}>
+                <div className={styles.circle} />
+                <div className={styles.text}>online</div>
+              </div>
+              :
+              <div className={styles.offline}>
+                <div className={styles.circle} />
+                <div className={styles.text}>offline</div>
+              </div>
+          }
         </div>
       </div>
     );
