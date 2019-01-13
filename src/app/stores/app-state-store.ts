@@ -27,6 +27,11 @@ export class AppStateStore {
   constructor() {
     this.mergeInterval = window.setInterval(this.flushLogsTicker, 1e3);
     this.connectWS();
+
+    setInterval(() => {
+      console.log(`logs buffer ${this.logsRepository.length}`)
+    }, 9e5) // 15 min
+
   }
 
   @action
