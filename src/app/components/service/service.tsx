@@ -154,9 +154,9 @@ export class Project extends React.Component<ServiceProps, {}> {
               <div className={styles.eventsContainerRules}>
                 { this.renderEvents(container) }
               </div>
-            <a href={`https://theia.stage.rstat.org/?open=${container.name}`} target={'__blank'} className={styles.linkTo}>
+            {/* <a href={`https://theia.stage.rstat.org/?open=${container.name}`} target={'__blank'} className={styles.linkTo}>
               <LinkToIdeIcon />
-            </a>
+            </a> */}
           </div>
         </div>
     )
