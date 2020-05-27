@@ -24,7 +24,7 @@
     svg {
       circle {
         stroke-dasharray: 400%;
-        // stroke-dashoffset: 400%;
+        /* // stroke-dashoffset: 400%; */
         transform: rotate(-90deg);
         transform-origin: center;
       }

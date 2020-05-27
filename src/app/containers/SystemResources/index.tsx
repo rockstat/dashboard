@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as styles from './style.scss';
+import * as styles from './style.css';
 import { CpuMeter } from 'app/components';
 import { CircleComponent } from 'app/components';
 

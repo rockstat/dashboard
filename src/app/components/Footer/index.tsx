@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as classNames from 'classnames';
-import * as style from './style.scss';
+import * as style from './style.css';
 import {
   TodoFilter,
   TODO_FILTER_TITLES,

@@ -1,8 +1,7 @@
-
-@import 'app/base/fonts.scss';
+@import '../../base/fonts.css';
 
 .container {
-  margin-left: 50px;
+  margin-left: 25px;
   display: flex;
   @include mainFont(14px, 500);
   .btnContainer {
@@ -104,20 +103,22 @@
     }
   }
   .statusContainer {
+    @include monoFont(10px, 400);
     position: relative;
     margin-left: 15px;
+    display: flex;
     .online, .offline {
       display: flex;
       align-items: center;
       .circle {
         width: 10px;
         height: 10px;
-        background-color: rgba(0, 255, 171, 0.4);
+        background-color: #40FFC0;
         border-radius: 100%;
         margin-right: 11px;
       }
       .text {
-        color: #DADADA;
+        color: #545454;
         text-transform: capitalize;
       }
     }

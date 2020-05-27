@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as style from './dash-chart.scss';
+import * as style from './dash-chart.css';
 import { subDays, format as formatDate } from 'date-fns';
 import d3 from 'app/lib/d3';
 import { inject, observer } from 'mobx-react';

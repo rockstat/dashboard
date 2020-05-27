@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as styles from './style.scss';
+import * as styles from './style.css';
 import { SunnyIcon } from 'app/icons';
 import { CirclIcon } from 'app/icons';
 

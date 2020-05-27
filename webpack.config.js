@@ -13,9 +13,12 @@ const config = envConfig[envName];
 
 // plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
-const autoprefixer = require('autoprefixer');
+// const autoprefixer = require('autoprefixer');
+const TerserJSPlugin = require('terser-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   context: sourcePath,
@@ -38,90 +41,13 @@ module.exports = {
       'app': path.resolve(__dirname, 'src/app/')
     }
   },
-  module: {
-    rules: [
-      // .ts, .tsx
-      {
-        test: /\.tsx?$/,
-        use: isProduction
-          ? 'ts-loader'
-          : ['babel-loader?plugins=react-hot-loader/babel', 'ts-loader']
-      },
-      // css
-      {
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader']
-        })
-      },
-      {
-        test: /\.(scss|sass)$/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              query: {
-                modules: true,
-                minimize: true,
-                sourceMap: !isProduction,
-                importLoaders: 1,
-                localIdentName: '[local]__[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins: [
-                  autoprefixer({
-                    browsers: ['ie >= 8', 'last 4 version']
-                  })
-                ],
-                sourceMap: !isProduction
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                modules: true,
-                importLoaders: 1,
-                localIdentName: '[name]__[local]__[hash:base64:5]'
-              }
-            }
-          ]
-        })
-      },
-      // static assets
-      { test: /\.html$/, use: 'html-loader' },
-      { test: /\.png$/, use: 'url-loader?limit=10000' },
-      { test: /\.jpg$/, use: 'file-loader' }
-    ]
-  },
-  optimization: {
-    splitChunks: {
-      name: true,
-      cacheGroups: {
-        commons: {
-          chunks: 'initial',
-          minChunks: 2
-        },
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
-          priority: -10
-        }
-      }
-    },
-    runtimeChunk: true
-  },
   plugins: [
     new WebpackCleanupPlugin(),
-    new ExtractTextPlugin({
-      filename: '[name]-[hash].css',
-      disable: !isProduction
+    new MiniCssExtractPlugin({
+      filename: !isProduction ? '[name].css' : '[name].[hash].css',
+      chunkFilename: !isProduction ? '[id].css' : '[id].[hash].css',
+      disable: !isProduction,
+      ignoreOrder: false,
     }),
     new HtmlWebpackPlugin({
       template: 'assets/index.html'
@@ -133,6 +59,112 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin()
   ],
+  module: {
+
+    rules: [
+      // .ts, .tsx
+      {
+        test: /\.tsx?$/,
+        use:
+          isProduction ?
+            ['ts-loader']
+            : [
+              {
+                loader: 'babel-loader',
+                options: {
+                  presets: ['@babel/preset-env']
+                }
+              }, 'ts-loader']
+      },
+      // css
+      {
+        test: /\.css$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          // 'style-loader',
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+          'postcss-loader',
+          // 'sass-loader',
+        ],
+      },
+      // static assets
+      { test: /\.html$/, use: 'html-loader' },
+      { test: /\.png$/, use: 'url-loader?limit=10000' },
+      { test: /\.jpg$/, use: 'file-loader' },
+
+      // {
+      //   test: /\.(scss|sass)$/,
+      //   exclude: /node_modules/,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     use: [
+      //       {
+      //         loader: 'css-loader',
+      //         query: {
+      //           modules: true,
+      //           minimize: true,
+      //           sourceMap: !isProduction,
+      //           importLoaders: 1,
+      //           localIdentName: '[local]__[hash:base64:5]'
+      //         }
+      //       },
+      //       {
+      //         loader: 'postcss-loader',
+      //         options: {
+      //           plugins: [
+      //             autoprefixer()
+      //           ],
+      //           sourceMap: !isProduction
+      //         }
+      //       },
+      //       // {
+      //       //   loader: 'sass-loader',
+      //       //   options: {
+      //       //     modules: true,
+      //       //     importLoaders: 1,
+      //       //     localIdentName: '[name]__[local]__[hash:base64:5]'
+      //       //   }
+      //       // }
+      //     ]
+      //   })
+      // },
+    ]
+  },
+  optimization: {
+    // splitChunks: {
+    //   name: true,
+    //   cacheGroups: {
+    //     commons: {
+    //       chunks: 'initial',
+    //       minChunks: 2
+    //     },
+    //     vendors: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       chunks: 'all',
+    //       priority: -10
+    //     }
+    //   }
+    // },
+    splitChunks: {
+      cacheGroups: {
+        styles: {
+          name: 'styles',
+          test: /\.css$/,
+          chunks: 'all',
+          enforce: true,
+        },
+      },
+    },
+    minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})],
+    runtimeChunk: true
+  },
+
   devServer: {
     contentBase: sourcePath,
     open: false,

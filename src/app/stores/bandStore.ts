@@ -104,8 +104,8 @@ export class BandStore {
   // Common logic
   @observable servicesLoading = false;
   @observable imagesLoading = false;
-  @observable servicesRegistry = observable.map<BandService>();
-  @observable imagesRegistry = observable.map<BandImage>();
+  @observable servicesRegistry = observable.map<string, BandService>();
+  @observable imagesRegistry = observable.map<string, BandImage>();
   constructor() {
     this.interval = window.setInterval(() => {this.loadServices().then(() => {})}, 5000)
     this.interval2 = window.setInterval(() => {this.loadImages().then(() => {})}, 60000)
@@ -138,7 +138,9 @@ export class BandStore {
   updateServices(name: string, pos: string) {
     console.log(name, pos)
     return BandApi.setPos(name, pos)
-      .then(action((record: BandService) => {}))
+      .then(action((record: BandService) => {
+
+      }))
       .then(action(() => this.loadServices()))
     // this.services.forEach((item: BandService) => {
     // if (item.name === name) {
@@ -274,7 +276,6 @@ export class BandStore {
       .then(action((record: BandService) => {
         const pos = `${record.pos.col}x${record.pos.row}`
         this.servicesRegistry.set(pos, record);
-
         return this.servicesRegistry;
       }))
   }

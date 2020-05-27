@@ -1,8 +1,7 @@
 import * as React from 'react';
-
 import { CpuLine, ArrowIcon } from 'app/icons';
 
-import * as styles from './style.scss';
+import * as styles from './style.css';
 
 interface CpuMeterProps {
   cpu: number;

@@ -7,7 +7,7 @@ import { APP_STATE } from 'app/constants';
 import * as cls from 'classnames';
 import { withRouter, RouteComponentProps } from 'react-router';
 
-import * as styles from './header.scss';
+import * as styles from './header.css';
 
 export interface HeaderProps {
   logsBadge?: string;
@@ -49,4 +49,4 @@ class HeaderComponent extends React.Component<RoutedHeaderProps, HeaderState> {
   }
 }
 
-export const Header = withRouter<RoutedHeaderProps>(HeaderComponent);
+export const Header = withRouter<RoutedHeaderProps, any>(HeaderComponent);

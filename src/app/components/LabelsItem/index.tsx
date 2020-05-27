@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as style from './style.scss';
+import * as style from './style.css';
 
 interface LabelsItemProps {
   items: Array<{

@@ -1,5 +1,4 @@
-@import '../../base/fonts.scss';
-
+@import '../../base/fonts.css';
 
 .datepicker {
   display: flex;

@@ -1,12 +1,12 @@
-@import 'app/base/fonts.scss';
+@import '../../base/fonts.css';
 
 .AutoSizerWrapper {
-  // flex: 1 1 auto;
+  /* // flex: 1 1 auto; */
   height: calc(100vh - 70px)
 }
 
 .List {
-  // border: 1px solid #e0e0e0;
+  /* // border: 1px solid #e0e0e0; */
   border: none;
 }
 

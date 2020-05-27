@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as cl from 'classnames';
 import { LogsPlayIcon, LogsPauseIcon, LogsArrowDownIcon, LogsSearchIcon } from 'app/icons';
-import * as styles from './header-toolbar.scss';
+import * as styles from './header-toolbar.css';
 import Select from 'react-select';
 
 interface ServiceOption {

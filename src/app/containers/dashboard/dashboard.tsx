@@ -94,7 +94,7 @@ export class Dashboard extends React.Component<DashboardProps, DashboardState> {
         {/* <DashboardHeader /> */}
         <DashChart {...this.props} />
         <ServicesGrid  {...this.props}
-          images={bandStore.images}
+          images={this.props[BAND_STORE].images}
           servicesLoading={this.props[BAND_STORE].servicesLoading}
           services={this.props[BAND_STORE].services}
           onRestart={this.restartService}

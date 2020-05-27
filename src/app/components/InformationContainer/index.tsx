@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as cl from 'classnames';
-import * as style from './style.scss';
+import * as style from './style.css';
 
 import { CircleComponentInfo } from 'app/components';
 

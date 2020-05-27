@@ -10,7 +10,7 @@ import { AddProject } from './holder';
 import { RemoveIcon } from 'app/icons/RemoveIcons';
 import { validServicesChanges } from 'app/constants/validServicesChanges';
 
-import * as styles from './style.scss';
+import * as styles from './style.css';
 
 const DisplayUptime = ({ uptime }: { uptime: number }) => {
   const formatted = formatDistance(subMilliseconds(new Date(), uptime), new Date())

@@ -2,7 +2,6 @@
   z-index: 999;
 }
 
-
 .graphContainer {
   width: 1250px;
   margin: 0 auto;
@@ -24,7 +23,7 @@
     /* opacity: .8; */
     width: 200px;
     height: 200px;
-    // padding: 5px;
+    /* // padding: 5px; */
   }
   .infoContainerDis {
     position: absolute;

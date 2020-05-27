@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as styles from './style.scss';
+import * as styles from './style.css';
 import * as cl from 'classnames';
 import { BandServicesMap, BandImage } from 'app/types';
 // import { validServicesChanges } from 'app/constants/validServicesChanges';

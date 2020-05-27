@@ -7,7 +7,7 @@ import { ShowIf } from 'app/components/show-if';
 import { Project } from 'app/components';
 import { BandServicesMap, BandImage, BandImagesList, BandService, BandServicePos } from 'app/types';
 
-import * as styles from './style.scss';
+import * as styles from './style.css';
 
 interface ServicesGridState {
   modalPosition: number;

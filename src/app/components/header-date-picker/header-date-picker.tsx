@@ -3,7 +3,7 @@ import Select from 'react-select';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { format, parseDate, formatDate } from 'app/lib/date';
 
-import * as styles from './header-date-picker.scss';
+import * as styles from './header-date-picker.css';
 
 
 export interface HeaderDatePickerProps {
@@ -92,7 +92,6 @@ export class HeaderDatePickerComponent extends React.Component<HeaderDatePickerP
               format={format}
               formatDate={formatDate}
               parseDate={parseDate}
-              required
               dayPickerProps={{
                 selectedDays: { from: from, to: to },
                 disabledDays: { before: from, after: new Date() },

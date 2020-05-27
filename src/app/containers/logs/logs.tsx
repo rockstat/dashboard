@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from "react-virtualized";
 import { Header, ShowIf, BarLogs, OnlineStatus } from 'app/components';
-import * as styles from './logs.scss';
+import * as styles from './logs.css';
 import { PrismCode } from 'app/components/prism';
 import { observer, inject } from 'mobx-react';
 import { APP_STATE } from 'app/constants';
@@ -62,7 +62,7 @@ export class Logs extends React.Component<LogsProps, LogsState> {
     this.updateScroll();
   }
 
-  componentWillReact() {
+  handleChange() {
     this.updateScroll();
   }
 

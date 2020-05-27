@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import * as style from './style.scss';
+import * as style from './style.css';
 
 export class LabelSub extends React.Component<{ title: string, subtitle: string }> {
   render() {
